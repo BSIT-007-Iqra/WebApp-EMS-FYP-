@@ -1,0 +1,66 @@
+﻿@model WebApplication1.Models.Customer
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<!--Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Customer Edit</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/Customers/Edit">Delete Account</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<center>
+    <h1><b>Delete</b></h1>
+
+    <h3>Are you sure you want to delete Your Account?<br />You wont't be able to revive this account anymore</h3>
+</center>
+<div class="container">
+    <div clss="row">
+        <div class="col-lg-3 col-sm-2 col-sm-offset-1"></div>
+        <div class="col-lg-6 col-sm-4 col-sm-offset-1">
+            <center>
+                <dl class="dl-horizontal">
+
+                    <dd>
+                        <img height="100" width="100" style="border-radius: 50%" src="@Url.Content(Model.Customer_Picture)" />
+                    </dd>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Customer_Name)
+                    </dd>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Customer_Email)
+                    </dd>
+
+
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <div class="form-actions no-color">
+                            <button type="submit" class="btn btn-danger fa fa-trash"> Delete Account </button> |
+                            <a class="btn primary-btn fa fa-arrow-circle-o-left" href="@Url.Action("Index","Customers")"> View Profile </a>
+                        </div>
+                    </div>
+                }<br/>
+                <br/>
+            </center>
+        </div>
+    </div>
+</div>

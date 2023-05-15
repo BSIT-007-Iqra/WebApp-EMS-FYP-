@@ -1,0 +1,118 @@
+﻿@model IEnumerable<WebApplication1.Models.Hall>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Venue.Venue_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Picture1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Picture2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Picture3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_Slot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_Time_Slot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hall_Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Staff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ameities)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cancellation_Policy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Venue_Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Venue.Venue_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Picture)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Picture1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Picture2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Picture3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_Slot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_Time_Slot)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hall_Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Staff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ameities)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cancellation_Policy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Venue_Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Hall_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Hall_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Hall_ID })
+        </td>
+    </tr>
+}
+
+</table>

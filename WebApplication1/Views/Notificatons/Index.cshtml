@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ReadRix.Models.Notificaton>
+
+@{
+    Layout = "~/Views/Shared/_Layoutwriter.cshtml";
+    ViewBag.Title = "Index";
+}
+
+
+<center><h1><b>Notifications List</b></h1></center>
+<a class="btn btn-info btn-lg fa fa-arrow-circle-o-left" href="@Url.Action("addnotification","Notificatons")"> Back to List </a><hr />
+<table class="table table-bordered table-hover">
+    <tr class="bg-light-extra">
+        <th>
+            @Html.DisplayNameFor(model => model.MESSAGE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Writer.WRITER_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DATETIME)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MESSAGE)
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Writer.WRITER_NAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DATETIME)
+            </td>
+            <td>
+                <a class="btn btn-danger fa fa-trash" href=" @Url.Action("Delete", "Notificatons", new { id = item.ID }) "> Delete </a>
+
+            </td>
+        </tr>
+    }
+
+</table>

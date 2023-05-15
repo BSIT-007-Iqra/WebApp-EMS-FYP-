@@ -1,0 +1,274 @@
+﻿@using ReadRix.Models;
+@using ReadRix.Utils;
+@{
+    Layout = "~/Views/Shared/_Layoutreader.cshtml";
+    Model1 db = new Model1();
+    List<ShopArtifact> pro = (List<ShopArtifact>)TempData.Peek("cart");
+    decimal total = 0;
+
+}
+<style>
+
+    .hvr-hover {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        background: darkcyan;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+        .hvr-hover::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #010101;
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transform-origin: 50%;
+            transform-origin: 50%;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .hvr-hover:hover::after {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            color: #ffffff;
+        }
+
+    .hvr-hover {
+    }
+
+    .title-left {
+        font-size: 16px;
+        border-bottom: 3px solid #010101;
+        margin-bottom: 20px;
+    }
+
+        .title-left h3 {
+            font-weight: 700;
+        }
+
+    update-boxcart-box-main {
+        padding: 70px 0px;
+    }
+
+    .needs-validation label {
+        font-size: 16px;
+        margin-bottom: 0px;
+        line-height: 24px;
+    }
+
+    .needs-validation .form-control {
+        min-height: 40px;
+        border-radius: 0px;
+        border: 1px solid #e8e8e8;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+
+        .needs-validation .form-control:focus {
+            border: 1px solid #d33b33 !important;
+        }
+
+    .odr-box a {
+        font-size: 18px;
+        color: #111111;
+        font-weight: 700;
+    }
+</style>
+
+<nav id="breadcrumbs" class="breadcrumbs">
+    <div class="container page-wrapper">
+        <a href="@Url.Action("Indexreader","Home")">Home</a>/See More/<a class="breadcrumb_last" aria-current="page" href="@Url.Action("Shop","Home")">Shop</a>/<a class="breadcrumb_last" aria-current="page" href="">Cart</a>/
+        <a class="breadcrumb_last" aria-current="page" href="">Checkout/</a><a class="breadcrumb_last" aria-current="page" href="">OrderBooked</a>
+    </div>
+</nav>
+<br />
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 style="color:white">OrderBooked</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active" style="color:white">Checkout</li>
+                    <li class="breadcrumb-item active" style="color:white">OrderBooked</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+      
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="checkout-address">
+                    <div class="title-left">
+                        <h3>Billing Information</h3>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username">Username *</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="username" name="READER_NAME" placeholder="@BaseHelper.Reader.READER_NAME" readonly required>
+                            <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email *</label>
+                        <input type="email" class="form-control" id="email" name="READER_EMAIL" readonly placeholder="@BaseHelper.Reader.READER_EMAIL" required>
+                        <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address">Address *</label>
+                        <input type="text" class="form-control" id="address" name="READER_ADDRESS" placeholder="@BaseHelper.Reader.READER_ADDRESS" readonly required>
+                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address">Contact *</label>
+                        <input type="tel" class="form-control" id="address" name="READER_CONTACT" placeholder="@BaseHelper.Reader.READER_CONTACT" readonly required>
+                        <div class="invalid-feedback"> Please enter your Contact. </div>
+                    </div>
+
+
+                    <hr class="mb-4">
+                    <div>
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <label class="custom-control-label" for="credit">Thank You!! Your Order will be delivered as per Terms & Conditions.. </label>
+                            </div>
+                        </div><hr class="mb-1">
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="odr-box">
+                            <div class="title-left">
+                                <h3>Shopping cart</h3>
+                            </div>
+                            <div class="rounded p-2 bg-light">
+
+                                @foreach (var item in pro)
+                                {
+                                    total += item.SALE_PRICE * item.QUANTITY;
+                                    <div class="media mb-2 border-bottom">
+                                        <div class="media-body">
+                                            <img src="@Url.Content(item.Artifact.ARTIFACT_PICTURE)" height="50" width="50" />
+                                            <a href="detail.html">@item.Artifact.ARTIFACT_NAME</a>
+                                            <div class="small text-muted">Price:@item.SALE_PRICE <span class="mx-2">|</span> Qty: @item.QUANTITY <span class="mx-2">|</span> Rs:@(item.SALE_PRICE*item.QUANTITY)</div>
+                                        </div>
+                                    </div>}
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="order-box">
+                            <div class="title-left">
+                                <h3>Your order</h3>
+                            </div>
+                            <div class="d-flex">
+                                <div class="font-weight-bold">Product</div>
+                                <div class="ml-auto font-weight-bold">Total</div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Sub Total</h4>
+                                <div class="ml-auto font-weight-bold"> Rs:@total </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Discount</h4>
+                                <div class="ml-auto font-weight-bold"> 10% </div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Coupon Discount</h4>
+                                <div class="ml-auto font-weight-bold"> RS:0.00 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Tax</h4>
+                                <div class="ml-auto font-weight-bold"> RS:0.00 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Shipping Cost</h4>
+                                <div class="ml-auto font-weight-bold"> RS:200 </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>Grand Total</h5>
+                                <div class="ml-auto h5"> @(total + 200) </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div>
+                        <button  class="ml-auto btn btn-lg hvr-hover" style="color:white" onclick="window.print()">Print Now</button>
+                        <a class="ml-auto btn btn-lg hvr-hover" style="color:white" href="@Url.Action("Closeorder","Cart")">Close Order?</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- End Cart -->
+
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <span id="lblError"></span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ok"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+
+

@@ -1,0 +1,35 @@
+﻿@model WebApplication1.Models.Sub_ServiceCategory
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sub_ServiceCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Category.ServiceCategory_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Category.ServiceCategory_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sub_category_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sub_category_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubCategory_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

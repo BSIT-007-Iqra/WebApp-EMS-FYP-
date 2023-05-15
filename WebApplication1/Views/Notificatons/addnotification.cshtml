@@ -1,0 +1,62 @@
+﻿@using ReadRix.Models;
+@using ReadRix.Utils;
+@{
+    Layout = "~/Views/Shared/_Layoutwriter.cshtml";
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        .auto-style4 {
+            width: 1015px;
+            height: 233px;
+            background: linear-gradient(to bottom, #2193b0 0%, #6dd5ed 100%);
+        }
+
+        .auto-style6 {
+            width: 145px;
+        }
+
+        .auto-style7 {
+            width: 850px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <center><h1><b>Send Notification to Website!!</b></h1></center> <p>
+        <a class="btn btn-info btn-lg" href="@Url.Action("Index","Notificatons")">Notifications</a>
+    </p><hr />
+    <center>
+        <form id="form1" action="/Notificatons/addnotification" method="post">
+            <div>
+
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+            <table class="auto-style4" border="1">
+                <tr>
+                    <td class="auto-style6" style="font-size: x-large; font-style: italic; color:black"><b>Type Text</b></td>
+                    <td class="auto-style7">
+                        <textarea class="form-control" name="MESSAGE" rows="8" cols="50"
+                                  style="width: 850px; min-height: 50px; height: 125px; "></textarea>
+                    </td>
+                    <td class="auto-style6" style="font-size: x-large; font-style: italic; color:black"><b> </b> @BaseHelper.Writer.WRITER_NAME</td>
+                </tr>
+                <tr>
+                    <td class="auto-style6"></td>
+                    <td class="auto-style7">
+                        <center>  <button ID="Button1" class="btn btn-danger btn-lg fa fa-send" type="submit" style="color:black"> Send</button>   </center>
+                        <label style="Color:darkred;font-size:30px"><b>@TempData["ok"]</b></label>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+</html>

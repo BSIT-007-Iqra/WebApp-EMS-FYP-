@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApplication1.Models.Website_Details>
+
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Website</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+
+            <li class="breadcrumb-item active">Index</li>
+        </ol>
+    </div>
+    
+    
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
+
+<div class="row"><div class="col-md-7 align-self-center">
+    <a href="@Url.Action("Create", "Website_Details")" class="btn btn-dark"> Create New</a>
+
+</div>
+    <table class="table table-responsive table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Website_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website_Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website_Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Website_Logo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website_Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website_Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website_Contact)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Website_Logo)" height="100" width="100" />
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Website_Details", new { id=item.Website_ID })">
+                        <i class="fa fa-edit btn btn-success  "></i>
+                    </a>|
+
+                    <a href="@Url.Action("Details", "Website_Details", new { id=item.Website_ID})">
+                        <i class="fa fa-book btn btn-warning"></i>
+                    </a>|
+                    <a href="@Url.Action("Delete", "Website_Details", new { id=item.Website_ID })">
+                        <i class="fa fa-trash btn btn-danger"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<!-- Row -->

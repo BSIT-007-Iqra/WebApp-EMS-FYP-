@@ -1,0 +1,229 @@
+﻿@model WebApplication1.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!--Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Customer Login</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/Customers/loginuser">Login/Register</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/Content/Event/img/login.jpg" alt="">
+                    <div class="hover">
+                        <h1 style="color:white">Visit our website!!</h1>
+                        <p>Enter details and start a journey with us.</p>
+                        <a class="primary-btn" href="/Customers/loginuser">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+
+                    <h1><b>Sign Up</b></h1>
+                    <label style="color:darkred;font-size:20px"><b>@TempData["err"]</b></label>
+                    @using (Html.BeginForm(Html.BeginForm("Create", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" })))
+                    {
+                        @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-md-10 form-group">
+                    <img id="preview" src="~/Content/Event/img/usericon1.png" width="100" height="100" style="background-color:white;border-radius:50%;border:none">
+                    <input type="file" name="pic" id="file" oninput="preview.src = window.URL.createObjectURL(this.files[0])" style="color: transparent; " required />
+                </div>
+                             <div class="col-md-10 form-group">
+                                <input type="text" class="form-control" id="name" name="Customer_Name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                            </div><div class="col-md-10 form-group">
+                                <input type="email" class="form-control" id="name" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            </div>
+                            <div class="col-md-10 form-group">
+                                <input type="password" class="form-control" id="name" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            </div>
+                            <div class="col-md-10 form-group">
+                                <input type="tel" name="Customer_Contact" id="contact" placeholder="03*********" onkeypress="return onlyNumberKey('event')" required class="form-control" />                            </div>
+                            <div class="col-md-10 form-group">
+                                <button type="submit" value="submit" onclick="return ValidateInput()" class="primary-btn">Create</button><br />
+                            </div>
+                    }
+                        </div>
+                    </div>
+        </div>
+    </div>
+</section>
+<!--================Login Box Area =================-->
+@*<section class="w3l-contact-2 py-5">
+    form
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-2 col-sm-2 col-sm-offset-1"></div>
+            <div class="col-lg-4 col-sm-4 col-sm-offset-1" style="background-image: url('../../content/event/img/login.jpg'); background-repeat: no-repeat; border-left: solid 1px black; border-bottom: solid 1px black; border-top: solid 1px black; padding-top: 150px ">
+                <br /><br /><br />
+                <center class="hover">
+                    <div class="login-box-img">
+                        <h1 style="font-size:50px;" class="hover">Hello!!</h1>
+                        <p><b>Enter details and start a journey with us.</b></p>
+                        <p>Already have a account?<a href="@Url.Action("loginuser","Customers")" class="btn btn-danger">Login</a></p>
+                    </div>
+                </center>
+
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/Content/Event/img/login.jpg" alt="">
+                    <div class="hover">
+                        <h4>Visit our website!!</h4>
+                        <p>Enter details and start a journey with us.</p>
+
+                    </div>
+                </div>
+            </div>  <div class="col-lg-4 col-sm-5 col-sm-offset-1" style=" border-bottom: solid 1px black; border-top: solid 1px black; border-right: solid 1px black">
+
+                <center>
+                    <h1 style="font-size:40px">User Signup</h1><hr />
+
+                    <label style="color:darkred;font-size:20px"><b>@TempData["err"]</b></label>
+                    @using (Html.BeginForm(Html.BeginForm("Create", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" })))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+
+                                <div class="col-md-10">
+
+                                    <img id="preview" src="~/Content/AdminPicture/hijab1.jpeg" width="200" height="200" style="background-color:white;border-radius:50%;border:1px solid black">
+                                    <input type="file" name="pic" id="file" oninput="preview.src = window.URL.createObjectURL(this.files[0])" style="color: transparent; padding-left: 85px" required />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                User Name
+                                <div class="col-md-10">
+                                    <input type="text" id="name" name="Customer_Name" required class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                User Email
+                                <div class="col-md-10">
+                                    <input type="email" id="email" name="Customer_Email" required class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                Password
+                                <div class="col-md-10">
+                                    <input type="password" name="Customer_Password" id="password" required class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                Contact No.
+                                <div class="col-md-10">
+                                    <input type="tel" name="Customer_Contact" id="contact" placeholder="03*********" onkeypress="return onlyNumberKey('event')" required class="form-control" />
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Create" onclick="return ValidateInput()" class="btn btn-info btn-block btn-lg" />
+                                    </div>
+                                </div>
+                            </div><br />
+                        </div>
+                    }
+                </center>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-sm-offset-1"></div>
+        </div><br />
+    </div>
+</section>*@
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <span id="lblError"></span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn primary-btn" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ok"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+<script>
+    function ValidateInput() {
+        var pattern = /^03[\d]{9}$/;
+        var number = document.getElementById("contact").value;
+        if (!pattern.test(number))
+            ErrorMsg('Please Enter a 11 digit valid Number!');
+        var address = document.getElementById("address").value.length;
+        if (address < 15)
+            ErrorMsg('Please Enter your Proper Address!');
+        var passswordpattern = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        var password = document.getElementById("password").value;
+        if (!passswordpattern.test(password))
+            ErrorMsg('Please Enter a Password that contains uper and Lower Case Alphanumeric and Special Characters!');
+        var name = document.getElementById("name").value.length;
+        var emailpattern = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var email = document.getElementById("email").value;
+        if (!emailpattern.test(email))
+            ErrorMsg('Please Enter a valid Email Address!');
+        if (!(name < 15 && name > 0))
+            ErrorMsg('Please Enter a name between 0 to 15 letters!');
+        if (document.getElementById("file").value == "")
+            ErrorMsg('Please Upload an Image!');
+        return true;
+    }
+    function ErrorMsg(msg) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: msg,
+        });
+        return false;
+    }
+    function onlyNumberKey(event) {
+        var ASCIICode = (event.which) ? evt.which : event.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+</script>
+
+

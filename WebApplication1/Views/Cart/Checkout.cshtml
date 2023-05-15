@@ -1,0 +1,506 @@
+﻿@using WebApplication1.Utils;
+@using WebApplication1.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model1 db = new Model1();
+
+    <!---Hall-->
+    List<Hall> pro = new List<Hall>();
+    if (Session["Cart"] != null)
+    {
+        pro = (List<Hall>)Session["Cart"];
+    }
+
+    <!---service-->
+    List<Service> pro1 = new List<Service>();
+    if (Session["Cart1"] != null)
+    {
+        pro1 = (List<Service>)Session["Cart1"];
+    }
+
+
+    decimal total = 0;
+
+}
+
+<style>
+
+    .hvr-hover {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        background: darkcyan;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+        .hvr-hover::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #010101;
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+            -webkit-transform-origin: 50%;
+            transform-origin: 50%;
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .hvr-hover:hover::after {
+            -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+            color: #ffffff;
+        }
+
+    .hvr-hover {
+    }
+
+    .title-left {
+        font-size: 16px;
+        border-bottom: 3px solid #010101;
+        margin-bottom: 20px;
+    }
+
+        .title-left h3 {
+            font-weight: 700;
+        }
+
+    update-boxcart-box-main {
+        padding: 70px 0px;
+    }
+
+    .needs-validation label {
+        font-size: 16px;
+        margin-bottom: 0px;
+        line-height: 24px;
+    }
+
+    .needs-validation .form-control {
+        min-height: 40px;
+        border-radius: 0px;
+        border: 1px solid #e8e8e8;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
+
+        .needs-validation .form-control:focus {
+            border: 1px solid #d33b33 !important;
+        }
+
+    .title-left {
+        font-size: 16px;
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 20px;
+    }
+
+    .odr-box a {
+        font-size: 18px;
+        color: #111111;
+        font-weight: 700;
+    }
+</style>
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Checkout</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+
+<!-- End All Title Box -->
+<!-- Start Cart  -->
+<div class="cart-box-main">
+    <div class="container">
+        @if (BaseHelper.customer == null)
+        {
+            <div class="row new-account-login">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="title-left">
+                        <h3 style="color: #b08ead">Account Login</h3>
+                    </div>
+                    <h5><a href="@Url.Action("loginuser","Customers")" style="color: #dc3545;text-decoration: underline">Click here to Login</a></h5>
+
+                </div>
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="title-left">
+                        <h3 style="color: #b08ead">Register Account</h3>
+                    </div>
+                    <h5><a href="@Url.Action("loginuser","Customers")" style="color:#dc3545; text-decoration: underline">Click here to Register</a></h5>
+
+                </div>
+
+            </div>
+        }
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="checkout-address">
+                    <div class="title-left">
+                        <h3 style="color: #b08ead">Billing address</h3>
+                    </div>
+
+                    @if (BaseHelper.customer != null)
+                    {
+                        <div class="mb-3">
+                            <label for="username">Username *</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="username" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" readonly required>
+                                <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email *</label>
+                            <input type="email" class="form-control" id="email" name="Customer_Email" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
+                            <div class="invalid-feedback"> Please enter a valid Email address for Booking updates. </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">Contact *</label>
+                            <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
+                            <div class="invalid-feedback"> Please enter a valid contact # for Booking updates.</div>
+                        </div>
+                    }
+
+                    else
+                    {
+                        <div>Please Login Into your account to fill your details</div>
+                    }
+                    <hr class="mb-4">
+                    <form class="needs-validation" action="/Cart/Orderbooked" novalidate>
+                        <div class="title-left"> <h3 style="color: #b08ead">Payment</h3> </div>
+                        <div class="d-block my-3">
+                            @*<div class="custom-control custom-radio">
+                                <input id="credit" name="PAYMENT_TYPE" value="CashOnDelivery" type="radio" class="custom-control-input" checked required>
+                                <label class="custom-control-label" for="credit">Cash On Delivery</label>
+                            </div>*@
+
+                            <div class="custom-control custom-radio">
+                                <input id="paypal" name="PAYMENT_TYPE" value="Paypal" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="paypal">Paypal</label>
+                            </div>
+                        </div><hr class="mb-1">
+                        <div class="col-12 d-flex shopping-box">
+                            <button type="submit" class="ml-auto btn primary-btn" style="color:white">Place Booking</button>
+                        </div>
+                        <hr class="mb-1">
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="odr-box">
+                            <div class="title-left">
+                                <h3 style="color: #b08ead">Booking Details</h3>
+                            </div>
+                            <div class="rounded p-2 bg-light">
+                                @if (pro != null)
+                                {
+                                    foreach (var item in pro)
+                                    {
+                                        total += (decimal)item.Hall_Price;
+                                        <div class="media mb-2 border-bottom">
+                                            <div class="media-body">
+                                                <img src="@Url.Content(item.Hall_Picture)" height="50" width="50" />
+                                                <a href="detail.html">@item.Hall_Name</a>
+                                                <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span><span class="mx-2">|</span> Rs:@(item.Hall_Price)</div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-12">
+                        <div class="order-box">
+                            <div class="title-left">
+                                <h3>Your order</h3>
+                            </div>
+                            <div class="d-flex">
+                                <div class="font-weight-bold">Product</div>
+                                <div class="ml-auto font-weight-bold">Total</div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Sub Total</h4>
+                                <div class="ml-auto font-weight-bold"> Rs:@total </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Discount</h4>
+                                <div class="ml-auto font-weight-bold"> 10% </div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Coupon Discount</h4>
+                                <div class="ml-auto font-weight-bold"> RS:0.00 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Tax</h4>
+                                <div class="ml-auto font-weight-bold"> RS:0.00 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Shipping Cost</h4>
+                                <div class="ml-auto font-weight-bold"> RS:200 </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>Grand Total</h5>
+                                <div class="ml-auto h5"> @(total + 200) </div>
+
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Cart -->
+
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <span id="lblError"></span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ok"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+
+
+<!--<!-- Start Banner Area -->
+<!--<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Checkout</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!-- End Banner Area -->
+<!--================Checkout Area =================-->
+<!--<section class="checkout_area section_gap">
+    <div class="container">
+        <div class="returning_customer">
+            <div class="check_title">
+                <h2>Returning Customer? <a href="Url.Action("login","Home")">Click here to login</a></h2>
+            </div>
+            <p>
+                If you have Booked Venues with us before, please enter your details in the boxes below. If you are a new
+                customer, please proceed to the Billing & Booking section.
+            </p>
+            <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                <div class="col-md-6 form-group p_star">
+                    <input type="text" class="form-control" id="name" name="name">
+                    <span class="placeholder" data-placeholder="Username or Email"></span>
+                </div>
+                <div class="col-md-6 form-group p_star">
+                    <input type="password" class="form-control" id="password" name="password">
+                    <span class="placeholder" data-placeholder="Password"></span>
+                </div>
+                <div class="col-md-12 form-group">
+                    <button type="submit" value="submit" class="primary-btn">login</button>
+                    <div class="creat_account">
+                        <input type="checkbox" id="f-option" name="selector">
+                        <label for="f-option">Remember me</label>
+                    </div>
+                    <a class="lost_pass" href="#">Lost your password?</a>
+                </div>
+            </form>
+        </div>
+        <div class="cupon_area">
+            <div class="check_title">
+                <h2>Are You a Have An Account? <a href="Url.Action("login","Home")">Click here to register your account</a></h2>
+            </div>
+
+        </div>
+        <div class="billing_details">
+            <div class="row">-->
+@*@if (BaseHelper.customer != null)
+    {*@
+<!--<form class="row contact_form" action="#" method="post" novalidate="novalidate">
+    <div class="col-lg-8 col-md-6">
+        <h3>Booking Details</h3>
+        <div class="col-md-12 form-group p_star">
+            <input type="text" class="form-control" id="first" name="name">
+            <span class="placeholder" data-placeholder="First name"></span>
+        </div>
+
+        <div class="col-md-12 form-group p_star">
+            <input type="text" class="form-control" id="number" name="number">
+            <span class="placeholder" data-placeholder="Phone number"></span>
+        </div>
+        <div class="col-md-12 form-group p_star">
+            <input type="text" class="form-control" id="email" name="compemailany">
+            <span class="placeholder" data-placeholder="Email Address"></span>
+        </div>
+
+        <div class="col-md-12 form-group p_star">
+            <input type="text" class="form-control" id="city" name="city">
+            <span class="placeholder" data-placeholder="Town/City"></span>
+        </div>
+
+        <div class="col-md-12 form-group">
+
+            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="container">
+            <div class="order-box">
+                <h3 style="color:#b08ebe">Booking summary</h3>
+                <div class="d-flex">
+                    <h4>Sub Total</h4>
+                    <div class="ml-auto font-weight-bold"> Rs:total </div>
+                </div>
+                <div class="d-flex">
+                    <h4>Discount</h4>
+                    <div class="ml-auto font-weight-bold">0% </div>
+                </div>
+                <hr class="my-1">
+                <div class="d-flex">
+                    <h4>Coupon Discount</h4>
+                    <div class="ml-auto font-weight-bold"> Rs:0.00 </div>
+                </div>
+                <div class="d-flex">
+                    <h4>Tax</h4>
+                    <div class="ml-auto font-weight-bold"> Rs:0.00 </div>
+                </div>
+                <div class="d-flex">
+                    <h4>Service Charges</h4>
+                    <div class="ml-auto font-weight-bold"> Rs:500</div>
+                </div>
+                <div class="d-flex">
+
+                    <h4>Event</h4>
+                    <div class="ml-auto font-weight-bold"> Birthday</div>
+
+                    <br />
+
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex gr-total">
+                <h5>Grand Total</h5>
+                <div class="ml-auto h5">Rs:<span>(total + 200)</span></div>
+            </div>
+            <hr>
+            <div class="payment_item active">
+                <div class="radion_btn">
+                    <input type="radio" id="f-option6" name="selector">
+                    <label for="f-option6">Paypal </label>
+
+                    <div class="check"></div>
+                </div>
+
+            </div>
+            <div class="creat_account">
+                <input type="checkbox" id="f-option4" name="selector" required />
+                <label for="f-option4">I’ve read and accept the </label>
+                <a href="#" class="check_title">terms & conditions*</a>
+            </div>
+            <a class="btn primary-btn" href="#">Proceed to Paypal</a>
+        </div> </div>
+
+</form>-->
+@*}
+    else
+    {
+        <div>Please Login Into your account to fill your details</div>
+    }*@
+<!--</div>-->
+@*<div class="radion_btn">
+        <input type="radio" id="f-option5" name="selector">
+        <label for="f-option5">Check payments</label>
+        <div class="check"></div>
+    </div>
+    <p>
+        Please send a check to Store Name, Store Street, Store Town, Store State / County,
+        Store Postcode.
+    </p>*@
+
+
+
+<!--================End Checkout Area =================-->
+
+
+
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <span id="lblError"></span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ok"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}

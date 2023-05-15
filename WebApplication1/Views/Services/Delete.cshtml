@@ -1,0 +1,91 @@
+﻿@model WebApplication1.Models.Service
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Service</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Event_Organizers.EventOrganizer_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event_Organizers.EventOrganizer_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sub_ServiceCategory.Sub_category_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sub_ServiceCategory.Sub_category_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Picture)
+        </dt>
+
+        <dd>
+            <img height="100" width="100" src="@Url.Content(Model.Service_Picture)" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service_Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service_Status)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <button type="submit" class="btn btn-primary btn-lg fa fa-trash"> Delete </button> |
+            <a class="btn btn-warning btn-lg fa fa-arrow-circle-o-left" href="@Url.Action("Index","Services")"> Back to List </a>
+        </div>
+    }
+</div>
+

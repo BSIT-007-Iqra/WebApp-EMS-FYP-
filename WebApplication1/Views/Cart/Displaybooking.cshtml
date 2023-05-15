@@ -1,0 +1,315 @@
+﻿@model WebApplication1.Models.Hall
+@using WebApplication1.Utils;
+@using WebApplication1.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model1 db = new Model1();
+    List<Hall> pro = new List<Hall>();
+    if (Session["Cart"] != null)
+    {
+        pro = (List<Hall>)Session["Cart"];
+    }
+
+    List<Service> pro1 = new List<Service>();
+    if (Session["Cart1"] != null)
+    {
+        pro1 = (List<Service>)Session["Cart1"];
+    }
+
+
+    Booking_Details od = new Booking_Details();
+    decimal total = 0;
+    int rowno = -1;
+}
+
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Booking</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Booking</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<!--================Cart Area =================-->
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-main table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Images</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        @*<th>Quantity</th>*@
+                                        <th>Total</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @foreach (var item in pro)
+                                    {
+                                        rowno++;
+
+                                        total += (decimal)item.Hall_Price;
+
+                                        <tr>
+                                            <td class="thumbnail-img">
+
+                                                <img class="img-fluid" src="@Url.Content(item.Hall_Picture)" height="180" width="180" alt="" />
+
+                                            </td>
+                                            <td class="name-pr">
+                                                <h4>
+                                                    @item.Hall_Name
+                                                </h4>
+                                            </td>
+                                            <td class="price-pr">
+                                                <p><h5>Rs: @item.Hall_Price</h5></p>
+                                            </td>
+                                            <td class="price-pr">
+                                                <p><h5>Rs: @item.Hall_Price</h5></p>
+                                            </td>
+                                            @*<td class="remove-pr">
+                                                <a href="@Url.Action("Removefromcart", "Cart", new { id = rowno })">
+                                                    <i class="fa fa-trash fa-2x" style="color:#b08ebe"></i>
+                                                </a>
+                                            </td>*@
+                                        </tr>
+
+                                        Session["Amount"] = total + 200;
+
+                                    }
+
+                                    @foreach (var item in pro1)
+                                    {
+                                        rowno++;
+
+                                        total += (decimal)item.Service_Price;
+
+                                        <tr>
+                                            <td class="thumbnail-img">
+
+                                                <img class="img-fluid" src="@Url.Content(item.Service_Picture)" height="180" width="180" alt="" />
+
+                                            </td>
+                                            <td class="name-pr">
+                                                <h4>
+                                                    @item.Service_Name
+                                                </h4>
+                                            </td>
+                                            <td class="price-pr">
+                                                <p><h5>Rs: @item.Service_Price</h5></p>
+                                            </td>
+                                            <td class="price-pr">
+                                                <p><h5>Rs: @item.Service_Price</h5></p>
+                                            </td>
+                                            <td class="remove-pr">
+                                                <a href="@Url.Action("Removefromcart1", "Cart", new { id = rowno })">
+                                                    <i class="fa fa-trash fa-2x" style="color:#b08ebe"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                        Session["Amount"] = total + 200;
+
+                                    }
+                                    @if (Session["cart"] == null)
+                                    {
+                                        <tr>
+                                            <td colspan="5" align="center">
+                                                <b style="color:#b08ebe">Your Booking is Empty...<a href="@Url.Action("Hall","Home")">Click Here</a> to Add Booking</b>
+                                            </td>
+                                        </tr>
+                                    }
+                                    @if (Session["cart"] != null)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="order-box">
+                                                    <a class=" btn primary-btn " href="/home/Services" style="float: left">Update Booking</a>
+
+                                                </div>
+
+
+                                            </td>
+                                        </tr>
+                                    }
+                                    </tbody>
+                            </table><hr />
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row my-5">
+                    <div class="col-lg-8 col-sm-12">
+                        @foreach (var item in pro)
+                        {
+                            if (Session["cart"] != null)
+                            {
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+
+                                        <div class="carousel-item active">
+                                            <img src="@item.Hall_Picture" style="border-radius: 20px;" height="450" class="d-block w-100 " alt="...">
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <img src="@item.Hall_Picture1" style="border-radius: 20px;" height="450" class="d-block w-100 " alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="@item.Hall_Picture2" class="d-block w-100" style="border-radius: 20px;" height="450" alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="@item.Hall_Picture3" class="d-block w-100" style="border-radius: 20px;" height="450" alt="...">
+                                        </div>
+
+
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+
+                                    </ol>
+                                    <div class="carousel-inner">
+
+                                        <div class="carousel-item active">
+                                            
+                                            <img src="~/Picture/Aurora Banquet Hall Weddings 3.jpg-1613018890446.jpg" style="border-radius: 20px;" height="450" class="d-block w-100 " alt="...">
+                                        </div>
+                                        <div class="carousel-item ">
+                                            <img src="~/Picture/Aurora Banquet Hall Weddings 4.jpg-1613018904742.jpg"  style="border-radius: 20px;" height="450" class="d-block w-100 " alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="~/Picture/Aurora Banquet Hall Weddings 6.jpg-1613018936989.jpg" class="d-block w-100" style="border-radius: 20px;" height="450" alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="~/Content/Event/img/homepage_hero_1280.jpg"  class="d-block w-100" style="border-radius: 20px;" height="450" alt="...">
+                                        </div>
+
+
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="order-box">
+                            <h3 style="color:#b08ebe">Booking summary</h3>
+                            <div class="d-flex">
+                                <h4>Sub Total</h4>
+                                <div class="ml-auto font-weight-bold"> Rs:@total </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Discount</h4>
+                                <div class="ml-auto font-weight-bold"> 10% </div>
+                            </div>
+                            <hr class="my-1">
+                            <div class="d-flex">
+                                <h4>Coupon Discount</h4>
+                                <div class="ml-auto font-weight-bold"> Rs:0.00 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Tax</h4>
+                                <div class="ml-auto font-weight-bold"> Rs:0.00 </div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Service Charges</h4>
+                                <div class="ml-auto font-weight-bold"> Rs:500</div>
+                            </div>
+                            <div class="d-flex" style="display:inline-block">
+                                <div class="shipping_box">
+                                    <h4>Select Event</h4>
+                                    <div class="ml-auto font-weight-bold flex-lg-grow-1">
+                                        <select class="shipping_select ">
+
+                                            <option value="1">Birthday</option>
+                                            @*<option value="2">India</option>
+                        <option value="4">Pakistan</option>*@
+
+                                        </select><br />
+                                        <br />
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>Grand Total</h5>
+                                <div class="ml-auto h5">Rs:<span>@(total + 200)</span></div>
+                            </div>
+                            <hr>
+                            @if (Session["cart"] == null || total == 0)
+                            {
+                                if (BaseHelper.customer != null)
+                                {
+                                 
+                                    <div class="d-flex"><a class="primary-btn btn-block" href="/loginuser/Customers" style="color:white;text-align:center">Checkout</a> </div>
+
+                                }
+                            }
+                            else
+                            {
+                                <div class="d-flex"><a class="primary-btn btn-block" href="/Cart/checkout" style="color: white; text-align: center">Checkout</a> </div>}
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Area =================-->
+
+<script type="text/javascript">
+    window.onload = function () { window.scrollBy(0, 230); }
+</script>

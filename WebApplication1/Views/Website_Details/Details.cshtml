@@ -1,0 +1,86 @@
+﻿@model WebApplication1.Models.Website_Details
+
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-themecolor">Website_Details</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+
+                    <li class="breadcrumb-item ">Website_Details</li>
+                    <li class="breadcrumb-item active">Details</li>
+                </ol>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+           
+                <h4>Website_Details</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Website_Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Website_Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Website_Address)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Website_Address)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Website_Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Website_Email)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Website_Contact)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Website_Contact)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Website_Logo)
+                    </dt>
+
+                    <dd>
+                        <img src="@Url.Content(Model.Website_Logo)" width="100" height="100" />
+                    </dd>
+
+                </dl>
+           
+
+        </div>
+        <!-- Row --> @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <a href="@Url.Action("Edit", "Website_Details", new { id=Model.Website_ID })">
+                    <i class="fa fa-edit btn btn-success  ">Edit</i>
+                </a>
+                <a class="btn btn-warning fa fa-arrow-circle-o-left" href="@Url.Action("Index","Website_Details")"> Back to List </a>
+            </div>
+        }
+        <!-- ============================================================== -->
+        

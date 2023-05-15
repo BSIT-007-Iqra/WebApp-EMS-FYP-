@@ -1,0 +1,368 @@
+﻿@using WebApplication1.Models;
+@using WebApplication1.Utils;
+
+@{ Model1 db = new Model1();
+}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+
+    <link rel="shortcut icon" href="~/Content/Event/img/EMSlogo.ico">
+    <!-- Author Meta -->
+    <meta name="author" content="CodePixar">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</title>
+    <!--
+        CSS
+        ============================================= -->
+    <link rel="stylesheet" href="~/Content/Event/css/linearicons.css">
+    <link rel="stylesheet" href="~/Content/Event/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/Event/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/Event/css/bootstrap.css">
+    <link rel="stylesheet" href="~/Content/Event/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/Content/Event/css/nice-select.css">
+    <link rel="stylesheet" href="~/Content/Event/css/nouislider.min.css">
+    <link rel="stylesheet" href="~/Content/Event/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="~/Content/Event/css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="~/Content/Event/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/Event/css/main.css">
+    <style>
+
+        body {
+            line-height: 24px;
+            font-size: 14px;
+            font-family: 'Fira', sans-serif;
+            font-weight: 400;
+            color: #777777;
+            background: #fff;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+
+        .dark-mode {
+            background-color: #777777;
+            color: white;
+        }
+    </style>
+   
+    <script>
+        function myFunction() {
+            var element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Start Header Area -->
+    <header class="header_area sticky-header">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light main_box">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="~/Content/Event/index.html"><img src="~/Content/Event/img/logo.png" alt=""></a>
+                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <li class="nav-item active"><a class="nav-link" href="/home/index">Home</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">Menu</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a class="nav-link" href="/home/servicecategory">Shop Category</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="/home/single">Product Details</a></li>
+                                        @*<li><a title="Notifications" onclick="openNav()" class="nav-link fa fa-bell dropdown-item ls__active"> Notifications</a></li>*@
+                                        @*<li class="nav-item"><a class="nav-link" href="/home/index">Product Checkout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/home/index">Shopping Cart</a></li>*@
+                                        <li class="nav-item"><a class="nav-link" href="/home/index">Confirmation</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="/home/contact">Contact</a></li>
+                                <li class="nav-item submenu dropdown">
+                                    @if (BaseHelper.customer == null)
+                                    {
+
+                                        <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            GuestUser
+                                        </a>
+                                        <a class="img-circle img-circle-sm" href="#author">
+                                            <img src="~/Content/Event/img/usericon1.png" class="img-fluid" height="50" width="50" alt="...">
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="/Admins/loginadmin"> Admin</a>
+
+                                            <li class="nav-item"><a class="nav-link" href="/Customers/loginuser">Customer</a>
+                                        </ul>
+
+                                    }
+                                    else
+                                    {
+
+                                        <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">
+                                            @BaseHelper.customer.Customer_Name
+                                        </a>
+                                        <a class="img-circle img-circle-sm" href="#author">
+                                            <img src="@Url.Content(BaseHelper.customer.Customer_Picture)" height="50" width="50" class="img-fluid" alt="...">
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Edit", "Customers", new { id = BaseHelper.customer.Customer_ID })">Manage Account</a>
+                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Delete", "Customers", new { id = BaseHelper.customer.Customer_ID })">Delete Account</a>
+                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("CustomerHistory", "Customers")">Order History</a>
+                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("loginuser", "Customers")">User Login</a>
+                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("CancelledOrders", "Customers")">Cancelled Order</a>
+                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("logout", "Customers")">Logout</a>
+                                        </ul>
+
+                                    }
+
+
+                                </li>
+
+
+                            </ul>
+                            <!--/notifications-->
+                            @*<div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+                @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
+                {
+
+                    <div class="notification_wrap">
+
+                        <div class="dropdown">
+                            <div class="notify_item">
+                                <div class="notify_img">
+                                    <img src="@Url.Content(item.Writer.WRITER_IMAGE)" alt="" style="width: 60px;height:60px; border-radius:50%">
+                                    <span class="notify_time">@item.Writer.WRITER_NAME</span>
+                                </div>
+                                <div class="notify_info">
+                                    <p>@Html.DisplayFor(modelItem => item.MESSAGE)</p>
+                                    <span class="notify_time">@Html.DisplayFor(modelItem => item.DATETIME)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>}
+            </div>*@
+
+                            <!--/Notification-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item">
+                                <button onclick="myFunction()"><span class="btn btn-default fa fa-moon-o"></span></button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                            </li>
+                        </ul>
+                        </div>
+</div>
+            </nav>
+        </div>
+        <div class="search_input" id="search_input_box">
+            <div class="container">
+                <form action="/home/search" method="post" class="d-flex justify-content-between">
+                    <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                    <button type="submit" class="btn"></button>
+                    <span class="lnr lnr-cross" id="close_search" title="Close Search" onkeypress="myFunc()" placeholder="Search for Service" name="tags"
+                          required="required" autofocus=""></span>
+                </form>
+            </div>
+        </div>
+    </header>
+    <!-- End Header Area -->
+
+    @RenderBody()
+    <a href="" onclick="topFunction()" id="movetop" title="Go to top" style="display: inline;margin-left:10px">
+        <i class="fa fa-chevron-up button"></i>
+    </a>
+   
+    @*<a href="#" class="back-to-top"><i class="fa fa-chevron-up button"></i></a>*@
+    <!-- move top -->
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }</script>
+    <!-- //move top -->
+    <!-- start footer Area -->
+    <footer class="footer-area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>About Us</h6>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
+                            magna aliqua.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Newsletter</h6>
+                        <p>Stay update with our latest</p>
+                        <div class="" id="mc_embed_signup">
+
+                            <form target="_blank" novalidate="novalidate" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                                  method="get" class="form-inline">
+
+                                <div class="d-flex flex-row">
+
+                                    <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '"
+                                           required="" type="email">
+
+
+                                    <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                    <div style="position: absolute; left: -5000px;">
+                                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                                    </div>
+
+                                    <!-- <div class="col-lg-4 col-md-4">
+                                        <button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
+                                    </div>  -->
+                                </div>
+                                <div class="info"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget mail-chimp">
+                        <h6 class="mb-20">Instragram Feed</h6>
+                        <ul class="instafeed d-flex flex-wrap">
+                            <li><img src="~/Content/Event/img/i1.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i2.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i3.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i4.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i5.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i6.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i7.jpg" alt=""></li>
+                            <li><img src="~/Content/Event/img/i8.jpg" alt=""></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6>Follow Us</h6>
+                        <p>Let us be social</p>
+                        <div class="footer-social d-flex align-items-center">
+                            <a href="~/Content/Event/#"><i class="fa fa-facebook"></i></a>
+                            <a href="~/Content/Event/#"><i class="fa fa-twitter"></i></a>
+                            <a href="~/Content/Event/#"><i class="fa fa-dribbble"></i></a>
+                            <a href="~/Content/Event/#"><i class="fa fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
+                <p class="footer-text m-0">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="~/Content/Event/https://colorlib.com/" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+    <!-- End footer Area -->
+    <!-- Back to top button -->
+
+    <script src="~/Content/Event/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/Event/../../cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="~/Content/Event/js/vendor/bootstrap.min.js"></script>
+    <script src="~/Content/Event/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Content/Event/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/Event/js/jquery.sticky.js"></script>
+    <script src="~/Content/Event/js/nouislider.min.js"></script>
+    <script src="~/Content/Event/js/countdown.js"></script>
+    <script src="~/Content/Event/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/Event/js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="~/Content/Event/https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="~/Content/Event/js/gmaps.min.js"></script>
+    <script src="~/Content/Event/js/main.js"></script>
+    <script>
+        var availableTags = [];
+        function myFunc() {
+
+            if (availableTags.length == 0) {
+                $.ajax({
+
+                    type: 'GET',
+                    url: '/Home/GetArtifacts',
+                    success: function (response) {
+                        var data = JSON.parse(response);
+                        $.each(data, function (key, item) {
+                            availableTags.push(item.ARTIFACT_NAME);
+
+                        });
+                        /* console.log(data); console.log(availableTags);*/
+                    }
+                });
+            }
+
+            $("#tags").autocomplete({
+                source: availableTags
+            });
+
+        }
+    </script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "350px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });</script>
+    <!-- disable body scroll which navbar is in active -->
+</body>
+</html>

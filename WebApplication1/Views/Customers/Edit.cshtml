@@ -1,0 +1,103 @@
+﻿@model WebApplication1.Models.Customer
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<!--Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1> Edit</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/Customers/Edit">Edit Account</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/Content/Event/img/login.jpg" alt="">
+                    <div class="hover">
+                        <h1 style="color:white">Visit our website!!</h1>
+                        <p>Enter details and start a journey with us.</p>
+                        <a class="primary-btn" href="/Customers/loginuser">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+
+                    <h1><b style="margin-top:0px">Edit Profile</b></h1>
+                    <label><b style="color:darkred;font-size:20px">@TempData["err"]</b></label>
+                    @using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                <div class="col-md-10 form-group">
+                    <img id="preview" src="@Url.Content(Model.Customer_Picture)" width="100" height="100" style="background-color:white;border-radius:50%;border:none">
+                    <input type="file" name="pic" id="file" oninput="preview.src = window.URL.createObjectURL(this.files[0])" style="color: transparent; " required />
+                  
+                    
+                    @Html.HiddenFor(model => model.Customer_Picture, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Customer_Picture, "", new { @class = "text-danger" })
+                </div>
+
+
+                        <div class="form-group">
+                            
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Customer_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Customer_Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Customer_Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Customer_Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                         
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Customer_Password, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Customer_Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Customer_Contact, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Customer_Contact, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <button type="submit" class="btn primary-btn fa fa-save"> Save </button> |
+                                <a class="btn btn-warning fa fa-arrow-circle-o-left" href="@Url.Action("Index","Customers")"> Back to List </a>
+                            </div>
+                        </div>
+}
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

@@ -1,0 +1,299 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Login/Register</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Login/Register</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/Content/Event/img/login.jpg" alt="">
+                    <div class="hover">
+                        <h4>Visit our website!!</h4>
+                        <p>Enter details and start a journey with us.</p>
+                        <a class="primary-btn" href="/Customers/Create">Create an Account</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+
+                    <h1><b>Log in to enter </b></h1>
+
+                    <label><b style="color:red;font-size:15px">@TempData["msg"]</b></label>
+                    <form class="row login_form" action="/Customers/loginuser" method="post">
+                        <div class="col-md-12 form-group">
+                            <input type="email" class="form-control" id="name" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="name" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label><b style="color:red;font-size:15px">@ViewBag.message</b></label>
+                        </div>
+                        @*<div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Keep me logged in</label>
+                                </div>
+                            </div>*@
+                        <div class="col-md-12 form-group">
+                            <button type="submit" value="submit" onclick="return ValidateInput()" class="btn primary-btn">Log In</button><br />
+                            <button type="button" class="btn primary-btn" data-toggle="modal" data-target="#exampleModal">Forgot password?</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<!--================Login Box Area =================-->
+
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <span id="lblError"></span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["new"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["new"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+@if (TempData["ok"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+<script type="text/javascript">
+    // Popup window code
+    function newPopup(url) {
+        popupWindow = window.open(
+            url, 'popUpWindow', 'height=400,width=700,left=100px,top=100px,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+    function ValidateInput() {
+        var passswordpattern = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        var password = document.getElementById("password").value;
+        if (!passswordpattern.test(password))
+            ErrorMsg('Please Enter a Password that contains uper and Lower Case Alphanumeric and Special Characters!');
+        var emailpattern = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var email = document.getElementById("email").value;
+        if (!emailpattern.test(email))
+            ErrorMsg('Please Enter a valid Email Address!');
+        return true;
+    }
+    function ErrorMsg(msg) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: msg,
+        });
+        return false;
+    }
+
+</script>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+                <form action="/Customers/Forgotpasword" method="post" id="myform">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Enter your Email:</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+
+                </form>
+                <CENTER>
+                    OR
+                    <h6>Do you Want your old password?</h6>
+                    <a href="JavaScript:newPopup('@Url.Action("Forgotpassword","Customers")');" class="btn btn-link"><u>Get Password?</u></a>
+                    <br /><br />
+                </CENTER>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Close</button>
+                <button type="submit" form="myform" class="button">Send Mail</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_box_img">
+                    <img class="img-fluid" src="~/Content/Event/img/login.jpg" alt="">
+                    <div class="hover">
+                        <h4>Visit our website!!</h4>
+                        <p>Enter details and start a journey with us.</p>
+                        <a class="primary-btn" href="/Customers/Create">Create an Account</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login_form_inner">
+
+                    <h1><b>Log in to enter</b></h1>
+                    <label><b style="color:darkred;font-size:20px">TempData["msg"]</b></label>
+                    <form class="row login_form" action="/home/login" method="post">
+                        <div class="col-md-12 form-group">
+                            <input type="email" class="form-control" id="name" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="password" class="form-control" id="name" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label><b style="color:red;font-size:20px"> iewBag.Message</b></label>
+                        </div>-->
+@*<div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Keep me logged in</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" onclick="return ValidateInput()" class="primary-btn">Log In</button><br />
+                                <button type="button" class="primary-btn" data-toggle="modal" data-target="#exampleModal">Forgot password?</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>*@
+<!--================End Login Box Area =================-->
+<!--<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <span id="lblError"></span>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" class="btn btn-danger" data-dismiss="modal" />
+            </div>
+        </div>
+    </div>
+</div>
+f (TempData["new"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('Html.Raw(TempData["new"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+if (TempData["ok"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+<script type="text/javascript">
+    // Popup window code
+    function newPopup(url) {
+        popupWindow = window.open(
+            url, 'popUpWindow', 'height=400,width=700,left=100px,top=100px,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+    function ValidateInput() {
+        var passswordpattern = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        var password = document.getElementById("password").value;
+        if (!passswordpattern.test(password))
+            ErrorMsg('Please Enter a Password that contains uper and Lower Case Alphanumeric and Special Characters!');
+        var emailpattern = /^[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var email = document.getElementById("email").value;
+        if (!emailpattern.test(email))
+            ErrorMsg('Please Enter a valid Email Address!');
+        return true;
+    }
+    function ErrorMsg(msg) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: msg,
+        });
+        return false;
+    }
+
+</script>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+                <form action="/Customers/Forgotpassword" method="post" id="myform">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Enter your Email:</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+
+                </form>
+                <CENTER>
+                    OR
+                    <h6>Do you Want your old password?</h6>
+                    <a href="JavaScript:newPopup('Url.Action("Forgotpassword","Customers")');" class="btn btn-link"><u>Get Password?</u></a>
+                    <br /><br />
+                </CENTER>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" form="myform" class="primary-btn">Send Mail</button>
+            </div>
+        </div>
+    </div>
+</div>-->

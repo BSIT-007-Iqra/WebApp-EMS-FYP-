@@ -1,0 +1,67 @@
+﻿@model WebApplication1.Models.Customer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Contact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_Picture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IS_ACCOUNT_ACTIVE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IS_ACCOUNT_ACTIVE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Customer_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

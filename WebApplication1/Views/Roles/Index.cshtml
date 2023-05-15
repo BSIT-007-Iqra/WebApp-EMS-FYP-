@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WebApplication1.Models.Role>
+
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h3 class="text-themecolor">Role</h3>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+
+                    <li class="breadcrumb-item active">Index</li>
+                </ol>
+            </div>
+            <div class="col-md-7 align-self-center">
+                <a href="@Url.Action("Create", "Roles")" class="btn waves-effect waves-light btn btn-info pull-right hidden-sm-down"> Create New</a>
+            </div>
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+            <table class="table table-responsive">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Role_Name)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role_Name)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", "Roles", new { id=item.Role_ID })">
+                                <i class="fa fa-edit btn btn-success  "></i>
+                            </a><br />
+
+                            <a href="@Url.Action("Details", "Roles", new { id=item.Role_ID})">
+                                <i class="fa fa-book btn btn-warning"></i>
+                            </a><br />
+                            <a href="@Url.Action("Delete", "Roles", new { id=item.Role_ID })">
+                                <i class="fa fa-trash btn btn-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        <!-- Row -->
+        

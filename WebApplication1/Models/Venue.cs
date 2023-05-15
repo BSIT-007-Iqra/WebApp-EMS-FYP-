@@ -1,0 +1,46 @@
+namespace WebApplication1.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Venue")]
+    public partial class Venue
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Venue()
+        {
+            Feedbacks = new HashSet<Feedback>();
+            Halls = new HashSet<Hall>();
+        }
+
+        [Key]
+        public int Venue_ID { get; set; }
+
+        [StringLength(50)]
+        public string Venue_Name { get; set; }
+
+        public string Venue_Details { get; set; }
+
+        public string Venue_Picture { get; set; }
+
+        [StringLength(50)]
+        public string Venue_Email { get; set; }
+
+        [StringLength(50)]
+        public string Venue_Contact { get; set; }
+
+        [StringLength(100)]
+        public string Venue_Location { get; set; }
+
+        public decimal? Venue_Price { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Hall> Halls { get; set; }
+    }
+}

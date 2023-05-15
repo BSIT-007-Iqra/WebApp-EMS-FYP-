@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebApplication1.Models.Service>
+@{
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+<center><h1><b>Services List</b></h1></center>
+<br />
+<table class="table table-bordered table-responsive table-hover">
+    <tr class="bg-light-extra">
+        <th>
+            SERVICE PICTURE
+        </th>
+        <th width="50px">
+            ORGANIZER NAME
+        </th>
+        <th>
+            SERVICE NAME
+        </th>
+        <th>
+            SERVICE STATUS
+        </th>
+        <th width="20px">
+            SERVICE DESCRIPTION
+        </th>
+        <th>ACTIONS</th>
+    </tr>
+    @foreach (var service in Model)
+    {
+        <tr>
+            <td>
+                <img height="160" width="120" src="@Url.Content(service.Service_Picture)" />
+            </td>
+            <td>
+                @service.Event_Organizers.EventOrganizer_Name
+            </td>
+            <td>
+                @service.Service_Name
+            </td>
+            <td>
+                @service.Service_Status
+            </td>
+            <td>
+                @if (service.Service_Description.Length < 50)
+                {
+                    @service.Service_Description
+                }
+                else
+                {
+                    @service.Service_Description.Substring(0, 49)<span>......</span>
+
+                }
+            </td>
+            <td>
+
+                <a class="btn btn-success fa fa-book " href="@Url.Action("Detail","Services",new { id= service.Service_ID})"> Details</a>
+
+            </td>
+        </tr>
+
+    }
+</table>
+
+

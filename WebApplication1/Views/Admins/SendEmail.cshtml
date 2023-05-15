@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "SendEmail";
+}
+
+
+<section class="login_box_area section_gap">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="login_form_inner">
+                    <h2>Enter details and get your password on your Email.</h2>
+                    @if (ViewBag.Error != null)
+                    {
+                        <h2 style="color:#766093"> @TempData["Msg"] </h2>
+                    }
+                    else
+                    {
+                        <h2> @TempData["Msg"]  </h2>
+                    }
+                    <form class="row login_form" action="/Admins/SendEmail" method="post">
+                        <div class="col-md-12 form-group">
+                            <input type="text" name="receiver" class="form-control" placeholder="Receiver" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Receiver:'">
+
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" name="subject" class="form-control" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+
+                        </div>
+                         <div class="col-md-12 form-group">
+                            </div>
+
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control" name="body" rows="10" cols="70"
+                                      style=" width: 350px;min-height:50px; height: 100%;" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'">Enter Message</textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

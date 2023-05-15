@@ -1,0 +1,139 @@
+﻿@model WebApplication1.Models.Hall
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hall</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Venue.Venue_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Venue.Venue_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Picture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Picture1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Picture1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Picture2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Picture2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Picture3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Picture3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Event_Slot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event_Slot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Event_Time_Slot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event_Time_Slot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hall_Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hall_Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ameities)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ameities)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cancellation_Policy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cancellation_Policy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Venue_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Venue_Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Hall_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

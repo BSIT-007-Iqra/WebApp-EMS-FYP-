@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApplication1.Models.Service>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_Organizers.EventOrganizer_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sub_ServiceCategory.Sub_category_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_Organizers.EventOrganizer_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sub_ServiceCategory.Sub_category_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Name)
+        </td>
+        <td>
+            @if (item.Service_Description.Length < 50)
+            {
+                @item.Service_Description
+            }
+            else
+            {
+                @item.Service_Description.Substring(0, 49)<span>......</span>
+
+            }
+        </td>
+        <td>
+            <img height="160" width="120" src="@Url.Content(item.Service_Picture)" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Service_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Service_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Service_ID })
+        </td>
+    </tr>
+}
+
+</table>
