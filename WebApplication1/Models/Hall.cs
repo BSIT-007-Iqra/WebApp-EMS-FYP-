@@ -5,7 +5,6 @@ namespace WebApplication1.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    using System.Runtime.CompilerServices;
 
     public partial class Hall
     {
@@ -13,6 +12,7 @@ namespace WebApplication1.Models
         public Hall()
         {
             Booking_Details = new HashSet<Booking_Details>();
+            Feedbacks = new HashSet<Feedback>();
             Views = new HashSet<View>();
         }
 
@@ -42,7 +42,6 @@ namespace WebApplication1.Models
         [StringLength(50)]
         public string Event_Slot { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime? Event_Time_Slot { get; set; }
 
         [StringLength(50)]
@@ -63,6 +62,9 @@ namespace WebApplication1.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking_Details> Booking_Details { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
 
         public virtual Venue Venue { get; set; }
 

@@ -46,8 +46,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Venue_ID,Venue_Name,Venue_Details,Venue_Picture,Venue_Email,Venue_Contact,Venue_Location,Venue_Price")] Venue venue)
+        public ActionResult Create(Venue venue, HttpPostedFileBase pic)
         {
+            string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
+            pic.SaveAs(fullpath);
+            venue.Venue_Picture = "~/Content/HallPicture/" + pic.FileName;
             if (ModelState.IsValid)
             {
                 db.Venues.Add(venue);
@@ -78,10 +81,17 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Venue_ID,Venue_Name,Venue_Details,Venue_Picture,Venue_Email,Venue_Contact,Venue_Location,Venue_Price")] Venue venue)
+        public ActionResult Edit(Venue venue, HttpPostedFileBase pic)
         {
             if (ModelState.IsValid)
             {
+                if (pic != null)
+                {
+                    string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
+                    pic.SaveAs(fullpath);
+                    venue.Venue_Picture = "~/Content/HallPicture/" + pic.FileName;
+                }
+
                 db.Entry(venue).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

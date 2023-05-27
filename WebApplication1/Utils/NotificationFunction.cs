@@ -19,7 +19,7 @@ namespace WebApplication1.Utils
                 notification = new
                 {
                     body = notification,
-                    title = "Readrix",
+                    title = "EMS",
                     icon = "",
                     type = ""
                 },
@@ -29,8 +29,7 @@ namespace WebApplication1.Utils
                     key2 = "value2"
                 }
             };
-            try
-            {
+           
                 var result = "";
                 var webAddr = "https://fcm.googleapis.com/fcm/send";
 
@@ -54,11 +53,7 @@ namespace WebApplication1.Utils
                 }
 
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            
         }
     }
 }

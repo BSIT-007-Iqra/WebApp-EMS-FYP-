@@ -1,0 +1,154 @@
+﻿@model IEnumerable<ReadRix.Models.Order>
+@using ReadRix.Models
+
+@{
+    ViewBag.Title = "NewOrders";
+    Model1 db = new Model1();
+    int srno = 0;
+}
+<div id="printArea">
+    <h2 style="color:darkred"><b>@TempData["msg"]</b></h2>
+    <br />
+    <table>
+        <tr>
+            <td width="33%" rowspan="3"><img src="@Url.Content(db.WEBSITE_DETAILS.Select(x=>x.WEBSITE_LOGO).FirstOrDefault())" width="80" height="80" /><h2><b>@db.WEBSITE_DETAILS.Select(x => x.WEBSITE_NAME).FirstOrDefault()</b></h2></td>
+            <td width="33%"></td>
+            <td width="33%"><b>Email:</b>@db.WEBSITE_DETAILS.Select(x=>x.WEBSITE_EMAIL).FirstOrDefault()</td>
+        </tr>
+       <tr>
+            
+            <td></td>
+            <td><b>Address:</b>@db.WEBSITE_DETAILS.Select(x => x.WEBSITE_ADDRESS).FirstOrDefault()</td>
+        </tr>
+        <tr>
+           
+            <td></td>
+            <td><b>COntact:</b>@db.WEBSITE_DETAILS.Select(x => x.WEBSITE_CONTACT).FirstOrDefault()</td>
+        </tr>
+    </table>
+
+    <br /><center><h1><b>Sale Reports </b></h1></center>
+    <br />
+    <form action="/OrdersReports/SaleReport" method="post">
+        <table class="table table-bordered">
+            <tr>
+                <td colspan="4"> Do you want to search by this?</td>
+            </tr>
+            <tr>
+                <td>From Date:</td>
+                <td><input class="form-control" type="datetime-local" name="Fromdate" value="@ViewBag.Fromdate"/></td>
+                <td>To Date:</td>
+                <td><input class="form-control" type="datetime-local" name="Todate" value="@ViewBag.Todate" /></td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td> @Html.DropDownList("Category", null, "Select Category--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>SubCategory:</td>
+                <td>@Html.DropDownList("SubCategory", null, "Select SubCategory--:--", htmlAttributes: new { @class = "form-control" })</td>
+
+            </tr>
+            <tr>
+                <td>Artifact:</td>
+                <td>@Html.DropDownList("Artifact1", null, "Select Artifact--:--", htmlAttributes: new { @class = "form-control" })</td>
+                
+            </tr>
+
+            <tr>
+                <td colspan="4"> Do you want to search by this? Select date from above </td>
+            </tr>
+            @*<tr>
+                <td>From Date:</td>
+                <td><input class="form-control" type="datetime-local" name="Fromdate" /></td>
+                <td>To Date:</td>
+                <td><input class="form-control" type="datetime-local" name="Todate" value="@ViewBag.Todate" /></td>
+            </tr>*@
+            <tr>
+                <td>Artifact:</td>
+                <td>@Html.DropDownList("Artifact", null, "Select Artifact--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Writer:</td>
+                <td>@Html.DropDownList("Writer", null, "Select Writer--:--", htmlAttributes: new { @class = "form-control" })</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <center>
+                        <input type="submit" id="btn1" class="btn btn-bloack btn-info" value="Generate" />
+                        <input type="submit" id="btn2" class="btn btn-bloack btn-danger" onclick="return PrintFunction() " value="Print Report" />
+                    </center>
+                </td>
+
+            </tr>
+        </table>
+    </form>
+    <table class="table table-bordered table-hover">
+        <tr class="bg-light-extra">
+            <th>
+                Sr No#
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reader.READER_NAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ORDER_DATE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ORDER_STATUS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ORDER_TYPE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PAYMENT_TYPE)
+            </th>
+            <th>Actions</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            srno++;
+            <tr>
+                 <td>
+                   @srno
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reader.READER_NAME)
+                </td>
+                <td>
+                    @item.ORDER_DATE.ToLongDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ORDER_STATUS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ORDER_TYPE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PAYMENT_TYPE)
+                </td>
+                <td><a class="btn btn-info" href="@Url.Action("Invoice","OrdersReports",new { id = item.ORDER_ID })"> Invoice </a></td>
+            </tr>
+        }
+
+    </table>
+</div>
+<script type="text/javascript">
+    function PrintFunction() {
+        var print = document.getElementById('printArea');
+        var b1 = document.getElementById('btn1');
+        var b2 = document.getElementById('btn2');
+        b1.style.display = 'none';
+        b2.style.display = 'none';
+
+        var printWindow = window.open('', '', 'height=400,width=800');
+        printWindow.document.write('<html><head><title>DIV Contents</title>');
+        printWindow.document.write('</head><body >');
+        printWindow.document.write(print.innerHTML);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        setTimeout(function () {
+            printWindow.print();
+        }, 500);
+        b1.style.display = 'block';
+        b1.style.display = 'block';
+        return false;
+    }
+</script>

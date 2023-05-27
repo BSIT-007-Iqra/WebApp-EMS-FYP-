@@ -1,15 +1,15 @@
-﻿using NuGet.Protocol.Plugins;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Runtime.Remoting.Messaging;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Utils;
+using static Dropbox.Api.TeamLog.SharedLinkAccessLevel;
 
 namespace WebApplication1.Controllers
 {
@@ -21,7 +21,6 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             return View(db.Customers.Where(x => x.Customer_ID == BaseHelper.customer.Customer_ID).ToList());
-            
         }
 
         // GET: Customers/Details/5
@@ -58,14 +57,12 @@ namespace WebApplication1.Controllers
                 string fullpath = Server.MapPath("~/Content/AdminPicture/" + pic.FileName);
                 pic.SaveAs(fullpath);
                 customer.Customer_Picture = "~/Content/AdminPicture/" + pic.FileName;
-
-
                 customer.IS_ACCOUNT_ACTIVE = true;
                 if (ModelState.IsValid)
                 {
                     db.Customers.Add(customer);
                     db.SaveChanges();
-                    
+
                 }
                 TempData["ok"] = "Your Account has been successfully Created!!";
             }
@@ -73,8 +70,8 @@ namespace WebApplication1.Controllers
             {
                 TempData["err"] = "Email already exists!!";
             }
-            return RedirectToAction("loginuser","Customers");
-            
+            return RedirectToAction("loginuser", "Customers");
+
         }
 
         // GET: Customers/Edit/5
@@ -97,8 +94,10 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer,HttpPostedFileBase pic)
+        public ActionResult Edit(Customer customer, HttpPostedFileBase pic)
         {
+            //if (!db.Readers.Any(x => x.READER_EMAIL == reader.READER_EMAIL))
+            //{
             if (ModelState.IsValid)
             {
                 if (pic != null)
@@ -108,10 +107,12 @@ namespace WebApplication1.Controllers
                     customer.Customer_Picture = "~/Content/AdminPicture/" + pic.FileName;
                 }
 
+                customer.IS_ACCOUNT_ACTIVE = true;
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(customer);
         }
 
@@ -135,7 +136,6 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-           
             Customer customer = db.Customers.Find(id);
             if (ModelState.IsValid)
             {
@@ -144,10 +144,9 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
             }
             BaseHelper.customer = null;
-            db.Customers.Remove(customer);
-            
             return RedirectToAction("Index");
         }
+        
 
         protected override void Dispose(bool disposing)
         {
@@ -157,9 +156,6 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-        // reset password 
-        // reset password 
-
         [HttpPost]
         public ActionResult Forgotpasword(string email)
         {
@@ -250,10 +246,10 @@ namespace WebApplication1.Controllers
                 if (v.IS_ACCOUNT_ACTIVE == true)
                 {
                     BaseHelper.customer = v;
-                    
-                     return RedirectToAction("index", "home");
-                    
-                   
+
+                    return RedirectToAction("Displaybooking", "Cart");
+
+
                 }
                 else
                 {
@@ -287,11 +283,11 @@ namespace WebApplication1.Controllers
             var order = db.Bookings.Where(x => x.Booking_ID == id).FirstOrDefault();
             return View(order);
         }
-        public ActionResult CancelledOrders()
+        public ActionResult CancelledBookings()
         {
             return View();
         }
-        public ActionResult CancelOrder(int id)
+        public ActionResult CancelBookings(int id)
         {
             Booking order = db.Bookings.Where(x => x.Booking_ID == id).FirstOrDefault();
             order.Booking_Status = "Cancelled";
@@ -301,7 +297,7 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("CancelledOrders");
         }
-        public ActionResult ActiveOrder(int id)
+        public ActionResult ActiveBookings(int id)
         {
             Booking order = db.Bookings.Where(x => x.Booking_ID == id).FirstOrDefault();
             order.Booking_Status = "Booked";

@@ -1,15 +1,28 @@
 ﻿@model WebApplication1.Models.Service
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Service Details</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
 
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
-}
+            <li class="breadcrumb-item ">Service</li>
+            <li class="breadcrumb-item active">Details</li>
+        </ol>
+    </div>
 
-<h2>Details</h2>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
+<div class="row">
 
-<div>
-    <h4>Service</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Event_Organizers.EventOrganizer_Name)
@@ -77,7 +90,15 @@
 
     </dl>
 </div>
-<p>
-    <a class="btn btn-warning btn-lg fa fa-arrow-circle-o-left" href="@Url.Action("IndexServices","Services")"> Back to List </a>
-</p>
+<!-- Row --> @using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
+    <div class="form-actions no-color">
+        <a href="@Url.Action("Edit", "Services", new { id=Model.Service_ID })">
+            <i class="fa fa-edit btn btn-success  ">Edit</i>
+        </a>
+        <a class="btn btn-warning fa fa-arrow-circle-o-left" href="@Url.Action("Index","Services")"> Back to List </a>
+    </div>
+}
+<!-- ============================================================== -->

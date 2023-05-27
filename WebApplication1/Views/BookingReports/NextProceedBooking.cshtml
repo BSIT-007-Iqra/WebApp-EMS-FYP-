@@ -1,0 +1,84 @@
+﻿@model IEnumerable<WebApplication1.Models.Booking>
+@using WebApplication1.Models
+@{
+
+    Model1 db = new Model1();
+    int srno = 0;
+}
+<h2 style="color:darkred"><b>@TempData["msg"]</b></h2>
+<br />
+<table>
+    <tr>
+        <td width="33%" rowspan="3"><img src="@Url.Content(db.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" width="80" height="80" /><h2><b>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</b></h2></td>
+        <td width="33%"></td>
+        <td width="33%"><b>Email:</b>@db.Website_Details.Select(x => x.Website_Email).FirstOrDefault()</td>
+    </tr>
+    <tr>
+
+        <td></td>
+        <td><b>Address:</b>@db.Website_Details.Select(x => x.Website_Address).FirstOrDefault()</td>
+    </tr>
+    <tr>
+
+        <td></td>
+        <td><b>COntact:</b>@db.Website_Details.Select(x => x.Website_Contact).FirstOrDefault()</td>
+    </tr>
+</table>
+
+<br />
+<center><h1><b>Proceed Bookings</b></h1></center>
+<br />
+
+<table class="table table-bordered table-hover">
+    <tr class="bg-light-extra">
+        <th>
+            Sr No#
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.Customer_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking_Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Booking_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment_Type)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        srno++;
+        <tr>
+            <td>
+                @srno
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Customer_Name)
+            </td>
+            <td>
+                @item.Event_Date.ToLongDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking_Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Booking_Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment_Type)
+            </td>
+            <td>
+                <a class="btn btn-info" href="@Url.Action("Invoice","BookingReports",new { id = item.Booking_ID })"> Invoice </a>
+                <a class="btn btn-success" href="@Url.Action("BookedOrder","BookingReports",new { id = item.Booking_ID })"> Proceed </a>
+            </td>
+        </tr>
+    }
+
+</table>

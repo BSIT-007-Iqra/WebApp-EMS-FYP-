@@ -9,8 +9,8 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-
-    <link rel="shortcut icon" href="~/Content/Event/img/EMSlogo.ico">
+    
+    <link rel="shortcut icon" href="~/Content/AdminPicture/logo1.ico">
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -56,8 +56,14 @@
             background-color: #777777;
             color: white;
         }
+
+        .buttondark {
+            text-transform: none;
+            background: none;
+            border: none;
+        }
     </style>
-   
+
     <script>
         function myFunction() {
             var element = document.body;
@@ -73,7 +79,10 @@
             <nav class="navbar navbar-expand-lg navbar-light main_box">
                 <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="navbar-brand logo_h" href="~/Content/Event/index.html"><img src="~/Content/Event/img/logo.png" alt=""></a>
+                    <a class="navbar-brand logo_h" href="/home/index">
+                        
+                        <img src="@Url.Content(db.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" height="80" width="80" alt=""/>
+                    </a>
                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -82,99 +91,122 @@
                             <span class="icon-bar"></span>
                         </button>
                         <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                            <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item active"><a class="nav-link" href="/home/index">Home</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Menu</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="/home/servicecategory">Shop Category</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="/home/single">Product Details</a></li>
-                                        @*<li><a title="Notifications" onclick="openNav()" class="nav-link fa fa-bell dropdown-item ls__active"> Notifications</a></li>*@
-                                        @*<li class="nav-item"><a class="nav-link" href="/home/index">Product Checkout</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/home/index">Shopping Cart</a></li>*@
-                                        <li class="nav-item"><a class="nav-link" href="/home/index">Confirmation</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="/home/contact">Contact</a></li>
-                                <li class="nav-item submenu dropdown">
-                                    @if (BaseHelper.customer == null)
-                                    {
+                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                         <ul class="nav navbar-nav menu_nav ml-auto">
+                             <li class="nav-item active"><a class="nav-link" href="/home/index">Home</a></li>
+                             <li class="nav-item submenu dropdown">
+                                 <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                    aria-expanded="false">Menu</a>
+                                 <ul class="dropdown-menu">
+                                     <li class="nav-item"><a class="nav-link" href="/home/venue">Venues</a></li>
+                                     <li class="nav-item"><a class="nav-link" href="/home/hall">Halls</a></li>
+                                     <li class="nav-item"><a class="nav-link" href="/home/Services">Services</a>
 
-                                        <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">
-                                            GuestUser
-                                        </a>
-                                        <a class="img-circle img-circle-sm" href="#author">
-                                            <img src="~/Content/Event/img/usericon1.png" class="img-fluid" height="50" width="50" alt="...">
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="/Admins/loginadmin"> Admin</a>
+                                 </ul>
+                             </li>
+                             <li class="nav-item"><a class="nav-link" href="/home/contact">Contact</a></li>
+                             <li class="nav-item submenu dropdown">
+                                 @if (BaseHelper.customer == null)
+                                 {
 
-                                            <li class="nav-item"><a class="nav-link" href="/Customers/loginuser">Customer</a>
-                                        </ul>
+                                     <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                        aria-expanded="false">
+                                         GuestUser
+                                     </a>
+                                     <a class="img-circle img-circle-sm" href="#user">
+                                         <img src="~/Content/Event/img/usericon1.png" style="border-radius:50% 50%; height:30px;width:30px" alt="...">
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                         <li class="nav-item"><a class="nav-link" href="/Admins/loginadmin"> Admin</a>
 
-                                    }
-                                    else
-                                    {
+                                         <li class="nav-item"><a class="nav-link" href="/Customers/loginuser">Customer</a>
+                                     </ul>
 
-                                        <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                           aria-expanded="false">
-                                            @BaseHelper.customer.Customer_Name
-                                        </a>
-                                        <a class="img-circle img-circle-sm" href="#author">
-                                            <img src="@Url.Content(BaseHelper.customer.Customer_Picture)" height="50" width="50" class="img-fluid" alt="...">
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Edit", "Customers", new { id = BaseHelper.customer.Customer_ID })">Manage Account</a>
-                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Delete", "Customers", new { id = BaseHelper.customer.Customer_ID })">Delete Account</a>
-                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("CustomerHistory", "Customers")">Order History</a>
-                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("loginuser", "Customers")">User Login</a>
-                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("CancelledOrders", "Customers")">Cancelled Order</a>
-                                            <li class="nav-item"><a class="nav-link" href="@Url.Action("logout", "Customers")">Logout</a>
-                                        </ul>
+                                 }
+                                 else
+                                 {
 
-                                    }
+                                     <a href="~/Content/Event/#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                        aria-expanded="false">
+                                         @BaseHelper.customer.Customer_Name
+                                     </a>
+                                     <a class="img-circle img-circle-sm" href="#author">
+                                         <img src="@Url.Content(BaseHelper.customer.Customer_Picture)" style="border-radius:50% 50%;  height:50px;width:50px" alt="...">
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                         @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Edit", "Customers", new { id = BaseHelper.customer.Customer_ID })">Manage Account</a>
+        <li class="nav-item"><a class="nav-link" href="@Url.Action("Delete", "Customers", new { id = BaseHelper.customer.Customer_ID })">Delete Account</a>*@
+                                         <li class="nav-item"><a class="nav-link" href="@Url.Action("CustomerHistory", "Customers")">Booking History</a>
+                                         <li class="nav-item"><a class="nav-link" href="@Url.Action("loginuser", "Customers")">User Login</a>
+                                         <li class="nav-item"><a class="nav-link" href="@Url.Action("CancelledBookings", "Customers")">Cancelled Bookings</a>
+                                         <li class="nav-item"><a class="nav-link" href="@Url.Action("logout", "Customers")">Logout</a>
+                                     </ul>
+
+                                 }
 
 
-                                </li>
+                             </li>
 
 
-                            </ul>
-                            <!--/notifications-->
-                            @*<div id="mySidenav" class="sidenav">
-                <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
-                @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
-                {
+                         </ul>
+                         <!--/notifications-->
+                         @*<div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+            @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
+            {
 
-                    <div class="notification_wrap">
+                <div class="notification_wrap">
 
-                        <div class="dropdown">
-                            <div class="notify_item">
-                                <div class="notify_img">
-                                    <img src="@Url.Content(item.Writer.WRITER_IMAGE)" alt="" style="width: 60px;height:60px; border-radius:50%">
-                                    <span class="notify_time">@item.Writer.WRITER_NAME</span>
-                                </div>
-                                <div class="notify_info">
-                                    <p>@Html.DisplayFor(modelItem => item.MESSAGE)</p>
-                                    <span class="notify_time">@Html.DisplayFor(modelItem => item.DATETIME)</span>
-                                </div>
+                    <div class="dropdown">
+                        <div class="notify_item">
+                            <div class="notify_img">
+                                <img src="@Url.Content(item.Writer.WRITER_IMAGE)" alt="" style="width: 60px;height:60px; border-radius:50%">
+                                <span class="notify_time">@item.Writer.WRITER_NAME</span>
+                            </div>
+                            <div class="notify_info">
+                                <p>@Html.DisplayFor(modelItem => item.MESSAGE)</p>
+                                <span class="notify_time">@Html.DisplayFor(modelItem => item.DATETIME)</span>
                             </div>
                         </div>
-                    </div>}
-            </div>*@
-
-                            <!--/Notification-->
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item">
-                                <button onclick="myFunction()"><span class="btn btn-default fa fa-moon-o"></span></button>
-                            </li>
-                            <li class="nav-item">
-                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-                            </li>
-                        </ul>
-                        </div>
+                    </div>
+                </div>}
+        </div>*@
+                        
+                         
+                         <!--//search-right-->
+                         <!--/Notification-->
+                         <ul class="nav navbar-nav navbar-right">
+                             <li class="nav-item">
+                                 <button onclick="myFunction()" class="buttondark"><span class="btn btn-default fa fa-moon-o"></span></button>
+                             </li>
+                             <li class="nav-item">
+                                 
+        <button class="search" onkeypress="myFunc()" id="tags" placeholder="Search for Services" name="tags"
+                required="required" autofocus="">
+            <span class="lnr lnr-magnifier" id="search"></span>
+        </button>
+         
+                                 <!--/search-right-->
+                                 <!--<div class="search-right mt-lg-0 mt-2">
+                                     <a href="#search" title="search"><span class="fa fa-search" aria-hidden="true"></span></a>
+                                     search popup
+                                     <div id="search" class="pop-overlay">
+                                         <div class="popup">-->
+                                             @*<h3 class="hny-title two">Search here</h3>*@
+                                             <!--<form action="/home/search" method="post" class="search">
+                                                 <input type="search" onkeypress="myFunc()" id="tags" class="fa fa-search" name="tags"
+                                                        required="required" autofocus="">-->
+                                                 @*<button type="submit" class="btn">search</button>*@
+                                             <!--</form>-->
+                                         
+                                             @*<a class="close" href="#close">×</a>*@
+                                         <!--</div>
+                                     </div>-->
+                                     <!-- /search popup -->
+                                     <!--</div>-->
+                             </li>
+                         </ul>
+                     </div>
 </div>
             </nav>
         </div>
@@ -328,11 +360,11 @@
                 $.ajax({
 
                     type: 'GET',
-                    url: '/Home/GetArtifacts',
+                    url: '/Home/Services',
                     success: function (response) {
                         var data = JSON.parse(response);
                         $.each(data, function (key, item) {
-                            availableTags.push(item.ARTIFACT_NAME);
+                            availableTags.push(item.Service_Name);
 
                         });
                         /* console.log(data); console.log(availableTags);*/

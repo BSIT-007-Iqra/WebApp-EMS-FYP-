@@ -6,14 +6,14 @@
     int count = 0;
     List<int> list = new List<int>();
 
-    DateTime startdate = DateTime.ParseExact("01/01/2022", "dd/MM/yyyy", null);
-    DateTime enddate = DateTime.ParseExact("31/01/2022", "dd/MM/yyyy", null);
+    DateTime startdate = DateTime.ParseExact("01/05/2023", "dd/MM/yyyy", null);
+    DateTime enddate = DateTime.ParseExact("31/05/2023", "dd/MM/yyyy", null);
     for (int i = 0; i < 13; i++)
     {
-        count = db.Bookings.Where(x => x.Event_Date >= startdate && x.Event_Date <= enddate && x.Booking_Type == "Sale").Count();
+        count = db.Bookings.Where(x => x.Event_Date >= startdate && x.Event_Date <= enddate && x.Booking_Type == "Booked").Count();
         if (count > 0)
         {
-            //list.Add(Convert.ToInt32(db.Booking_Details.Where(x => x.Booking.Booking_Type== "Sale" && x.Booking.Booking_Status != "Cancelled" && x.Booking.Event_Date >= startdate && x.Booking.Event_Date <= enddate).Sum(x => (x.Quantity * -1) * x.Booking_Price)));
+            list.Add(Convert.ToInt32(db.Booking_Details.Where(x => x.Booking.Booking_Type== "Booked" && x.Booking.Booking_Status != "Cancelled" && x.Booking.Event_Date >= startdate && x.Booking.Event_Date <= enddate).Sum(x => x.Price)));
         }
         else
         {
@@ -34,11 +34,11 @@
 
     DateTime enddate1 = DateTime.ParseExact("31/12/2022", "dd/MM/yyyy", null);
 
-    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food").Count()));
-   list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering").Count()));
-   list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting").Count()));
-   list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").Count()));
-   
+    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+    //list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").Count()));
+
 }
 <head>
 
@@ -71,7 +71,7 @@
                     <div class="card-body">
                         <div class="d-flex no-block">
                             <div>
-                                <h5 class="card-title mb-0">Sales Chart</h5>
+                                <h5 class="card-title mb-0">Bookings Chart</h5>
                             </div>
 
                         </div>
@@ -139,32 +139,47 @@
                         <h5 class="card-title">Feeds</h5>
                         <ul class="feeds">
                             @*<li>
-                                <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have @db.Withdraw_Amount.Where(x => x.ISTRANSFERED != true).Count() withdraw
-                                requests. <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+            <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have @db.Withdraw_Amount.Where(x => x.ISTRANSFERED != true).Count() withdraw
+            requests. <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+        </li>
+        <li>
+            <div class="bg-light-success"><i class="fa fa-server"></i></div> You have @db.Episodes.Where(x => x.Isapproved != true).Count()
+            episode approval requests.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+        </li>*@
+                            <li class="li1">
+                                <div class="bg-light-warning"><i class="fa fa-shopping-cart text-dark"></i></div>
+                                <b class="b1">
+                                     @db.Bookings.Where(x => x.Booking_Status == "Booked").Count()
+                                </b> New
+                                    Booking received.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
                             </li>
-                            <li>
-                                <div class="bg-light-success"><i class="fa fa-server"></i></div> You have @db.Episodes.Where(x => x.Isapproved != true).Count()
-                                episode approval requests.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
-                            </li>*@
-                            <li>
-                                <div class="bg-light-warning"><i class="fa fa-shopping-cart"></i></div>@db.Bookings.Where(x => x.Booking_Status == "Booked").Count() New
-                                order received.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                            <li class="li1">
+                                <div class="bg-light-warning"><i class="fa fa-bell-o text-dark"></i></div>
+                                You have  <b class="b1">
+                                    @db.Bookings.Where(x => x.Booking_Status == "Proceed").Count()
+                                </b>
+                                Proceeding Bookings.
+                                <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
                             </li>
-                            <li>
-                                <div class="bg-light-warning"><i class="fa fa-bell-o"></i></div>You have @db.Bookings.Where(x => x.Booking_Status == "Proceed").Count()
-                                Proceeding Orders.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                            <li class="li1">
+                                <div class="bg-light-warning"><i class="fa fa-send-o text-dark"></i></div>You Cancelled  <b class="b1">
+                                    @db.Bookings.Where(x => x.Booking_Status == "Cancelled").Count()
+                                </b>
+                                Bookings.
+                                <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
                             </li>
-                            <li>
-                                <div class="bg-light-warning"><i class="fa fa-send-o"></i></div>You Cancelled @db.Bookings.Where(x => x.Booking_Status == "Cancelled").Count()
-                                Orders.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                            <li class="li1">
+                                <div class="bg-light-warning"><i class="fa fa-bell text-dark"></i></div>
+
+                                You have received
+                                <b class="b1">@db.Notifications.Where(x => x.DateTime >= System.DateTime.Today).Count()
+                                </b>
+                                notifications.
+                                <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
                             </li>
-                            <li>
-                                <div class="bg-light-warning"><i class="fa fa-bell"></i></div>You have received @db.Notifications.Where(x => x.DateTime >= System.DateTime.Today).Count()
-                                notifications.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
-                            </li>
-                            <li>
-                                <div class="bg-light-inverse"><i class="fa fa-bell-o"></i></div> New Version
-                                just arrived. <span class="text-muted">27 May</span>
+                            <li class="li1">
+                                <div class="bg-light-inverse"><i class="fa fa-bell-o text-dark"></i></div>
+                                New Version just arrived. <span class="text-muted">27 May</span>
                             </li>
 
                         </ul>
@@ -190,7 +205,7 @@
 
                         </div>
                         <div class="table-responsive mt-3 no-wrap">
-                            <table class="table vm no-th-brd pro-of-month">
+                            <table class="table vm no-th-brd pro-of-month table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th colspan="2">Assigned</th>
@@ -227,11 +242,12 @@
             <!-- Column -->
             <div class="col-lg-4 d-flex align-items-stretch">
                 <div class="card w-100">
-                    <img src="@Url.Content("~/Content/Event/img/EMSlogo.ico")">
+                    
+                    <img src="~/Content/AdminPicture/newlogo.jpg" height="300" width="300">
                     <div class="card-body">
-                        <h5 class=" card-title">EMS Development </h5>
+                        <h4 class=" card-title">EMS Development </h4>
                         <span class="label label-info label-rounded">Technology</span>
-                        <p class="mb-0 mt-3">
+                        <p class="mb-0 mt-3" style="font-family:poppies;font-size:large">
                             A medium used to express ideas with images, often combined with text or other visual information.
                             It typically takes the form of a sequence of panels of images. Textual devices such as speech balloons,
                             captions, and onomatopoeia can indicate dialogue, narration, sound effects, or other information.
@@ -301,8 +317,10 @@
                 label: 'Dataset 1'
             }],
             labels: [
-                'Comics',
-                'Novels',
+                'Catering',
+                'Food',
+                'Sound',
+                'Lighting',
 
             ]
         },

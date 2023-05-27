@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
         // GET: Feedbacks
         public ActionResult Index()
         {
-            var feedbacks = db.Feedbacks.Include(f => f.Customer).Include(f => f.Event_tbl).Include(f => f.Service).Include(f => f.Venue);
+            var feedbacks = db.Feedbacks.Include(f => f.Customer).Include(f => f.Feedback2).Include(f => f.Hall).Include(f => f.Service).Include(f => f.Venue);
             return View(feedbacks.ToList());
         }
 
@@ -40,7 +40,8 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.Customer_FID = new SelectList(db.Customers, "Customer_ID", "Customer_Name");
-            ViewBag.Event_FID = new SelectList(db.Event_tbl, "Event_ID", "Event_Name");
+            ViewBag.Feedback_FID = new SelectList(db.Feedbacks, "Feedback_ID", "Feedback_Description");
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
             ViewBag.Service_FID = new SelectList(db.Services, "Service_ID", "Service_Name");
             ViewBag.Venue_FID = new SelectList(db.Venues, "Venue_ID", "Venue_Name");
             return View();
@@ -51,7 +52,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Feedback_ID,Feedback_Description,Feedback_Date,Customer_FID,Venue_FID,Service_FID,Event_FID")] Feedback feedback)
+        public ActionResult Create([Bind(Include = "Feedback_ID,Feedback_Description,Feedback_Date,Customer_FID,Venue_FID,Service_FID,Hall_FID,Feedback_FID")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +62,8 @@ namespace WebApplication1.Controllers
             }
 
             ViewBag.Customer_FID = new SelectList(db.Customers, "Customer_ID", "Customer_Name", feedback.Customer_FID);
-            ViewBag.Event_FID = new SelectList(db.Event_tbl, "Event_ID", "Event_Name", feedback.Event_FID);
+            ViewBag.Feedback_FID = new SelectList(db.Feedbacks, "Feedback_ID", "Feedback_Description", feedback.Feedback_FID);
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name", feedback.Hall_FID);
             ViewBag.Service_FID = new SelectList(db.Services, "Service_ID", "Service_Name", feedback.Service_FID);
             ViewBag.Venue_FID = new SelectList(db.Venues, "Venue_ID", "Venue_Name", feedback.Venue_FID);
             return View(feedback);
@@ -80,7 +82,8 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
             ViewBag.Customer_FID = new SelectList(db.Customers, "Customer_ID", "Customer_Name", feedback.Customer_FID);
-            ViewBag.Event_FID = new SelectList(db.Event_tbl, "Event_ID", "Event_Name", feedback.Event_FID);
+            ViewBag.Feedback_FID = new SelectList(db.Feedbacks, "Feedback_ID", "Feedback_Description", feedback.Feedback_FID);
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name", feedback.Hall_FID);
             ViewBag.Service_FID = new SelectList(db.Services, "Service_ID", "Service_Name", feedback.Service_FID);
             ViewBag.Venue_FID = new SelectList(db.Venues, "Venue_ID", "Venue_Name", feedback.Venue_FID);
             return View(feedback);
@@ -91,7 +94,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Feedback_ID,Feedback_Description,Feedback_Date,Customer_FID,Venue_FID,Service_FID,Event_FID")] Feedback feedback)
+        public ActionResult Edit([Bind(Include = "Feedback_ID,Feedback_Description,Feedback_Date,Customer_FID,Venue_FID,Service_FID,Hall_FID,Feedback_FID")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +103,8 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Customer_FID = new SelectList(db.Customers, "Customer_ID", "Customer_Name", feedback.Customer_FID);
-            ViewBag.Event_FID = new SelectList(db.Event_tbl, "Event_ID", "Event_Name", feedback.Event_FID);
+            ViewBag.Feedback_FID = new SelectList(db.Feedbacks, "Feedback_ID", "Feedback_Description", feedback.Feedback_FID);
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name", feedback.Hall_FID);
             ViewBag.Service_FID = new SelectList(db.Services, "Service_ID", "Service_Name", feedback.Service_FID);
             ViewBag.Venue_FID = new SelectList(db.Venues, "Venue_ID", "Venue_Name", feedback.Venue_FID);
             return View(feedback);

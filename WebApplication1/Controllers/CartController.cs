@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Utils;
+using static Dropbox.Api.Files.ListRevisionsMode;
 
 namespace ReadRix.Controllers
 {
@@ -15,35 +16,44 @@ namespace ReadRix.Controllers
         // GET: Cart
         public ActionResult Displaybooking()
         {
+            if (BaseHelper.customer == null)
+            {
+                TempData["new"] = "Login into your account OR Register Account";
+            }
             return View();
         }
+
+        public ActionResult Bookingdate(Booking booking)
+        {
+            //var b = db.Bookings.Where(x => x.Event_Date == booking.Event_Date).FirstOrDefault();
+            if (booking.Event_Date != null)
+            {
+                TempData["Error"] = "This Date is not available \n please!  Setect another date \t thanks";
+            }
+            return View();
+        }
+        
         public ActionResult BookingComplete()
         {
             return View();
         }
         public ActionResult Checkout()
         {
-            if (BaseHelper.customer == null)
-            {
-                TempData["new"] = "Login into your account OR Register Account";
-                return View();
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
+
         public ActionResult Orderbooked(Booking order)
         {
             int dollerrate = (int)MailProvider.GetCurrentDollorprice();
             if (BaseHelper.customer != null)
             {
-                if (order.Booking_Type == "CashOnDelivery")
-                {
-                    order.Customer_FID = BaseHelper.customer.Customer_ID;
+                order.Customer_FID = BaseHelper.customer.Customer_ID;
                     order.Booking_Status = "Booked";
                     order.Event_Date = System.DateTime.Now;
-                    order.Booking_Type = "Book";
+                   
+                if (order.Payment_Type == "CashOnBooking")
+                {
+                     order.Booking_Type = "Book";
                     db.Bookings.Add(order);
                     db.SaveChanges();
 
@@ -68,20 +78,20 @@ namespace ReadRix.Controllers
                         db.SaveChanges();
 
                     }
-               MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Order Confirmation", "Your Order has been booked and will be delivered within 3 working days, Regards EMS <br /> Thanks");
-                    TempData["cart"] = Session["cart"];
-                    Session["cart"] = null;
-                    return RedirectToAction("OrderComplete");
+                    MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Order Confirmation", "Your Order has been booked and will be delivered within 3 working days, Regards EMS <br /> Thanks");
+                    TempData["Cart"] = Session["Cart"];
+                    Session["Cart"] = null;
+                    TempData["Cart1"] = Session["Cart1"];
+                    Session["Cart1"] = null;
+                  
+
+                    return RedirectToAction("BookingComplete");
                 }
-                else
-                {
-                    order.Customer_FID = BaseHelper.customer.Customer_ID;
-                    order.Booking_Status = "Proceed";
-                    order.Event_Date = System.DateTime.Now;
-                    order.Booking_Type = "Sale";
+                else {
+                    order.Booking_Type = "Proceed";
                     Session["order"] = order;
-                    //return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=readrix28@gmail.com&item_name=ReadRix&return=https://readrix.blackpanthermart.com/Cart/PaypalOrderbooked&amount=" + double.Parse(Session["amount"].ToString()) / dollerrate);
-                    return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=yousafsaqlain98@gmail.com&item_name=EMS&return=https://localhost:44357/Cart/PaypalOrderbooked&amount=" + double.Parse(Session["amount"].ToString()) / dollerrate);
+                    return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=iqrabajwa00@gmail.com&item_name=EMS&return=https://localhost:44373/Cart/PaypalOrderbooked&amount=" + (double.Parse(Session["Amount"].ToString()) / dollerrate));
+
                 }
 
             }
@@ -93,41 +103,47 @@ namespace ReadRix.Controllers
 
 
         }
+
         public ActionResult PaypalOrderbooked()
         {
             Booking o = (Booking)Session["order"];
             db.Bookings.Add(o);
             db.SaveChanges();
             Booking_Details od = new Booking_Details();
-            foreach (var item in (List<Hall>) Session["Cart"])
-                    {
-                        od.Price = item.Hall_Price;
-                        od.Hall_FID = item.Hall_ID;
-                        od.Booking_FID = o.Booking_ID;
+            foreach (var item in (List<Hall>)Session["cart"])
+            {
+                od.Price = item.Hall_Price;
+                od.Hall_FID = item.Hall_ID;
+                od.Booking_FID = o.Booking_ID;
 
-                        db.Booking_Details.Add(od);
-                        db.SaveChanges();
+                db.Booking_Details.Add(od);
+                db.SaveChanges();
 
-                    }
+            }
 
-                    foreach (var item in (List<Service>) Session["Cart1"])
-                    {
-                        od.Price = item.Service_Price;
-                        od.Service_FID = item.Service_ID;
-                        od.Booking_FID = o.Booking_ID;
-                        db.Booking_Details.Add(od);
-                        db.SaveChanges();
+            foreach (var item in (List<Service>)Session["cart1"])
+            {
+                od.Price = item.Service_Price;
+                od.Service_FID = item.Service_ID;
+                od.Booking_FID = o.Booking_ID;
+                db.Booking_Details.Add(od);
+                db.SaveChanges();
 
-                    }
+            }
+
+
             MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Booking has been booked and will Inform you forward through Email, Regards EMS <br /> Thanks");
             TempData["cart"] = Session["cart"];
             Session["cart"] = null;
-            return RedirectToAction("OrderComplete");
+            TempData["cart"] = Session["cart1"];
+            Session["cart1"] = null;
+            return RedirectToAction("BookingComplete");
 
         }
 
         public ActionResult Addtobooking(int id)
         {
+            
             List<Hall> HallList = new List<Hall>();
             //if (Session["cart"] != null)
             //{
@@ -192,28 +208,28 @@ namespace ReadRix.Controllers
         public ActionResult Removefromcart(int id)
         {
             List<Hall> hallList = new List<Hall>();
-            if (Session["cart"] != null)
+            if (Session["Cart"] != null)
             {
-                hallList = (List<Hall>)Session["cart"];
+                hallList = (List<Hall>)Session["Cart"];
             }
 
             hallList.RemoveAt(id);
-            Session["cart"] = hallList;
+            Session["Cart"] = hallList;
             return RedirectToAction("Displaybooking");
         }
         public ActionResult Removefromcart1(int id)
         {
             List<Service> ServiceList = new List<Service>();
-            if (Session["cart1"] != null)
+            if (Session["Cart1"] != null)
             {
-                ServiceList = (List<Service>)Session["cart1"];
+                ServiceList = (List<Service>)Session["Cart1"];
             }
 
             ServiceList.RemoveAt(id);
-            Session["cart1"] = ServiceList;
+            Session["Cart1"] = ServiceList;
             return RedirectToAction("Displaybooking");
         }
-        public ActionResult Closeorder()
+        public ActionResult Closeboking()
         {
 
             Session["cart"] = null;

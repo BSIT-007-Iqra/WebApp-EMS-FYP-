@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dropbox.Api, Version=6.37.0.0, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dropbox.Api.6.37.0\lib\netstandard2.0\Dropbox.Api.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -68,7 +71,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.Common, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\NuGet.Common.6.5.0\lib\net472\NuGet.Common.dll</HintPath>
@@ -158,6 +161,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
       <Private>True</Private>
@@ -223,6 +229,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -295,9 +304,12 @@
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\Event_OrganizersController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HallsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\BookingReportsController.cs" />
+    <Compile Include="Controllers\ReadersApiController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\Service_CategoryController.cs" />
@@ -312,7 +324,6 @@
     <Compile Include="Models\Booking_Details.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Event_Organizers.cs" />
-    <Compile Include="Models\Event_tbl.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\Hall.cs" />
     <Compile Include="Models\Model1.cs" />
@@ -330,21 +341,20 @@
     <Compile Include="Utils\BaseHelper.cs" />
     <Compile Include="Utils\ConversionData.cs" />
     <Compile Include="Utils\ConversionRate.cs" />
+    <Compile Include="Utils\Dropboxapi.cs" />
     <Compile Include="Utils\MailProvider.cs" />
     <Compile Include="Utils\NotificationFunction.cs" />
     <Compile Include="Controllers\AdminProfileController.cs" />
+    <Compile Include="Utils\UploadPicToCloud.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\WebApplication1.dll" />
     <Content Include="bin\WebApplication1.pdb" />
-    <Content Include="Content\AdminPicture\b3.jpeg" />
-    <Content Include="Content\AdminPicture\crazy princess.jpg" />
     <Content Include="Content\AdminPicture\hijab1.jpeg" />
     <Content Include="Content\AdminPicture\images.jpg" />
-    <Content Include="Content\AdminPicture\wallpaperflare.com_wallpaper %282%29.jpg" />
-    <Content Include="Content\AdminPicture\wallpaperflare.com_wallpaper %283%29.jpg" />
-    <Content Include="Content\AdminPicture\wallpaperflare.com_wallpaper.jpg" />
-    <Content Include="Content\AdminPicture\WhatsApp Image 2021-10-05 at 2.31.21 PM.jpeg" />
+    <Content Include="Content\AdminPicture\Logo.jpg" />
+    <Content Include="Content\AdminPicture\logo1.ico" />
+    <Content Include="Content\AdminPicture\logo1.png" />
     <Content Include="Content\Admin\assets\images\big\img1.jpg" />
     <Content Include="Content\Admin\assets\images\favicon.png" />
     <Content Include="Content\Admin\assets\images\logo-icon.png" />
@@ -412,11 +422,13 @@
     <Content Include="Content\Event\img\category\c5.jpg" />
     <Content Include="Content\Event\img\category\usericon1.png" />
     <Content Include="Content\Event\img\EMSlogo.ico" />
+    <Content Include="Content\Event\img\features\f-icon-5.png" />
     <Content Include="Content\Event\img\features\f-icon.png" />
     <Content Include="Content\Event\img\features\f-icon1.png" />
     <Content Include="Content\Event\img\features\f-icon-2.png" />
     <Content Include="Content\Event\img\features\f-icon-3.png" />
     <Content Include="Content\Event\img\features\f-icon-4.png" />
+    <Content Include="Content\Event\img\features\logo.ico" />
     <Content Include="Content\Event\img\homepage_hero_1280.jpg" />
     <Content Include="Content\Event\img\product\exclusive.jpg" />
     <Content Include="Content\Event\img\product\homepage.png" />
@@ -424,6 +436,7 @@
     <Content Include="Content\Event\img\product\usericon.png" />
     <Content Include="Content\Event\img\usericon1.png" />
     <Content Include="Content\WebsitePicture\EMSlogo.png" />
+    <Content Include="Content\AdminPicture\newlogo.jpg" />
     <Content Include="Picture\Aurora Banquet Hall Weddings 4  .jpg-1613018904742.jpg" />
     <Content Include="Picture\Aurora Banquet Hall Weddings 6  .jpg-1613018936989.jpg" />
     <Content Include="Picture\EMSlogo.png" />
@@ -601,11 +614,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Feedbacks\Create.cshtml" />
-    <Content Include="Views\Feedbacks\Delete.cshtml" />
-    <Content Include="Views\Feedbacks\Details.cshtml" />
-    <Content Include="Views\Feedbacks\Edit.cshtml" />
-    <Content Include="Views\Feedbacks\Index.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
@@ -623,38 +631,48 @@
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Cart\Displaybooking.cshtml" />
     <Content Include="Views\Cart\BookingComplete.cshtml" />
-    <Content Include="Views\Customers\CancelledOrders.cshtml" />
+    <Content Include="Views\Halls\Create.cshtml" />
+    <Content Include="Views\Halls\Delete.cshtml" />
+    <Content Include="Views\Halls\Details.cshtml" />
+    <Content Include="Views\Halls\Edit.cshtml" />
+    <Content Include="Views\Halls\Index.cshtml" />
+    <Content Include="Views\Feedbacks\Create.cshtml" />
+    <Content Include="Views\Feedbacks\Delete.cshtml" />
+    <Content Include="Views\Feedbacks\Details.cshtml" />
+    <Content Include="Views\Feedbacks\Edit.cshtml" />
+    <Content Include="Views\Feedbacks\Index.cshtml" />
+    <Content Include="Views\Customers\CancelledBookings.cshtml" />
     <Content Include="Views\Customers\CodeVerify.cshtml" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\CustomerHistory.cshtml" />
     <Content Include="Views\Customers\Delete.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Forgotpassword.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Invoice.cshtml" />
+    <Content Include="Views\Customers\loginuser.cshtml" />
     <Content Include="Views\Customers\NewPassword.cshtml" />
     <Content Include="Views\Customers\registration.cshtml" />
-    <Content Include="Views\Customers\Forgotpassword.cshtml" />
-    <Content Include="Views\Halls\Create.cshtml" />
-    <Content Include="Views\Halls\Delete.cshtml" />
-    <Content Include="Views\Halls\Details.cshtml" />
-    <Content Include="Views\Halls\Edit.cshtml" />
-    <Content Include="Views\Halls\Index.cshtml" />
+    <Content Include="Views\Event_Organizers\Create.cshtml" />
+    <Content Include="Views\Event_Organizers\Delete.cshtml" />
+    <Content Include="Views\Event_Organizers\Details.cshtml" />
+    <Content Include="Views\Event_Organizers\Edit.cshtml" />
+    <Content Include="Views\Event_Organizers\Index.cshtml" />
     <None Include="Views\Home\Booking.cshtml" />
     <Content Include="Views\Notificatons\addnotification.cshtml" />
     <Content Include="Views\Notificatons\Delete.cshtml" />
     <Content Include="Views\Notificatons\Index.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\Home\Service_Details.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <None Include="Views\Home\servicecategory.cshtml" />
     <Content Include="Views\Home\ChatRoom.cshtml" />
     <None Include="Views\Home\contact.cshtml" />
-    <None Include="Views\Home\confirmation.cshtml" />
     <None Include="Views\Home\indexadmin.cshtml" />
     <Content Include="Views\Home\Hall.cshtml" />
     <None Include="Views\Home\venue.cshtml" />
     <None Include="Views\Home\index.cshtml" />
-    <None Include="Views\Customers\loginuser.cshtml" />
     <None Include="Views\Home\single.cshtml" />
     <Content Include="Views\Home\Hall_Details.cshtml" />
     <None Include="Views\Home\VenueDetails.cshtml" />
@@ -701,6 +719,11 @@
     <Content Include="Views\Sub_ServiceCategory\Edit.cshtml" />
     <Content Include="Views\Sub_ServiceCategory\Index.cshtml" />
     <Content Include="Views\Services\IndexServices.cshtml" />
+    <Content Include="Views\BookingReports\Invoice.cshtml" />
+    <Content Include="Views\BookingReports\NewBookings.cshtml" />
+    <Content Include="Views\BookingReports\NextProceedBooking.cshtml" />
+    <Content Include="Views\BookingReports\SaleReport.cshtml" />
+    <Content Include="Views\BookingReports\ViewReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

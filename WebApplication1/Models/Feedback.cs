@@ -9,6 +9,12 @@ namespace WebApplication1.Models
     [Table("Feedback")]
     public partial class Feedback
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Feedback()
+        {
+            Feedback1 = new HashSet<Feedback>();
+        }
+
         [Key]
         public int Feedback_ID { get; set; }
 
@@ -24,11 +30,18 @@ namespace WebApplication1.Models
 
         public int? Service_FID { get; set; }
 
-        public int? Event_FID { get; set; }
+        public int? Hall_FID { get; set; }
+
+        public int? Feedback_FID { get; set; }
 
         public virtual Customer Customer { get; set; }
 
-        public virtual Event_tbl Event_tbl { get; set; }
+        public virtual Hall Hall { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedback1 { get; set; }
+
+        public virtual Feedback Feedback2 { get; set; }
 
         public virtual Venue Venue { get; set; }
 

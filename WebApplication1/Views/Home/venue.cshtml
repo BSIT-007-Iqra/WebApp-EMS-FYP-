@@ -38,44 +38,49 @@
                 {
                     if (ViewData["veuneid"] == null || item.Venue_ID == (int)ViewData["veuneid"])
                     {
-
+                        <!-- single product -->
                         <div class="col-lg-4 col-md-6">
-                            <div class="container">
-                                <div class="single-product">
-                                    <img class="img-fluid" src="@Url.Content(item.Venue_Picture)" alt="">
+                            <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080;border: dashed;border-color:#c9c9c9;height:550px">
+                                <img class="img-fluid" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'" src="@Url.Content(item.Venue_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="">
+                                <div class="product-details card-body">
 
-                                    <div class="product-details">
+                                    <h3 class="fun" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'">
 
-                                        <h3>
-                                            <b>@item.Venue_Name</b>
-                                        </h3>
-
-                                        <div class="price">
-
-                                            <h6>
-                                                <span>
-                                                    <b style="color:black;font-size:15px">Starting From:</b>  $@item.Venue_Price
-
-                                                </span>
-                                            </h6>
-
-                                        </div>
-
-                                        <div class="prd-bottom">
-
-                                            <a href="@Url.Action("Hall","Home",new {id =item.Venue_ID })" class="social-info">
-                                                <span class="ti-bag"></span>
-                                                <p class="hover-text" style="padding-left:15px">Booking </p>
-                                            </a>
-                                            <a href="/home/Hall" class="social-info">
-                                                <span class="lnr lnr-move"></span>
-                                                <p class="hover-text" style="padding-left:25px">View </p>
-                                            </a>
+                                        <i class="fa fa-home" style="margin-right:1rem"></i>@item.Venue_Name <small><i class="fa fa-star" style="color: #e88e4d; margin-left: 2rem"></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i></small>
+                                    </h3>
+                                    <p style=" color: #4B3047;cursor:pointer" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'">
+                                        @if (item.Venue_Details.Length < 150)
+                                        {
+                                            @item.Venue_Details }
+                                        else
+                                        {
+                                            @item.Venue_Details.Substring(0, 85)<span>......</span>}
+                                    </p>
+                                    <hr />
+                                    <h5 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                        <i class="fa fa-map-marker" style="margin-right: 1rem; color: #4B3047;"></i> @item.Venue_Location
+                                    </h5>
+                                    <center>
+                                        <div class="price card-footer">
+                                            <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Venue_Price</b></h6>
 
                                         </div>
+                                    </center>
 
+                                    <div class="prd-bottom justify-content-center" style="margin-left:1rem">
+
+                                        <a href="@Url.Action("Hall","Home",new {id = item.Venue_ID})" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">Hall Details</p>
+                                        </a>
+
+                                        <a href="@Url.Action("VenueDetails","Home",new {id = item.Venue_ID})" class="social-info">
+                                            <span class="lnr lnr-move"></span>
+                                            <p class="hover-text">Venues View</p>
+                                        </a>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <!-- single product -->

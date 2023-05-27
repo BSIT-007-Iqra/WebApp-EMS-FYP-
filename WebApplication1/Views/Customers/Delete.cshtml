@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Delete";
-    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!--Start Banner Area -->
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Customer Edit</h1>
+                <h1>Customer Details</h1>
                 <nav class="d-flex align-items-center">
                     <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
                     <a href="/Customers/Edit">Delete Account</a>
@@ -38,6 +38,9 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.Customer_Name)
+                    </dd>
+                    <dd class="hide-text">
+                        @Html.DisplayFor(model => model.Customer_ID)
                     </dd>
 
                     <dd>

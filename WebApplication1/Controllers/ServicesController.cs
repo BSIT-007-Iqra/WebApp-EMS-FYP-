@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using WebApplication1.Models;
 using WebApplication1.Utils;
 
@@ -56,8 +57,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Service service)
+        public ActionResult Create(Service service, HttpPostedFileBase pic)
         {
+            string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
+            pic.SaveAs(fullpath);
+            service.Service_Picture = "~/Content/HallPicture/" + pic.FileName;
             if (ModelState.IsValid)
             {
                 db.Services.Add(service);
@@ -101,9 +105,11 @@ namespace WebApplication1.Controllers
             {
                 if (pic != null)
                 {
-                    
+                    string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
+                    pic.SaveAs(fullpath);
+                    service.Service_Picture = "~/Content/HallPicture/" + pic.FileName;
                 }
-             db.Entry(service).State = EntityState.Modified;
+                db.Entry(service).State = EntityState.Modified;
             db.SaveChanges();
             TempData["success"] = "Artifact has been edited successfully";
             return RedirectToAction("Index");

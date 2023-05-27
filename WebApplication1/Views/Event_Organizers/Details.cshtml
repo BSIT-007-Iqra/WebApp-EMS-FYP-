@@ -1,0 +1,83 @@
+﻿@model WebApplication1.Models.Event_Organizers
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Event_Organizers</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Admin.Admin_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Admin.Admin_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganizer_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganizer_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganizer_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganizer_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganizer_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganizer_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganizer_Contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganizer_Contact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganizer_Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganizer_Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventOrganizer_Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventOrganizer_Picture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventOrganizer_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

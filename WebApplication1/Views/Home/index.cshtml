@@ -1,10 +1,12 @@
-
+@model WebApplication1.Models.Service
+@using WebApplication1.Utils;
 @using WebApplication1.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
-   
+    var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
 
+    var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).OrderByDescending(x => x.Views.Count()).ToList();
 }
 <style>
     .fun {
@@ -105,7 +107,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Select City">Satellite Town</option>
+                                            <option data-display="Select Location">Satellite Town</option>
                                             <option value="2">Model Town</option>
                                             <option value="3">GT. Road</option>
                                         </select>
@@ -118,7 +120,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Select Timing">Lunch</option>
+                                            <option data-display="Select Slot">Lunch</option>
                                             <option value="2">Dinner</option>
                                         </select>
                                     </div>
@@ -160,8 +162,8 @@
                     <div class="f-icon">
                         <img src="~/Content/Event/img/features/f-icon.png" alt="">
                     </div>
-                    <h6>Free Delivery</h6>
-                    <p>Free Shipping on all order</p>
+                    <h5>Lighting</h5>
+                    <small>Place your booking </small>
                 </div>
             </div>
             <!-- single features -->
@@ -170,8 +172,8 @@
                     <div class="f-icon">
                         <img src="~/Content/Event/img/features/f-icon-2.png" alt="">
                     </div>
-                    <h6>Return Policy</h6>
-                    <p>Free Shipping on all order</p>
+                    <h5>Catering</h5>
+                    <small>Place your booking </small>
                 </div>
             </div>
             <!-- single features -->
@@ -180,18 +182,18 @@
                     <div class="f-icon">
                         <img src="~/Content/Event/img/features/f-icon-3.png" alt="">
                     </div>
-                    <h6>24/7 Support</h6>
-                    <p>Free Shipping on all order</p>
+                    <h5>Music</h5>
+                    <small>Place your booking </small>
                 </div>
             </div>
             <!-- single features -->
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
                     <div class="f-icon">
-                        <img src="~/Content/Event/img/features/f-icon-4.png" alt="">
+                        <img src="~/Content/Event/img/features/f-icon-5.png" alt="">
                     </div>
-                    <h6>Secure Payment</h6>
-                    <p>Free Shipping on all order</p>
+                    <h6>Cuisine</h6>
+                    <small>Place your booking </small>
                 </div>
             </div>
         </div>
@@ -278,7 +280,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12 text-center">
                     <div class="section-title">
-                        <h1>Latest Venue</h1>
+                        <h1>Popular Venue</h1>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                             dolore
@@ -292,7 +294,7 @@
                 {
                     <!-- single product -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080;">
+                        <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080;border: dashed;border-color:#c9c9c9">
                             <img class="img-fluid" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'" src="@Url.Content(item.Venue_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="">
                             <div class="product-details card-body">
 
@@ -314,7 +316,7 @@
                                 </h5>
                                 <center>
                                     <div class="price card-footer">
-                                        <h6 style="color: black; font-weight: bold; font-family: 'Cabin', sans-serif;text-transform:capitalize">Starting at PKR :- <b>@item.Venue_Price</b></h6>
+                                        <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Venue_Price</b></h6>
 
                                     </div>
                                 </center>
@@ -326,7 +328,7 @@
                                         <p class="hover-text">Hall Details</p>
                                     </a>
 
-                                    <a href="@Url.Action("Venue","Home")" class="social-info">
+                                    <a href="@Url.Action("VenueDetails","Home",new {id = item.Venue_ID})" class="social-info">
                                         <span class="lnr lnr-move"></span>
                                         <p class="hover-text">Venues View</p>
                                     </a>
@@ -340,7 +342,7 @@
                 }
             </div>
             <center>
-                <button class="btn primary-btn " style="padding:0 9rem">
+                <button class="btn primary-btn " style="padding:0 9rem" onclick="window.location.href='@Url.Action("Venue","Home")'">
                     See More
                 </button>
             </center>
@@ -438,70 +440,59 @@
             <div class="col-lg-6 no-padding exclusive-left">
                 <div class="row clock_sec clockdiv" id="clockdiv">
                     <div class="col-lg-12">
-                        <h1>Exclusive Hot Deal Ends Soon!</h1>
+                        <h1>Exclusive Best Deal Services!</h1>
                         <p>Who are in extremely love with eco friendly system.</p>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="row clock-wrap">
-                            <div class="col clockinner1 clockinner">
-                                <h1 class="days">150</h1>
-                                <span class="smalltext">Days</span>
+                    @*<div class="col-lg-12">
+                            <div class="row clock-wrap">
+                                <div class="col clockinner1 clockinner">
+                                    <h1 class="days">150</h1>
+                                    <span class="smalltext">Days</span>
+                                </div>
+                                <div class="col clockinner clockinner1">
+                                    <h1 class="hours">23</h1>
+                                    <span class="smalltext">Hours</span>
+                                </div>
+                                <div class="col clockinner clockinner1">
+                                    <h1 class="minutes">47</h1>
+                                    <span class="smalltext">Mins</span>
+                                </div>
+                                <div class="col clockinner clockinner1">
+                                    <h1 class="seconds">59</h1>
+                                    <span class="smalltext">Secs</span>
+                                </div>
                             </div>
-                            <div class="col clockinner clockinner1">
-                                <h1 class="hours">23</h1>
-                                <span class="smalltext">Hours</span>
-                            </div>
-                            <div class="col clockinner clockinner1">
-                                <h1 class="minutes">47</h1>
-                                <span class="smalltext">Mins</span>
-                            </div>
-                            <div class="col clockinner clockinner1">
-                                <h1 class="seconds">59</h1>
-                                <span class="smalltext">Secs</span>
-                            </div>
-                        </div>
-                    </div>
+                        </div>*@
                 </div>
-                <a href="~/Content/Event/#" class="primary-btn">Shop Now</a>
+                <a href="~/Content/Event/#" class="primary-btn">Booking Now</a>
             </div>
             <div class="col-lg-6 no-padding exclusive-right">
                 <div class="active-exclusive-product-slider">
                     <!-- single exclusive carousel -->
-                    <div class="single-exclusive-slider">
-                        <img class="img-fluid" src="~/Content/Event/img/product/e-p1.png" alt="">
-                        <div class="product-details">
-                            <div class="price">
-                                <h6>$150.00</h6>
-                                <h6 class="l-through">$210.00</h6>
-                            </div>
-                            <h4>
-                                addidas New Hammer sole
-                                for Sports person
-                            </h4>
-                            <div class="add-bag d-flex align-items-center justify-content-center">
-                                <a class="add-btn" href="~/Content/Event/#"><span class="ti-bag"></span></a>
-                                <span class="add-text text-uppercase">Add to Bag</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- single exclusive carousel -->
-                    <div class="single-exclusive-slider">
-                        <img class="img-fluid" src="~/Content/Event/img/product/e-p1.png" alt="">
-                        <div class="product-details">
-                            <div class="price">
-                                <h6>$150.00</h6>
-                                <h6 class="l-through">$210.00</h6>
-                            </div>
-                            <h4>
-                                addidas New Hammer sole
-                                for Sports person
-                            </h4>
-                            <div class="add-bag d-flex align-items-center justify-content-center">
-                                <a class="add-btn" href="~/Content/Event/#"><span class="ti-bag"></span></a>
-                                <span class="add-text text-uppercase">Add to Bag</span>
+                    @foreach (var item in query1.Take(4))
+                    {
+                        <div class="single-exclusive-slider">
+                            <img class="img-fluid" src="@Url.Content(item.Service_Picture)"  style="height:300px;width:300px" alt="">
+                            <div class="product-details">
+                                <div class="price">
+                                    <h6>@item.Service_Price</h6>
+
+                                </div>
+                                <h6>
+                                    @item.Service_Description
+                                </h6>
+                                <h5>
+                                    @item.Service_Name
+                                </h5>
+                                <div class="add-bag d-flex align-items-center justify-content-center">
+                                    <a class="add-btn" href="@Url.Action("Service_Details", "Home", new {ID = item.Service_ID})"><span class="ti-bag"></span></a>
+                                    <span class="add-text text-uppercase">Proceed Booking!</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    }<!-- single exclusive carousel -->
+
                 </div>
             </div>
         </div>

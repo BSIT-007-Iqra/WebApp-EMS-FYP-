@@ -1,70 +1,97 @@
 ﻿@model IEnumerable<WebApplication1.Models.Venue>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
-}
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Venue</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
 
-<h2>Index</h2>
+            <li class="breadcrumb-item active">Index</li>
+        </ol>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Picture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Contact)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Price)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Picture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Contact)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Price)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Venue_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Venue_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Venue_ID })
-        </td>
-    </tr>
-}
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
 
-</table>
+<div class="row">
+    <div class="col-md-7 align-self-center">
+        <a href="@Url.Action("Create", "Venues")" class="btn btn-dark"> Create New</a>
+
+    </div>
+    <table class="table table-responsive table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Details)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Venue_Picture)" height="100" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Price)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Venues", new { id=item.Venue_ID  })">
+                        <i class="fa fa-edit btn btn-success  "></i>
+                    </a>
+
+                    <a href="@Url.Action("Details", "Venues", new { id=item.Venue_ID })">
+                        <i class="fa fa-book btn btn-warning"></i>
+                    </a>
+                    <a href="@Url.Action("Delete", "Venues", new { id=item.Venue_ID  })">
+                        <i class="fa fa-trash btn btn-danger"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<!-- Row -->

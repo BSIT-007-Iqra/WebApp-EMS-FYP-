@@ -2,6 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
+    var query = db.Halls.Where(x => x.Cancellation_Policy == "Refunable").ToList();
+var query1 = db.Halls.Where(x => x.Cancellation_Policy == "Non-Refunable").ToList();
 }
 
 <!-- Start Banner Area -->
@@ -51,12 +53,20 @@
                     <div class="top-filter-head" style="margin-top:1rem">Cancellation Policy</div>
                     <form action="#">
                         <ul>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Refundable</label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Non-Refundable</label></li>
-                            @*<li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                    <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>*@
-                        </ul>
+
+                            
+                                
+                                    <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand" onlick="window.loaction.href=''"><label for="apple">Refundable</label></li>
+                              
+
+                                        <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand" onclick="window.location.href=''"><label for="apple">Non-Refundable</label></li>
+                                   
+
+                                    @*<li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Non-Refundable</label></li>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
+                <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
+                <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>*@
+                                </ul>
                     </form>
                 </div><hr />
                 <div class="common-filter">
@@ -64,21 +74,7 @@
                     <form action="#">
                         <ul>
                             <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                            <li class="filter-list">
-                                <input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">
-                                    Black
-                                    Leather<span>(29)</span>
-                                </label>
-                            </li>
-                            <li class="filter-list">
-                                <input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">
-                                    Black
-                                    with red<span>(19)</span>
-                                </label>
-                            </li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
-                        </ul>
+                           </ul>
                     </form>
                 </div><hr/>
                 <div class="common-filter">
@@ -108,37 +104,56 @@
                 <section class="lattest-product-area pb-40 category-list">
                     <div class="container" style="margin-top:2rem">
                         <div class="row">
-                            @foreach (var a in db.Halls)
+                            @foreach (var item in db.Halls)
                             {
-                                if (ViewData["hallid"] == null || a.Venue_FID == (int)ViewData["hallid"])
+                                if (ViewData["hallid"] == null || item.Venue_FID == (int)ViewData["hallid"])
                                 {
+                                    <!-- single product -->
                                     <div class="col-lg-6 col-md-6">
-                                        <div class="container">
-                                            <div class="single-product">
-                                                <img class="img-fluid" src="@Url.Content(a.Hall_Picture)" alt="">
-                                                <div class="product-details">
-                                                    <h4><span style="color: #B08EAD ;margin-left:1rem;  font-size:large; font-weight: 600"><label style="margin-left:5px;font-family:'Fira';font-size:x-large;font-weight:600;color:black">Name:</label> @a.Hall_Name</span></h4>
-                                                    <div class="price">
-                                                        @*<h6>$@a.Hall_Price</h6>*@
-                                                        <h6><span style="color: #B08EAD ;margin-left:1rem;  font-size: large; font-weight: 600"><label style="margin-left:5px;font-family:'Fira';font-size:medium;font-weight:600;color:black">Price:</label> @a.Hall_Price</span></h6>
+                                        <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080; border: dashed; border-color: #c9c9c9; height: 550px">
+                                            <img class="img-fluid" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Hall_ID})'" src="@Url.Content(item.Hall_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="">
+                                            <div class="product-details card-body">
+
+                                                <h3 class="fun" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Hall_ID})'">
+
+                                                    <i class="fa fa-home" style="margin-right:1rem"></i>@item.Hall_Name <small><i class="fa fa-star" style="color: #e88e4d; margin-left: 2rem"></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i></small>
+                                                </h3>
+                                                <p style=" color: #4B3047;cursor:pointer" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Hall_ID})'">
+                                                    @if (item.Hall_Description.Length < 90)
+                                                    {
+                                                        @item.Hall_Description }
+                                                    else
+                                                    {
+                                                        @item.Hall_Description.Substring(0, 60)<span>......</span>}
+                                                </p>
+                                                <hr />
+                                                <h5 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                                    <i class="fa fa-map-marker" style="margin-right: 1rem; color: #4B3047;"></i> @item.Hall_Location
+                                                </h5>
+                                                <center>
+                                                    <div class="price card-footer">
+                                                        <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Hall_Price</b></h6>
 
                                                     </div>
-                                                    <div class="prd-bottom">
+                                                </center>
 
-                                                        <a href="@Url.Action("Hall_Details", "Home")" class="social-info">
-                                                            <span class="lnr lnr-move"></span>
-                                                            <p class="hover-text">View Details</p>
-                                                        </a>
+                                                <div class="prd-bottom justify-content-center" style="margin-left:1rem">
 
-                                                        <a href="@Url.Action("Addtobooking", "Cart", new { id = a.Hall_ID })" class="social-info">
-                                                            <span class="ti-bag"></span>
-                                                            <p class="hover-text">Book Now</p>
-                                                        </a>
-                                                    </div>
+                                                    <a href="@Url.Action("Addtobooking","Cart",new {id = item.Hall_ID})" class="social-info">
+                                                        <span class="ti-bag"></span>
+                                                        <p class="hover-text">Book Now</p>
+                                                    </a>
+
+                                                    <a href="@Url.Action("Hall_Details","Home",new {id = item.Hall_ID})" class="social-info">
+                                                        <span class="lnr lnr-move"></span>
+                                                        <p class="hover-text">Venues View</p>
+                                                    </a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
+                                    <!-- single product -->
                                 }
                             }
                         </div>

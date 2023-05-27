@@ -46,15 +46,15 @@
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="col-md-10 form-group">
                     <img id="preview" src="~/Content/Event/img/usericon1.png" width="100" height="100" style="background-color:white;border-radius:50%;border:none">
-                    <input type="file" name="pic" id="file" oninput="preview.src = window.URL.createObjectURL(this.files[0])" style="color: transparent; " required />
+                    <input type="file" name="pic" id="file" oninput="preview.src = window.URL.createObjectURL(this.files[0])" style="color: transparent; "/>
                 </div>
                              <div class="col-md-10 form-group">
                                 <input type="text" class="form-control" id="name" name="Customer_Name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
                             </div><div class="col-md-10 form-group">
-                                <input type="email" class="form-control" id="name" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                                <input type="email" class="form-control" id="email" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
                             </div>
                             <div class="col-md-10 form-group">
-                                <input type="password" class="form-control" id="name" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                                <input type="password" class="form-control" id="password" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                             </div>
                             <div class="col-md-10 form-group">
                                 <input type="tel" name="Customer_Contact" id="contact" placeholder="03*********" onkeypress="return onlyNumberKey('event')" required class="form-control" />                            </div>

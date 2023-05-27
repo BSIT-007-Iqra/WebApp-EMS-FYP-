@@ -17,7 +17,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Booking_Details> Booking_Details { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Event_Organizers> Event_Organizers { get; set; }
-        public virtual DbSet<Event_tbl> Event_tbl { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Hall> Halls { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
@@ -68,13 +67,18 @@ namespace WebApplication1.Models
                 .WithOptional(e => e.Event_Organizers)
                 .HasForeignKey(e => e.Organizer_FID);
 
-            modelBuilder.Entity<Event_tbl>()
-                .HasMany(e => e.Feedbacks)
-                .WithOptional(e => e.Event_tbl)
-                .HasForeignKey(e => e.Event_FID);
+            modelBuilder.Entity<Feedback>()
+                .HasMany(e => e.Feedback1)
+                .WithOptional(e => e.Feedback2)
+                .HasForeignKey(e => e.Feedback_FID);
 
             modelBuilder.Entity<Hall>()
                 .HasMany(e => e.Booking_Details)
+                .WithOptional(e => e.Hall)
+                .HasForeignKey(e => e.Hall_FID);
+
+            modelBuilder.Entity<Hall>()
+                .HasMany(e => e.Feedbacks)
                 .WithOptional(e => e.Hall)
                 .HasForeignKey(e => e.Hall_FID);
 

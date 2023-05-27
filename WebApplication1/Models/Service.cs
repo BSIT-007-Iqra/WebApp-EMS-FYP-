@@ -31,9 +31,6 @@ namespace WebApplication1.Models
 
         public decimal? Service_Price { get; set; }
 
-        [NotMapped]
-         public int quantity { get; set; }
-
         public DateTime? Service_Date { get; set; }
 
         [StringLength(20)]

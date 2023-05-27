@@ -1,0 +1,86 @@
+﻿@using WebApplication1.Models;
+@using WebApplication1.Utils;
+@model WebApplication1.Models.Service
+@{
+    Model1 db = new Model1();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Search</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
+                    
+                    <a href="/home/Search">Search</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Banner Area -->
+<div class="container-fluid py-lg-4 py-md-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <h1 class="section-title-left mt-5" style="color: rgb(163, 141, 181); font-family: 'Baskerville Old Face'"> Search Result</h1>
+                @if (Model != null)
+                {
+                    <div class="col-lg-4 col-md-4 item mt-5 pt-lg-3" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+                        <div class="card">
+                            <div class="card-header p-0 position-relative">
+                                <div class="contain">
+                                    <a href="#blog-single">
+                                        <img class="card-img-bottom d-block radius-image image1 " src="@Url.Content(Model.Service_Picture)"
+                                             alt="Card image cap">
+
+                                    </a>
+                                    <div class="overlay">
+                                        <div class="text"><a class="btn primary-btn btn-lg" style="border-radius:20px" href="@Url.Action("Displaybooking", "Cart", new { id = Model.Service_ID })">Book No/w!</a></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body p-0 blog-details">
+                                <a href="@Url.Action("Services", "home", new { id = Model.Service_ID })" class="blog-desc">
+                                    @Model.Service_Name
+                                </a>
+
+                                <div class="author align-items-center mt-3 mb-1">
+                                    Category:<a href="#author">@Model.Sub_ServiceCategory.Sub_category_Name<small>(@Model.Sub_ServiceCategory.Service_Category.ServiceCategory_Name)</small></a>
+                                </div>
+                                <div class="author align-items-center mt-3 mb-1">
+                                    Event Organizer:<a href="#author">@Model.Event_Organizers.EventOrganizer_Name</a>
+                                </div>
+
+                                <ul class="blog-meta">
+                                    <li class="meta-item blog-lesson">
+                                        <span class="meta-value">@Model.Service_Date</span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <hr/>
+                    <center><h4>Nothing found related to this search.Please!try again!!!</h4></center>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+

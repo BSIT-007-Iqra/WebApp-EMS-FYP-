@@ -122,7 +122,7 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-   public ActionResult venue(int? id, Feedback feedback)
+   public ActionResult venue(int? id)
         {
             if (id != null)
             {
@@ -132,7 +132,7 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult venue(Feedback feedback)
+        public ActionResult VenueDetails(Feedback feedback)
         {
             if (BaseHelper.customer != null)
             {
@@ -160,18 +160,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-    public ActionResult Hall(int? id)
-        {
-
-            if (id != null)
-            {
-                ViewData["hallid"] = id;
-            }
-            List<Hall> li = db.Halls.OrderBy(x => x.Venue_FID).ToList();
-            
-            return View();
-            
-        }
+    
 
     
     public ActionResult Services(int? id)
@@ -183,9 +172,46 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-  public ActionResult Hall_Details(int id)
+        //HAll
+        public ActionResult Hall(int? id)
+        {
+
+            if (id != null)
+            {
+                ViewData["hallid"] = id;
+            }
+            List<Hall> li = db.Halls.OrderBy(x => x.Venue_FID).ToList();
+
+            return View();
+
+        }
+        public ActionResult Hall_Details(int id)
         {
             var query = db.Halls.Where(x => x.Hall_ID == id).FirstOrDefault();
+            return View(query);
+
+        }
+
+        [HttpPost]
+    public ActionResult Hall_Details(Feedback feedback)
+        {
+            if (BaseHelper.customer != null)
+            {
+
+                feedback.Feedback_Date = System.DateTime.Now;
+
+                feedback.Customer_FID = BaseHelper.customer.Customer_ID;
+
+                db.Feedbacks.Add(feedback);
+                db.SaveChanges();
+                TempData["ok"] = "Comment Posted!!";
+            }
+            else
+            {
+                TempData["ok"] = "Login into your account!!";
+            }
+            var query = db.Halls.Where(x => x.Hall_ID == feedback.Hall_FID).FirstOrDefault();
+
             return View(query);
 
         }

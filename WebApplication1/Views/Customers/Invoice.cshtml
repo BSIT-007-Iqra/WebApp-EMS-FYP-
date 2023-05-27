@@ -26,7 +26,7 @@
         }
     /* INVOICE CONF */
     .well.green {
-        background-color: deepskyblue;
+        background-color: #dedede;
         color: #fff;
         border: none;
     }
@@ -52,11 +52,22 @@
 
 
 <br />
-<nav id="breadcrumbs" class="breadcrumbs">
-    <div class="container page-wrapper">
-        <a href="@Url.Action("Index","Home")">Home</a> / Settings / Invoice</a>
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Invoice </h1>
+                <nav class="d-flex align-items-center">
+                    <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/Customers/Inovice">Invoice</a>
+
+                </nav>
+            </div>
+        </div>
     </div>
-</nav><br />
+</section>
+<!-- End Banner Area -->
 <section class="main-content">
     <section class="container py-lg-4 py-md-3">
 
@@ -67,31 +78,35 @@
                     <div id="printArea">
                         <table style="margin-left:40px">
                             <tr>
-                                <td width="33%" rowspan="3"><img src="@Url.Content(db.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" width="80" height="80" /><h2><b>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</b></h2></td>
-                                <td width="33%"></td>
+                                <td width="33%" rowspan="3"><img src="@Url.Content(db.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" width="50" height="50" />@*<h2><b>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</b></h2>*@</td>
+                                <td width="33%"></td><td width="33%"></td><td width="33%"></td>
                                 <td width="33%"><b>Email:</b>@db.Website_Details.Select(x => x.Website_Email).FirstOrDefault()</td>
                             </tr>
                             <tr>
 
-                                <td></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
                                 <td><b>Address:</b>@db.Website_Details.Select(x => x.Website_Address).FirstOrDefault()</td>
                             </tr>
                             <tr>
 
-                                <td></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
                                 <td><b>COntact:</b>@db.Website_Details.Select(x => x.Website_Contact).FirstOrDefault()</td>
                             </tr>
                         </table>
 
                         <div class="invoice-body">
                             <div class="pull-left" style="float:right">
-
-                                <a class="btn btn-info" id="btn1" href="/Readers/CustomerHistory/">Back to Orders list</a><br /><br /><br />
-
+                                <center>
+                                    <a class=" button btn-sm" id="btn1" href="/Customers/CustomerHistory/">Back to Bookings list</a><br /><br /><br />
+                                </center>
                             </div>
                             <!-- /pull-left -->
-                            <div class="pull-right">
-                                <br /><br /><br /><br /><h2><b>Invoice</b></h2>
+                            <div class="text-center">
+                                <br /><br /><hr /><h2><b>Invoice</b></h2><hr/>
                             </div>
                             <!-- /pull-right -->
                             <div class="clearfix"></div>
@@ -100,11 +115,11 @@
                             <br>
                             <div class="row">
                                 <div class="col-md-9">
-                                    <h3><b>To,@Model.Customer.Customer_Name</b></h3>
-                                    <address>
-                                        <strong>@Model.Customer.Customer_Email</strong><br>
-                                      
+                                    <h3><b>To,</b></h3><br />
 
+                                    <address>
+                                        <abbr>Nmae:</abbr>@Model.Customer.Customer_Name<br />
+                                        <abbr>Email:</abbr>@Model.Customer.Customer_Email<br />
                                         <abbr>Contact:</abbr> @Model.Customer.Customer_Contact
                                     </address>
                                 </div>
@@ -112,13 +127,13 @@
                                 <div class="col-md-3">
                                     <br>
                                     <div>
-                                        <div class="pull-left"> INVOICE ID : </div>
+                                        <div class="pull-left"> <b>Invoice ID :</b> </div>
                                         <div class="pull-right">@Model.Booking_ID </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div>
                                         <!-- /col-md-3 -->
-                                        <div class="pull-left"> INVOICE DATE : </div>
+                                        <div class="pull-left"><b>Invoice Date :</b>  </div>
                                         <div class="pull-right"> @Model.Event_Date.ToString("d") </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -132,11 +147,11 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class=""><b>Artifact Image</b></th>
-                                        <th class=""><b>Artifact Name</b></th>
-                                       
-                                        <th style="width:140px" class="text-right"><b> PRICE</b></th>
-                                        <th style="width:90px" class="text-right"><b>TOTAL</b></th>
+                                        <th class=""><b>Image</b></th>
+                                        <th class=""><b>Name</b></th>
+
+                                        <th style="width:140px" class="text-right"><b> Price</b></th>
+                                        <th style="width:90px" class="text-right"><b>Total</b></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -147,9 +162,17 @@
 
                                             <td class=""> <img height="100" width="90" src="@Url.Content(item.Hall.Hall_Picture)" /></td>
                                             <td class=""> @item.Hall.Hall_Name</td>
-                                           
+
                                             <td class="text-right">@item.Price</td>
-                                            <td class="text-right">@(item.Price ))</td>
+                                            <td class="text-right">@(item.Price )</td>
+                                        </tr>
+                                    <tr>
+
+                                            <td class=""> <img height="100" width="90" src="@Url.Content(item.Service.Service_Picture)" /></td>
+                                            <td class=""> @item.Service.Service_Name</td>
+
+                                            <td class="text-right">@item.Price</td>
+                                            <td class="text-right">@(item.Price )</td>
                                         </tr>
                                     }
 
@@ -159,8 +182,8 @@
 
                                     </tr>
                                     <tr>
-                                        <td class="text-right no-border"><strong><b>Shipping</b></strong></td>
-                                        <td class="text-right">Rs.200</td>
+                                        <td class="text-right no-border"><strong><b>Service Charges</b></strong></td>
+                                        <td class="text-right">Rs.100</td>
                                     </tr>
                                     <tr>
                                         <td class="text-right no-border"><strong><b>TAX Included in Total</b></strong></td>
@@ -170,7 +193,7 @@
                                         <td class="text-right no-border">
                                             <div class="well well-small darkcyan"><strong><b>Grand Total</b></strong></div>
                                         </td>
-                                        <td class="text-center" style="padding-top:22px"><strong><b>Rs.@(total+200)</b></strong></td>
+                                        <td class="text-center" style="padding-top:22px"><strong><b>Rs.@(total+100)</b></strong></td>
                                     </tr>
 
                                 </tbody>
@@ -191,7 +214,10 @@
 
     <!-- /wrapper -->
 </section>
-<br /><br /><br /><br />
+<br />
+<br />
+<br />
+<br />
 <script type="text/javascript">
     function PrintFunction() {
         var print = document.getElementById('printArea');

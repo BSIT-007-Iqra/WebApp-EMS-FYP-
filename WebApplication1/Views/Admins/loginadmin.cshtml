@@ -46,7 +46,7 @@
                             <input type="password" class="form-control" id="name" name="Admin_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <label><b style="color:red;font-size:20px">@ViewData["Message"]</b></label>
+                            <label><b style="color:red;font-size:20px">@ViewData["msg"]</b></label>
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
@@ -123,3 +123,6 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    window.onload = function () { window.scrollBy(0, 230); }
+</script>

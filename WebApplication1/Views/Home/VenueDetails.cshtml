@@ -1,21 +1,48 @@
 @model WebApplication1.Models.Venue
+@using WebApplication1.Utils
 @using WebApplication1.Models
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
+    int a = 0;
+
 }
 
+<style>
+    .reply1 {
+        margin-left: 1rem;
+        border: 1px solid #b08eac;
+        color: #b08eac;
+        border-radius: 20px 20px
+    }
 
+        .reply1:hover {
+            border: 1px solid #ffffff;
+            color: white;
+            background: #b08eac;
+        }
+
+    .link1 {
+        font-size: 30px;
+        color: #b08eac;
+        font-family: 'Cookie',Cursive;
+    }
+
+        .link1:hover {
+            font-size: 32px;
+            color: #4b3049;
+        }
+</style>
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
-                <h1>Product Details Page</h1>
+                <h1>Hall Details Page</h1>
                 <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="single-product.html">product-details</a>
+                    <a href="/home/index">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/home/Venue">Venue<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/home/VenueDetails">Venue-details</a>
                 </nav>
             </div>
         </div>
@@ -25,66 +52,77 @@
 <!--================Single Product Area =================-->
 <div class="product_image_area">
     <div class="container">
+        <div>
+            <div class="single-prd-item">
 
-        <!--<div class="row s_product_inner">
-            <div class="col-lg-6">
-                <div class="s_Product_carousel">
-                    <div class="single-prd-item">
-                        <img class="img-fluid" src="Url.Content(Model.Venue_Picture1)" alt="">
-                    </div>
-                    <div class="single-prd-item">
-                        <img class="img-fluid" src="Url.Content(Model.Venue_Picture2)" alt="">
-                    </div>
-                    <div class="single-prd-item">
-                        <img class="img-fluid" src="Url.Content(Model.Venue_Picture3)" alt="">
-                    </div>
+                <h1 style="color: #4b3049; font-family: poppins,sans-serif; font-style: normal"><i class="fa fa-home" style="color: #dec08e; margin-right: 20px"></i>@Model.Venue_Name</h1>
 
-                </div>
+                <i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d; "></i>
+                <span>
+                    ( @Model.Feedbacks.Count())
+                </span>
+                <span style="color: #4b3049; font-family: poppins,sans-serif;"><i class="fa fa-map" style="margin:0px 10px"></i>@Model.Venue_Location</span>
+                <hr />
+            </div>
+        </div>
+        <div class="row s_product_inner" style="border:dashed;border-color:#dec08e ;background:#e5e5e5 ;padding:20px 20px ">
+            <div class="container-fluid"><h4 style="color: #4b3049; font-family: poppins,sans-serif; font-style: normal; font-weight: bold">Details</h4></div>
+            <hr />
+            <br /><br />
+            <div class="col-lg-3 col-sm-3 offset-lg-0">
+
+                <p style="font-style: normal; font-family: poppins,sans-serif; color: black; font-weight: bold"><i class="fa fa-home" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Venue Name</p> <h6 style=" margin-left: 20px; font-style: normal; font-family: poppins,sans-serif;font-size:smaller">@Model.Venue_Name</h6>
+                <br />
+                <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-rupee" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Price</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Venue_Price</h6>
+                <br />
+                <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-envelope" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Email</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Venue_Email</h6>
+                <br />
+                
+
+                <br />
                 <div>
-                    <p>
-                        <h4>Summary</h4>
-                        @Model.Venue_Details
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-5 offset-lg-1">
-                <div class="s_product_text">
-                    <h1>@Model.Venue_Name</h1>
-
-                    <h3 style="color: #4b3049">Rs @Model.Venue_Price</h3>
-                    <br/>
-                    <ul class="list">
-                        <li><a class="active" href="#"><span style="font-size:medium;cursor:default">Email</span>@Model.Venue_Email </a></li>
-                        <li><a class="active" href="#"><span style="font-size: medium; cursor: default">Location</span>@Model.Venue_Location </a></li>
-
-                    </ul>
-
                     <div>
-                    <br/>
-                       <br/>
-                        <hr/>
-                    </div>-->                    @*<div class="product_count">
-            <label for="qty">Quantity:</label>
-            <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                    class="increase items-count" type="button">
-                <i class="lnr lnr-chevron-up"></i>
-            </button>
-            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                    class="reduced items-count" type="button">
-                <i class="lnr lnr-chevron-down"></i>
-            </button>
-        </div>*@
-                    <!--<div class="card_area d-flex align-items-center">
-                        <a class="primary-btn" href="#">Book Now!</a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                     </div>
+
                 </div>
             </div>
-        </div>-->
+            <div class="col-lg-3 col-sm-3 offset-lg-0">
+                <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-phone" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Contact</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Venue_Contact</h6>
+                <br />
+                <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-map-marker" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Cancellation policy</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Venue_Location</h6>
+                <br />
+             
+                <br />
+              <div>
+                    <br />
+
+                </div>
+
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <div class="s_Product_carousel" style="border-radius: 10px 10px; box-shadow: 0 4px 4px 0 #808080;">
+
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="@Url.Content(Model.Venue_Picture)" alt="image/">
+                    </div>
+                    
+                
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="@Url.Content(Model.Venue_Picture)" alt="image/">
+                    </div>
+                    
+                
+                    <div class="single-prd-item">
+                        <img class="img-fluid" src="@Url.Content(Model.Venue_Picture)" alt="image/">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
 <!--================End Single Product Area =================-->
 <!--================Product Description Area =================-->
 <section class="product_description_area">
@@ -93,7 +131,7 @@
             <li class="nav-item">
                 <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
             </li>
-            
+
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
                    aria-selected="false">Comments</a>
@@ -106,473 +144,190 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <p>
-                    Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                    and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                    Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                    London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                    officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                    job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                    showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                    child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                    half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                    named ‘Hangover’ by Beryl’s husband and
+                    @Model.Venue_Details
                 </p>
                 <p>
-                    It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                    more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                    the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                    more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                    streamlined plan of cooking that is more efficient for one person creating less
+                   
                 </p>
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="table-responsive">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h5>Width</h5>
-                                </td>
-                                <td>
-                                    <h5>128mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Height</h5>
-                                </td>
-                                <td>
-                                    <h5>508mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Depth</h5>
-                                </td>
-                                <td>
-                                    <h5>85mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Weight</h5>
-                                </td>
-                                <td>
-                                    <h5>52gm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Quality checking</h5>
-                                </td>
-                                <td>
-                                    <h5>yes</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Freshness Duration</h5>
-                                </td>
-                                <td>
-                                    <h5>03days</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>When packeting</h5>
-                                </td>
-                                <td>
-                                    <h5>Without touch of hand</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Each Box contains</h5>
-                                </td>
-                                <td>
-                                    <h5>60pcs</h5>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="comment_list">
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Content/Event/img/product/review-1.png" alt="">
+
+                <div class="container py-lg-4 py-md-3">
+                    <div class="row">
+                        <div class="col-lg-12 trending">
+                            <h3 class="section-title-left"><b style="color: #4b3049; font-family: 'Baskerville Old Face'">Comment</b></h3>
+
+                            <div class="col-lg-12 trending">
+
+                                @if (BaseHelper.customer == null)
+                                {
+                                    <p style="padding-left:5rem;color:#4b3049">
+                                        You must <button type="button" class="btn btn-link link1" id="btnLink">Login</button> OR
+                                        <button type="button" class="btn btn-link link1" id="btnLink1">Register</button>  to post a Comment.
+                                    </p>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <h4 style="color:#b08eac"><b>Leave a Reply</b></h4>
+                                        <form action="/Home/VenueDetails" method="post">
+                                            <label>@TempData["ok"]</label>
+                                            <p>Logged in as @BaseHelper.customer.Customer_Name<a class="btn btn-link button" href="@Url.Action("logout","Customers")">Log out?</a></p>
+                                            <input type="hidden" value="@Model.Venue_ID" name="Venue_FID" />
+                                            <textarea name="Feedback_Description" style="height:100px;max-height:auto;width:600px" placeholder="Comment"></textarea><br />
+                                            <button class="btn primary-btn" style="float:left" type="submit">Post Comment</button>
+                                        </form>
                                     </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
+                                }
+
                             </div>
-                            <div class="review_item reply">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Content/Event/img/product/review-2.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Content/Event/img/product/review-3.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="review_box">
-                            <h4>Post a comment</h4>
-                            <form class="row contact_form" action="https://themewagon.github.io/karma/contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
+
+
             </div>
             <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="row total_rate">
-                            <div class="col-6">
-                                <div class="box_total">
-                                    <h5>Overall</h5>
-                                    <h4>4.0</h4>
-                                    <h6>(03 Reviews)</h6>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="rating_list">
-                                    <h3>Based on 3 Reviews</h3>
-                                    <ul class="list">
-                                        <li>
-                                            <a href="#">
-                                                5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review_list">
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Content/Event/img/product/review-1.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Content/Event/img/product/review-2.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                <div class="container py-lg-4 py-md-3">
+                    <div class="row">
+                        <div class="col-lg-8 trending mt-lg-0 mt-3 mb-lg-3">
+
+                            <h3 class="col-lg-12" style="color: darkcyan; font-family: 'Baskerville Old Face'"><b>Reviews</b></h3>
+
+                            @foreach (var item in db.Feedbacks.Where(x => x.Venue_FID == Model.Venue_ID && x.Feedback_FID == null && x.Service_FID == null && x.Hall_FID == null).Take(4))
+                            {
+                                a++;
+                                <div class="notification_wrap">
+
+                                    <div class="dropdown" style="width:500px;float:right;">
+                                        <div class="notify_item" style="border-bottom:none">
+                                            <div class="container-fluid">
+                                                <div class="notify_img" style="border:none; padding: 10px 10px; text-align: center;">
+                                                    <img src="@Url.Content(item.Customer.Customer_Picture)" alt="" style="width: 100px;height:100px; border-radius:50%"><br />
+                                                    <span class="notify_time">@item.Customer.Customer_Name</span>
+                                                    <small class="notify_time">@Html.DisplayFor(modelItem => item.Feedback_Date)</small>
+                                                </div>
+                                                <div class="notify_info">
+                                                    <h3 style="border: 1px solid #b08ead; padding: 10px 10px; text-align: center;">@Html.DisplayFor(modelItem => item.Feedback_Description)<a data-toggle="collapse" href="#formlogin_@a" role="button" class="fa fa-reply btn-sm reply1">Reply</a></h3>
+
+
+                                                    <form class="mt-3 collapse review-form-box" id="formlogin_@a" action="/Home/Hall_Details" method="post">
+                                                        <label>@TempData["ok"]</label>
+
+
+                                                        <input type="hidden" value="@Model.Venue_ID" name="Venue_FID" />
+                                                        <input type="hidden" value="@item.Feedback_ID" name="Feedback_FID" />
+                                                        <textarea name="Feedback_Description" style="height:50px;max-height:auto;width:300px" placeholder="Comment"></textarea><br />
+                                                        <button class="btn primary-btn btn-sm" style="float:left" type="submit">Post Comment</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @foreach (var reply in db.Feedbacks.Where(x => x.Venue_FID == Model.Venue_ID && x.Feedback_FID == item.Feedback_ID).OrderByDescending(x => x.Feedback_Date))
+                                        {
+
+
+
+                                            <div class="notify_item ml-3" style="border-bottom:none">
+                                                <div class="notify_img">
+                                                    <img src="@Url.Content(reply.Customer.Customer_Picture)" alt="" style="width: 60px;height:60px; border-radius:50px;position:relative"><br />
+                                                </div>
+                                                <div class="notify_info">
+                                                    <span class="notify_time">
+                                                        @reply.Customer.Customer_Name
+                                                    </span>
+                                                    <p>@reply.Feedback_Description</p>
+
+                                                    <span class="notify_time">@reply.Feedback_Date</span>
+
+
+                                                </div>
+
+                                            </div>
+
+
+                                        }
+
                                     </div>
                                 </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/Content/Event/img/product/review-3.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="review_box">
-                            <h4>Add a Review</h4>
-                            <p>Your Rating:</p>
-                            <ul class="list">
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            </ul>
-                            <p>Outstanding</p>
-                            <form class="row contact_form" action="https://themewagon.github.io/karma/contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="primary-btn">Submit Now</button>
-                                </div>
-                            </form>
+                            }
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 </section>
+
+
 <!--================End Product Description Area =================-->
-<!-- Start related-product Area -->
-<!--<section class="related-product-area section_gap_bottom">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h1>Deals of the Week</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                </div>
+<!-- pop up model -->
+<div class="modal fade" id="ModalPopUp" role="dialog">
+    <div class="modal-dialog err-pop" style="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="DivClose" type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r1.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r2.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r3.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r5.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r6.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r7.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r9.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r10.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/Content/Event/img/r11.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="ctg-right">
-                    <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="~/Content/Event/img/category/c5.jpg" alt="">
-                    </a>
-                </div>
+            <div class="modal-body" style="text-align:center; color:black">
+                Click here to Log into your account.
+                <a class="btn btn-info" style="border-radius:30px;" href="@Url.Action("loginuser","Customers")">Login!</a>
             </div>
         </div>
     </div>
-</section>-->
-<!-- End related-product Area -->
+</div>
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
+<script>
+    $("#btnLink").click(function () {
+        $('#ModalPopUp').modal('show');
+    })
+</script>
+<!-- pop up model2 -->
+<div class="modal fade" id="ModalPopUp1" role="dialog">
+    <div class="modal-dialog err-pop" style="">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="DivClose" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center; color:black">
+                Click here to create a new account and become member with us.
+                <a class="btn btn-info" style="border-radius:30px;" href="@Url.Action("Create","Customers")">SignUp NOW!</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
+<script>
+    $("#btnLink1").click(function () {
+        $('#ModalPopUp1').modal('show');
+    })
+</script>
+<!-- //pop up model -->
+<!-- //NOT premium model -->
+@if (TempData["new"] != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                $("#lblError").html('@Html.Raw(TempData["new"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+<script type="text/javascript">
+    // Popup window code
+    function newPopup(url) {
+        popupWindow = window.open(
+            url, 'popUpWindow', 'height=400,width=700,left=100px,top=100px,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+    }
+</script>

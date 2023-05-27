@@ -5,27 +5,7 @@
     int? ordercount = db.Bookings.Where(x => x.Booking_Status== "Booked").Count();
     int? proceedcount = db.Bookings.Where(x => x.Booking_Status == "Proceed").Count();
 }
-<style>
-    .text-themecolor {
-        color: #745871 !important;
-    }
-    .sidebar-nav > ul > li.active > a i {
-        color: #b08ead;
-    }
-    .sidebar-nav ul li a.active i, .sidebar-nav ul li a:hover i {
-        color: #b08ead;
-    }
-    .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover {
-        color: #b08ead;
-    }
-.sidebar-nav ul li a {
-    color: #b08ead;
-    padding: 10px 35px 10px 15px;
-    display: block;
-    font-size: 15px;
-    font-weight: 400;
-}
-</style>
+
 <!DOCTYPE html>
     <html lang="en">
 
@@ -37,7 +17,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/Admin/assets/images/favicon.png">
+        <!-- Favicon-->
+        <link rel="icon" type="image/png" sizes="16x16" href="~/Content/AdminPicture/logo1.ico">
         <title>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault() Admin </title>
         <!-- Bootstrap Core CSS -->
         <link href="~/Content/Admin/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -64,12 +45,92 @@
         @RenderSection("head", required: false)
         <style>
             .text-themecolor {
-                color: #b08ead !important;
+                color: #ac77a7 !important;
                 font-size: x-large;
                 font-weight: 600;
             }
+
+            .sidebar-nav > ul > li.active > a i {
+                color: #ac77a7;
+            }
+
             .sidebar-nav ul li a.active i, .sidebar-nav ul li a:hover i {
-                color: #b08ead;
+                color: #4B3047;
+            }
+
+            .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover {
+                color: #4B3047;
+            }
+
+            .sidebar-nav ul li a {
+                color: #ac77a7 !important;
+                padding: 10px 35px 10px 15px;
+                display: block;
+                font-size: 15px;
+                font-weight: 400;
+            }
+                .sidebar-nav ul li a:hover {
+                    color: #4B3047 !important;
+                    
+                    font-weight: 500;
+                }
+            .new1 {
+                color: #dec08e;
+
+            }
+            .new1:hover{
+                color:#d8ba89;
+            }
+            .primary-btn {
+                position: relative;
+                overflow: hidden;
+                color: #fff;
+                padding: 0 30px;
+                line-height: 50px;
+                border-radius: 50px;
+                display: inline-block;
+                text-transform: capitalize;
+                font-weight: 500;
+                cursor: pointer;
+                border: none;
+                background: linear-gradient(90deg, #B08EAD 60%, #4B3049 100%, #B08EAD 50%);
+                -webkit-transition: all 0.3s ease 0s;
+                -moz-transition: all 0.3s ease 0s;
+                -o-transition: all 0.3s ease 0s;
+                transition: all 0.3s ease 0s;
+            }
+                .primary-btn:is(:hover) {
+                    color:white;
+                    font-weight:bold;
+                }
+
+            element.style {
+            }
+
+            .table td, .table th {
+                border: 1px solid #e9edf2;
+                box-shadow: 3px 5px 5px #888888;
+            }
+
+            .table td, .table th {
+                padding: 0.75rem;
+                vertical-align: top;
+                font-family:poppins,sans-serif;
+            }
+            .b1 {
+                font-weight:bold;color:black;
+            }
+            .li1 {
+                font-family: poppins,sans-serif;
+                font-size: medium;
+                color: #ac77a7;
+            }
+            .p1 {
+                color: #4b3049;
+                font-family: poppins,sans-serif;
+                font-style: normal;
+                font-weight: bold;
+                font-size: medium;
             }
         </style>
     </head>
@@ -96,24 +157,20 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-header">
+                    <div class="navbar-header container">
                         <a class="navbar-brand" href="@Url.Action("Indexadmin","Home")">
-                            <!-- Logo icon --><b>
+                            <!-- Logo icon --><div >
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                 <!-- Dark Logo icon -->
-                                <img src="~/Content/Admin/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="dark-logo" sizes="16x16"/>
                                 <!-- Light Logo icon -->
-                                <img src="~/Content/Admin/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                            </b>
+                                <!--<img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="light-logo" sizes="50x50"/>-->
+                            </div>
                             <!--End Logo icon -->
-                            <!-- Logo text --><span>
-                                <!-- dark Logo text -->
-                                <img src="~/Content/Admin/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                                <!-- Light Logo text -->
-                                <img src="~/Content/Admin/assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                            </span>
+                            
                         </a>
                     </div>
+                    <hr/>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -123,13 +180,13 @@
                         <!-- ============================================================== -->
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="~/Content/Admin/javascript:void(0)"><i class="fa fa-bars"></i></a>
+                                <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-bars ti-close"></i></a>
                             </li>
                             <!-- ============================================================== -->
                             <!-- Search -->
                             <!-- ============================================================== -->
                             <li class="nav-item hidden-xs-down search-box">
-                                <a class="nav-link hidden-sm-down waves-effect waves-dark" href="~/Content/Admin/javascript:void(0)"><i class="fa fa-search"></i></a>
+                                <a class="nav-link hidden-sm-down waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-search"></i></a>
                                 <form class="app-search">
                                     <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="fa fa-times"></i></a>
                                 </form>
@@ -158,46 +215,138 @@
             <!-- ============================================================== -->
             <!-- Left Sidebar - style you can find in sidebar.scss  -->
             <!-- ============================================================== -->
-            <aside class="left-sidebar">
+            <aside class="left-sidebar"  >
                 <!-- Sidebar scroll-->
                 <div class="scroll-sidebar">
                     <!-- Sidebar navigation-->
-                    <nav class="sidebar-nav">
+                    <nav class="sidebar-nav" style="margin-top:2.5rem ">
                         <ul id="sidebarnav">
                             <li>
-                                <a class="waves-effect waves-dark" href="/Home/indexadmin" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
+                                <a class="waves-effect waves-dark" href="/Home/indexadmin" aria-expanded="false"><i class="fa fa-tachometer new1"></i><span class="hide-menu">Dashboard</span></a>
                             </li>
                             <li>
-                                <a class="waves-effect waves-dark" href="/Roles/Index" aria-expanded="false"><i class="fa fa-group"></i><span class="hide-menu"><small>Manage Roles(Accesslevel)</small></span></a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="/Admins/Index" aria-expanded="false"><i class="fa fa-cloud"></i><span class="hide-menu">Manage Admins</span></a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="/AdminProfile/ProfileIndex" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Manage Profile</span></a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="/Venues/Index" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Manage Venues</span></a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="/Website_Details/Index" aria-expanded="false"><i class="fa fa-globe"></i><span class="hide-menu">Manage Website</span></a>
+                                <a class="waves-effect waves-dark" href="/Venues/Index" aria-expanded="false"><i class="fa fa-home new1"></i><span class="hide-menu">Manage Venues</span></a>
                             </li>
 
                             <li>
-                                <a class="waves-effect waves-dark" href="/Halls/Index" aria-expanded="false"><i class="fa fa-smile-o"></i><span class="hide-menu">Manage Hall</span></a>
+                                <a class="waves-effect waves-dark" href="/Halls/Index" aria-expanded="false"><i class="fa fa-hotel new1" ></i><span class="hide-menu">Manage Hall</span></a>
                             </li>
                             <li>
-                                <a class="waves-effect waves-dark" href="/Services/Index" aria-expanded="false"><i class="fa fa-globe"></i><span class="hide-menu">Service</span></a>
+                                <a class="waves-effect waves-dark" href="/Website_Details/Index" aria-expanded="false"><i class="fa fa-globe new1"></i><span class="hide-menu">Manage Website</span></a>
                             </li>
                             <li>
-                                <a class="waves-effect waves-dark" href="/Sub_ServiceCategory/Index" aria-expanded="false"><i class="fa fa-bookmark-o"></i><span class="hide-menu">Sub_Service</span></a>
+                                <a href="">
+                                    <i class="fa fa-tasks"></i>
+                                    <span>Manage Admins</span>
+                                </a>
+                                <ul id="sidebarnav">
+
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="/Roles/Index" aria-expanded="false">
+                                            <i class="fa fa-group new1"></i><span class="hide-menu">Manage Roles</span>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="/Admins/Index" aria-expanded="false">
+                                            <i class="fa fa-user-plus new1"></i><span class="hide-menu">Manage Admins</span>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="/AdminProfile/ProfileIndex" aria-expanded="false">
+                                            <i class="fa fa-user-circle-o new1"></i><span class="hide-menu">Manage Profile</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-tasks"></i>
+                                    <span>Manage Services</span>
+                                </a>
+                                <ul id="sidebarnav">
+
+                                    @*<li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("IndexOrganizer","Event_Organizers")" aria-expanded="false">
+                                            <i class="fa fa-user new1"></i><span class="hide-menu"> Writers</span>
+                                        </a>
+                                    </li>*@
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Service_Category")" aria-expanded="false">
+                                            <i class="fa fa-bars new1"></i><span class="hide-menu"> Category</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Sub_ServiceCategories")" aria-expanded="false">
+                                            <i class="fa fa-bars new1" ></i><span class="hide-menu"> Sub Category</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Services")" aria-expanded="false">
+                                            <i class="fa fa-solid fa-cubes new1"></i><span class="hide-menu"> Services</span>
+                                        </a>
+                                    </li>
+                                    @*<li>
+                    <a class="waves-effect waves-dark" href="@Url.Action("Index","SalaryRates")" aria-expanded="false">
+                        <i class="fa fa-money"></i><span class="hide-menu"> Salary Rates </span>
+                    </a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-dark" href="@Url.Action("Index","Premiums")" aria-expanded="false">
+                        <i class="fa fa-solid fa-cubes"></i><span class="hide-menu"> Packages</span>
+                    </a>
+                </li>*@
+                                </ul>
                             </li>
                             <li>
-                                <a class="waves-effect waves-dark" href="/Service_Category/Index" aria-expanded="false"><i class="fa fa-question-circle"></i><span class="hide-menu">Category</span></a>
+                                <a href="">
+                                    <i class="fa fa-tasks"></i>
+                                    <span>Manage Bookings</span>
+                                </a>
+                                <ul id="sidebarnav">
+
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="/BookingReports/NewBookings" aria-expanded="false">
+                                            <i class="fa fa-table new1"></i><span class="hide-menu">New Bookings</span><small>(@ordercount)</small>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="/BookingReports/NextProceedBooking" aria-expanded="false">
+                                            <i class="fa fa-table new1"></i><span class="hide-menu">Proceed Bookings</span><small>(@proceedcount)</small>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+                            @*<li>
+                                <a href="">
+                                    <i class="fa fa-tasks"></i>
+                                    <span>Manage Reports</span>
+                                </a>
+                                <ul id="sidebarnav">
+
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("SaleReport","OrdersReports")" aria-expanded="false">
+                                            <i class="fa fa-file-pdf-o new1"></i><span class="hide-menu"> Sale Report </span>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("PurchaseReport","OrdersReports")" aria-expanded="false">
+                                            <i class="fa fa-file-archive-o new1"></i><span class="hide-menu"> Purchase Report </span>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("ProfitLoss","OrdersReports")" aria-expanded="false">
+                                            <i class="fa fa-file-text new1"></i><span class="hide-menu"> Profit&Loss Report </span>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("StockReport","OrdersReports")" aria-expanded="false">
+                                            <i class="fa fa-file-text-o new1"></i><span class="hide-menu"> Stock Report </span>
+                                        </a>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("ViewReport","OrdersReports")" aria-expanded="false">
+                                            <i class="fa fa-file new1"></i><span class="hide-menu"> Views Report </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>*@
+                            <li>
+                                <a class="waves-effect waves-dark" href="@Url.Action("SendEmail","Admins")" aria-expanded="false">
+                                    <i class="fa fa-envelope new1"></i><span class="hide-menu">Email</span>
+                                </a>
+                            </li>
+
+
                             <li>
                                 <a class="waves-effect waves-dark" href="@Url.Action("logout","Admins")" aria-expanded="false">
-                                    <i class="fa fa-sign-out"></i><span class="hide-menu" style="color:mediumpurple">Logout</span>
+                                    <i class="fa fa-sign-out new1"></i><span class="hide-menu"><b style="color:#745871">Logout</b></span>
                                 </a>
                             </li>
 
