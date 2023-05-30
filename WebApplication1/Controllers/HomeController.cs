@@ -1,4 +1,5 @@
-﻿using NuGet.Protocol.Core.Types;
+﻿using Newtonsoft.Json;
+using NuGet.Protocol.Core.Types;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,8 +11,10 @@ using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using WebApplication1.Models;
 using WebApplication1.Utils;
+using static Dropbox.Api.TeamLog.SharedLinkAccessLevel;
 
 namespace WebApplication1.Controllers
 {
@@ -20,44 +23,31 @@ namespace WebApplication1.Controllers
         Model1 db = new Model1();
         public ActionResult index()
         {
-            
+
             return View();
         }
-
-         public ActionResult indexadmin()
+        public ActionResult indexadmin()
         {
-            //if (BaseHelper.Admin == null)
-            //    RedirectToAction("Loginadmin", "Admins");
-            //else { 
-            //try
-            //{
-            //    TempData["success"] = "welcome " + BaseHelper.Admin.Admin_Name + " into your dashboard ";
-
-            //}
-            //catch (Exception)
-            //{
-            //   TempData["error"] = "Your Account has not been active right now \n Please contact Admin.";
-                
-            //}
-            //}
+            if (BaseHelper.Admin == null)
+                RedirectToAction("Loginadmin", "Admins");
+            TempData["success"] = "Welcome ☺ " + BaseHelper.Admin.Admin_Name + " into your dashboard ";
             return View();
-
         }
 
         public ActionResult about()
         {
-            
+
             return View();
         }
         public ActionResult servicecategory()
         {
-            
+
             return View();
         }
-        
+
         public ActionResult contact()
         {
-          
+
             return View();
         }
         [HttpPost]
@@ -98,39 +88,63 @@ namespace WebApplication1.Controllers
             return View();
 
         }
-        public ActionResult tracking()
+        public ActionResult Foodleftover()
         {
-           
+            //if (BaseHelper.customer == null)
+            //{
+            //    TempData["new"] = "Login into your account OR Register Account";
+            //}
 
             return View();
         }
-    public ActionResult blog()
+        [HttpPost]
+        public ActionResult Foodleftover(FoodLeftover foodLeftover)
         {
-           
+            if (ModelState.IsValid)
+            {
+               
+                    foodLeftover.Date = System.DateTime.Now;
+                   
+                    foodLeftover.Customer_FID = BaseHelper.customer.Customer_ID;
+
+                    db.FoodLeftovers.Add(foodLeftover);
+                    db.SaveChanges();
+                    TempData["ok"] = "Request Received!!";
+                }
+                else
+                {
+                    TempData["ok"] = "Login into your account first!!";
+                }
+            
+            MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Request Confirmation", "Your Request has been received and will be contact within 3 working days\n Regards: EMS <br /> Thanks");
+
+
+            return RedirectToAction("index","home");
+        }
+        public ActionResult blog()
+        {
+
 
             return View();
         }
-    public ActionResult VenueDetails(int id)
-        {
-            var query = db.Venues.Where(x => x.Venue_ID == id).FirstOrDefault();
-            return View(query);
-        }
-        
-   public ActionResult single()
-        {
-           
-
-            return View();
-        }
-   public ActionResult venue(int? id)
+       
+        public ActionResult venue(int? id)
         {
             if (id != null)
             {
                 ViewData["veuneid"] = id;
-           }
+            }
             
             return View();
         }
+
+        public ActionResult VenueDetails(int id)
+        {
+            var query = db.Venues.Where(x => x.Venue_ID == id).FirstOrDefault();
+            return View(query);
+        }
+
+
         [HttpPost]
         public ActionResult VenueDetails(Feedback feedback)
         {
@@ -153,24 +167,38 @@ namespace WebApplication1.Controllers
 
             return View(query);
         }
-        public ActionResult self_caterings()
-        {
-           
+       
 
-            return View();
+        public string GetService()
+        {
+            List<Service> li = db.Services.OrderBy(x => x.Service_ID).ToList();
+            var json = JsonConvert.SerializeObject(li);
+            return json;
+
         }
 
-    
 
-    
-    public ActionResult Services(int? id)
+        public ActionResult Services(int? id, int? page)
         {
             if (id != null)
             {
                 ViewData["serviceid"] = id;
+                //ViewBag.msg = "ok";
             }
+            var pagesize = 10;
+            var liststart = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name.Contains("Cuisine")).OrderByDescending(x => x.Service_Date).Skip(0).Take(pagesize);
+            if (page != null && id == null)
+            {
+                liststart = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name.Contains("Cuisine")).OrderByDescending(x => x.Service_Date).Skip(((int)page - 1) * pagesize).Take(pagesize);
+                return View(liststart);
+            }
+            if (page != null && id != null)
+            {
+                liststart = db.Services.Where(x => x.SubCategory_FID == id).OrderByDescending(x => x.Service_Date).Skip(((int)page - 1) * pagesize).Take(pagesize);
+                return View(liststart);
+            }
+            return View(liststart);
 
-            return View();
         }
         //HAll
         public ActionResult Hall(int? id)
@@ -193,7 +221,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-    public ActionResult Hall_Details(Feedback feedback)
+        public ActionResult Hall_Details(Feedback feedback)
         {
             if (BaseHelper.customer != null)
             {
@@ -215,29 +243,53 @@ namespace WebApplication1.Controllers
             return View(query);
 
         }
-    public ActionResult Service_Details(int id)
+        public ActionResult Service_Details(int id)
         {
             var query = db.Services.Where(x => x.Service_ID == id).FirstOrDefault();
             return View(query);
 
         }
-    public ActionResult Booking()
+
+        [HttpPost]
+        public ActionResult Service_Details(Feedback feedback)
         {
-           
+            if (BaseHelper.customer != null)
+            {
+
+                feedback.Feedback_Date = System.DateTime.Now;
+
+                feedback.Customer_FID = BaseHelper.customer.Customer_ID;
+
+                db.Feedbacks.Add(feedback);
+                db.SaveChanges();
+                TempData["ok"] = "Comment Posted!!";
+            }
+            else
+            {
+                TempData["ok"] = "Login into your account!!";
+            }
+            var query = db.Services.Where(x => x.Service_ID == feedback.Service_FID).FirstOrDefault();
+
+            return View(query);
+
+        }
+        public ActionResult Booking()
+        {
+
 
             return View();
         }
-    public ActionResult my_account()
+        public ActionResult my_account()
         {
-           
+
 
             return View();
         }
-   
-        
+
+
         public ActionResult confirmation()
         {
-           
+
 
             return View();
         }
@@ -253,7 +305,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult Search(string tags)
         {
-            var art = db.Services.Where(x => x.Service_Name== tags).FirstOrDefault();
+            var art = db.Services.Where(x => x.Service_Name == tags).FirstOrDefault();
             return View(art);
         }
 

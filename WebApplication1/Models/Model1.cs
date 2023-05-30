@@ -18,6 +18,7 @@ namespace WebApplication1.Models
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Event_Organizers> Event_Organizers { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<FoodLeftover> FoodLeftovers { get; set; }
         public virtual DbSet<Hall> Halls { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Package> Packages { get; set; }
@@ -38,8 +39,9 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Booking>()
                 .HasMany(e => e.Booking_Details)
-                .WithOptional(e => e.Booking)
-                .HasForeignKey(e => e.Booking_FID);
+                .WithRequired(e => e.Booking)
+                .HasForeignKey(e => e.Booking_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Bookings)
@@ -53,19 +55,27 @@ namespace WebApplication1.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Customer>()
-                .HasMany(e => e.Views)
+                .HasMany(e => e.FoodLeftovers)
                 .WithOptional(e => e.Customer)
                 .HasForeignKey(e => e.Customer_FID);
 
+            modelBuilder.Entity<Customer>()
+                .HasMany(e => e.Views)
+                .WithRequired(e => e.Customer)
+                .HasForeignKey(e => e.Customer_FID)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Event_Organizers>()
                 .HasMany(e => e.Notifications)
-                .WithOptional(e => e.Event_Organizers)
-                .HasForeignKey(e => e.EventOrganizers_FID);
+                .WithRequired(e => e.Event_Organizers)
+                .HasForeignKey(e => e.EventOrganizers_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Event_Organizers>()
                 .HasMany(e => e.Services)
-                .WithOptional(e => e.Event_Organizers)
-                .HasForeignKey(e => e.Organizer_FID);
+                .WithRequired(e => e.Event_Organizers)
+                .HasForeignKey(e => e.Organizer_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Feedback>()
                 .HasMany(e => e.Feedback1)
@@ -74,8 +84,9 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Hall>()
                 .HasMany(e => e.Booking_Details)
-                .WithOptional(e => e.Hall)
-                .HasForeignKey(e => e.Hall_FID);
+                .WithRequired(e => e.Hall)
+                .HasForeignKey(e => e.Hall_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Hall>()
                 .HasMany(e => e.Feedbacks)
@@ -83,13 +94,21 @@ namespace WebApplication1.Models
                 .HasForeignKey(e => e.Hall_FID);
 
             modelBuilder.Entity<Hall>()
-                .HasMany(e => e.Views)
-                .WithOptional(e => e.Hall)
-                .HasForeignKey(e => e.Hall_FID);
+                .HasMany(e => e.Packages)
+                .WithRequired(e => e.Hall)
+                .HasForeignKey(e => e.Hall_FID)
+                .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Role>()
-                .Property(e => e.Role_Name)
-                .IsFixedLength();
+            modelBuilder.Entity<Hall>()
+                .HasMany(e => e.Views)
+                .WithRequired(e => e.Hall)
+                .HasForeignKey(e => e.Hall_FID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Package>()
+                .HasMany(e => e.Booking_Details)
+                .WithOptional(e => e.Package)
+                .HasForeignKey(e => e.Package_FID);
 
             modelBuilder.Entity<Role>()
                 .HasMany(e => e.Admins)
@@ -98,8 +117,9 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Service>()
                 .HasMany(e => e.Booking_Details)
-                .WithOptional(e => e.Service)
-                .HasForeignKey(e => e.Service_FID);
+                .WithRequired(e => e.Service)
+                .HasForeignKey(e => e.Service_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Service>()
                 .HasMany(e => e.Feedbacks)
@@ -107,19 +127,33 @@ namespace WebApplication1.Models
                 .HasForeignKey(e => e.Service_FID);
 
             modelBuilder.Entity<Service>()
-                .HasMany(e => e.Views)
+                .HasMany(e => e.Halls)
                 .WithOptional(e => e.Service)
                 .HasForeignKey(e => e.Service_FID);
 
+            modelBuilder.Entity<Service>()
+                .HasMany(e => e.Packages)
+                .WithRequired(e => e.Service)
+                .HasForeignKey(e => e.Service_FID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Service>()
+                .HasMany(e => e.Views)
+                .WithRequired(e => e.Service)
+                .HasForeignKey(e => e.Service_FID)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Service_Category>()
                 .HasMany(e => e.Sub_ServiceCategory)
-                .WithOptional(e => e.Service_Category)
-                .HasForeignKey(e => e.Service_Category_FID);
+                .WithRequired(e => e.Service_Category)
+                .HasForeignKey(e => e.Service_Category_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Sub_ServiceCategory>()
                 .HasMany(e => e.Services)
-                .WithOptional(e => e.Sub_ServiceCategory)
-                .HasForeignKey(e => e.SubCategory_FID);
+                .WithRequired(e => e.Sub_ServiceCategory)
+                .HasForeignKey(e => e.SubCategory_FID)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Venue>()
                 .HasMany(e => e.Feedbacks)
@@ -128,6 +162,11 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Venue>()
                 .HasMany(e => e.Halls)
+                .WithOptional(e => e.Venue)
+                .HasForeignKey(e => e.Venue_FID);
+
+            modelBuilder.Entity<Venue>()
+                .HasMany(e => e.Packages)
                 .WithOptional(e => e.Venue)
                 .HasForeignKey(e => e.Venue_FID);
         }

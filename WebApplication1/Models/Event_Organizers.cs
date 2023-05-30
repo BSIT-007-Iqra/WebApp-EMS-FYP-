@@ -18,15 +18,19 @@ namespace WebApplication1.Models
         [Key]
         public int EventOrganizer_ID { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string EventOrganizer_Name { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string EventOrganizer_Email { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string EventOrganizer_Password { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string EventOrganizer_Contact { get; set; }
 
@@ -35,7 +39,7 @@ namespace WebApplication1.Models
 
         public string EventOrganizer_Picture { get; set; }
 
-        public int? Status { get; set; }
+        public int Status { get; set; }
 
         public int? Admin_FID { get; set; }
 

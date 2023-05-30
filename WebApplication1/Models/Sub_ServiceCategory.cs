@@ -17,10 +17,11 @@ namespace WebApplication1.Models
         [Key]
         public int SubCategory_ID { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Sub_category_Name { get; set; }
 
-        public int? Service_Category_FID { get; set; }
+        public int Service_Category_FID { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }

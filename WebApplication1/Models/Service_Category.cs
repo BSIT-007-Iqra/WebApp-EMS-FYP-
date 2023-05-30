@@ -17,6 +17,7 @@ namespace WebApplication1.Models
         [Key]
         public int ServiceCategory_ID { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string ServiceCategory_Name { get; set; }
 

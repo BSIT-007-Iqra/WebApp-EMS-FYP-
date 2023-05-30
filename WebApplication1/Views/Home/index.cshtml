@@ -4,6 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
+    var query = db.Halls.Where(x => x.Venue_Type == "Hall").OrderByDescending(x => x.Views.Count()).ToList();
     var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
 
     var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).OrderByDescending(x => x.Views.Count()).ToList();
@@ -22,6 +23,33 @@
             font-weight: bold;
             font-size: x-large;
         }
+    .deal-title1 {
+        font-size: 30px;
+        line-height: 66px;
+        font-weight: 700;
+        text-shadow: 3px 2px 5px #dec08e;
+        color: #4b3047;
+        font-family: 'Cookie', cursive;
+        font-style: oblique;
+    }
+    img {
+       
+        display: none;
+    }
+    .img-venue {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 #B08EAD;
+        cursor: pointer;
+        height: 200px;
+        width: 100%
+    }
+    .custom-card {
+        border-radius: 8px;
+        box-shadow: 0 4px 4px 0 #808080;
+        border: dashed;
+        border-color: #c9c9c9;
+        height: 550px;
+    }
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -48,7 +76,8 @@
                                 <center>
                                     <h1><span>EMS</span> </h1>
                                     <p style="color:white">
-                                        Event Management System. Booking Memories
+                                        Life is an event. Make it memorable. Our business is making memories. <br/>Find the best wedding halls, banquent
+                                        and marquees for your Shaadi
                                     </p>
                                 </center>
                                 @*<div class="add-bag d-flex align-items-center">
@@ -70,8 +99,8 @@
                                 <center>
                                     <h1><span>EMS</span> </h1>
                                     <p style="color:white">
-                                        Find the best wedding halls, banquent
-                                        and marquees for your Shadi
+                                        Life is an event. Make it memorable. Our business is making memories. Find the best wedding halls, banquent
+                                        and marquees for your Shaadi
                                     </p>
                                 </center>
                                 @*<div class="add-bag d-flex align-items-center">
@@ -107,9 +136,11 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Select Location">Satellite Town</option>
+                                            <option data-display="Select Location"></option>
+                                            <option value="1">Satellite Town</option>
                                             <option value="2">Model Town</option>
-                                            <option value="3">GT. Road</option>
+                                            <option value="3">Wapta Town</option>
+                                            <option value="4">GT. Road</option>
                                         </select>
 
                                     </div>
@@ -160,7 +191,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
                     <div class="f-icon">
-                        <img src="~/Content/Event/img/features/f-icon.png" alt="">
+                        <img style="display:-webkit-inline-box;" src="~/Content/Event/img/features/f-icon.png" onclick="window.location.href='/Home/Services'" alt="">
                     </div>
                     <h5>Lighting</h5>
                     <small>Place your booking </small>
@@ -170,7 +201,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
                     <div class="f-icon">
-                        <img src="~/Content/Event/img/features/f-icon-2.png" alt="">
+                        <img style="display:-webkit-inline-box;" src="~/Content/Event/img/features/f-icon-2.png" onclick="window.location.href='/Home/Services'" alt="">
                     </div>
                     <h5>Catering</h5>
                     <small>Place your booking </small>
@@ -180,7 +211,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
                     <div class="f-icon">
-                        <img src="~/Content/Event/img/features/f-icon-3.png" alt="">
+                        <img style="display:-webkit-inline-box;" src="~/Content/Event/img/features/f-icon-3.png" onclick="window.location.href='/Home/Services'" alt="">
                     </div>
                     <h5>Music</h5>
                     <small>Place your booking </small>
@@ -190,7 +221,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-features">
                     <div class="f-icon">
-                        <img src="~/Content/Event/img/features/f-icon-5.png" alt="">
+                        <img style="display:-webkit-inline-box;" src="~/Content/Event/img/features/f-icon-5.png" onclick="window.location.href='/Home/Services'" alt="">
                     </div>
                     <h6>Cuisine</h6>
                     <small>Place your booking </small>
@@ -199,79 +230,7 @@
         </div>
     </div>
 </section>
-<!-- end features Area -->
-<!-- Start category Area -->
-@*<section class="category-area">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 col-md-12">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8">
-                            <div class="single-deal">
-                                <div class="overlay"></div>
-                                <img src="~/Content/Event/img/category/c1.jpg" class="img-fluid w-100" alt="">
 
-                                <a href="~/Content/Event/img/category/c1.jpg" class="img-pop-up" target="_blank">
-                                    <div class="deal-details">
-                                        <h4 class="deal-title">Drinks</h4>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="single-deal">
-                                <div class="overlay"></div>
-
-                                <img class="img-fluid w-100" src="~/Content/Event/img/category/c2.jpg" alt="">
-                                <a href="~/Content/Event/img/category/c2.jpg" class="img-pop-up" target="_blank">
-                                    <div class="deal-details">
-                                        <h4 class="deal-title">Food</h4>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="single-deal">
-                                <div class="overlay"></div>
-
-                                <img class="img-fluid w-100" src="~/Content/Event/img/category/c3.jpg" alt="">
-                                <a href="~/Content/Event/img/category/c3.jpg" class="img-pop-up" target="_blank">
-                                    <div class="deal-details">
-                                        <h4 class="deal-title">Catering</h4>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-lg-8 col-md-8">
-                            <div class="single-deal">
-                                <div class="overlay"></div>
-
-                                <img class="img-fluid w-100" src="~/Content/Event/img/category/c4.jpg" alt="">
-                                <a href="~/Content/Event/img/category/c4.jpg" class="img-pop-up" target="_blank">
-                                    <div class="deal-details">
-                                        <h4 class="deal-title">Menu</h4>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-deal">
-                        <div class="overlay"></div>
-
-                        <img class="img-fluid w-100" src="~/Content/Event/img/category/c5.jpg" alt="">
-                        <a href="~/Content/Event/img/category/c5.jpg" class="img-pop-up" target="_blank">
-                            <div class="deal-details">
-                                <h4 class="deal-title">Event</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>*@
-<!-- End category Area -->
 <!-- start product Area -->
 <section class="owl-carousel active-product-area section_gap">
     <!-- single product slide -->
@@ -282,9 +241,7 @@
                     <div class="section-title">
                         <h1>Popular Venue</h1>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore
-                            magna aliqua.
+                            A Trendy place for Every Event, Good place for Good Moments,Desire meets a new Place
                         </p>
                     </div>
                 </div>
@@ -294,8 +251,8 @@
                 {
                     <!-- single product -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080;border: dashed;border-color:#c9c9c9">
-                            <img class="img-fluid" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'" src="@Url.Content(item.Venue_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="">
+                        <div class="single-product card custom-card">
+                            <img class="img-fluid img-venue" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'" src="@Url.Content(item.Venue_Picture)" style="" alt="">
                             <div class="product-details card-body">
 
                                 <h3 class="fun" onclick="window.location.href='@Url.Action("Hall","Home",new {id = item.Venue_ID})'">
@@ -358,9 +315,7 @@
                         <div class="section-title">
                             <h1>Top Menus</h1>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                dolore
-                                magna aliqua.
+                                Stay once, carry memories forever, Because comfort is more important.
                             </p>
                         </div>
                     </div>
@@ -369,11 +324,11 @@
                     <div class="col-lg-8 col-md-8">
                         <div class="single-deal">
                             <div class="overlay"></div>
-                            <img src="~/Content/Event/img/category/c1.jpg" class="img-fluid w-100" alt="">
-
-                            <a href="~/Content/Event/img/category/c1.jpg" class="img-pop-up" target="_blank">
+                            <img src="~/Content/SitePics/gallery_hero_1280.jpg" class="img-fluid w-100" alt="">
+                           
+                            <a href="~/Content/SitePics/gallery_hero_1280.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
-                                    <h4 class="deal-title">Drinks</h4>
+                                    <h4 class="deal-title1">Drinks</h4>
                                 </div>
                             </a>
                         </div>
@@ -381,11 +336,11 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="single-deal">
                             <div class="overlay"></div>
-
-                            <img class="img-fluid w-100" src="~/Content/Event/img/category/c2.jpg" alt="">
-                            <a href="~/Content/Event/img/category/c2.jpg" class="img-pop-up" target="_blank">
+                           
+                            <img class="img-fluid w-100" src="~/Content/SitePics/menu.jpg" alt="">
+                            <a href="~/Content/SitePics/menu.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
-                                    <h4 class="deal-title">Food</h4>
+                                    <h4 class="deal-title1">Cuisine</h4>
                                 </div>
                             </a>
                         </div>
@@ -393,11 +348,11 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="single-deal">
                             <div class="overlay"></div>
-
-                            <img class="img-fluid w-100" src="~/Content/Event/img/category/c3.jpg" alt="">
-                            <a href="~/Content/Event/img/category/c3.jpg" class="img-pop-up" target="_blank">
+                          
+                            <img class="img-fluid w-100" src="~/Content/SitePics/hall3.jpg" alt="">
+                            <a href="~/Content/SitePics/hall3.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
-                                    <h4 class="deal-title">Catering</h4>
+                                    <h4 class="deal-title1" style="">Catering</h4>
                                 </div>
                             </a>
                         </div>
@@ -405,11 +360,11 @@
                     <div class="col-lg-8 col-md-8">
                         <div class="single-deal">
                             <div class="overlay"></div>
-
-                            <img class="img-fluid w-100" src="~/Content/Event/img/category/c4.jpg" alt="">
-                            <a href="~/Content/Event/img/category/c4.jpg" class="img-pop-up" target="_blank">
+                           
+                            <img class="img-fluid w-100" src="~/Content/SitePics/events w6.jpg" alt="">
+                            <a href="~/Content/SitePics/events w6.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
-                                    <h4 class="deal-title">Menu</h4>
+                                    <h4 class="deal-title1">Lighting</h4>
                                 </div>
                             </a>
                         </div>

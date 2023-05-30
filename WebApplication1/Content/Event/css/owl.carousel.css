@@ -35,10 +35,12 @@
     -webkit-backface-visibility: hidden;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none; }
-  .owl-carousel .owl-item img {
-    display: block;
-    width: 100%;
-    -webkit-transform-style: preserve-3d; }
+    .owl-carousel .owl-item img {
+        display: block;
+        width: 100%;
+        -webkit-transform-style: preserve-3d;
+        height: 200px;
+    }
   .owl-carousel .owl-nav.disabled,
   .owl-carousel .owl-dots.disabled {
     display: none; }
@@ -46,9 +48,9 @@
   .owl-carousel .owl-nav .owl-next,
   .owl-carousel .owl-dot {
     cursor: pointer;
-    cursor: hand;
+    cursor:pointer;
     -webkit-user-select: none;
-    -khtml-user-select: none;
+    -html-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none; }

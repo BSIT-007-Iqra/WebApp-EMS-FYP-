@@ -27,6 +27,7 @@ namespace WebApplication1.Models
         [StringLength(50)]
         public string Booking_Status { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Event_Name { get; set; }
 

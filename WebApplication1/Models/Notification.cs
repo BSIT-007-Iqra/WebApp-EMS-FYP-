@@ -10,12 +10,13 @@ namespace WebApplication1.Models
     {
         public int ID { get; set; }
 
+        [Required]
         [StringLength(500)]
         public string Message { get; set; }
 
-        public DateTime? DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
-        public int? EventOrganizers_FID { get; set; }
+        public int EventOrganizers_FID { get; set; }
 
         public virtual Event_Organizers Event_Organizers { get; set; }
     }

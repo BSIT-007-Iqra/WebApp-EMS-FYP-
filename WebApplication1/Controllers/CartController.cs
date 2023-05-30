@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Utils;
 using static Dropbox.Api.Files.ListRevisionsMode;
+using static Dropbox.Api.TeamPolicies.SmartSyncPolicy;
 
 namespace ReadRix.Controllers
 {
@@ -20,17 +22,43 @@ namespace ReadRix.Controllers
             {
                 TempData["new"] = "Login into your account OR Register Account";
             }
+        
+            else if(Session["cart"] == null || Session["cart1"] == null)
+            {
+                TempData["ok1"] = "Select Hall and Services First before checkout";
+            }
+            else { return View(); }
             return View();
         }
 
-        public ActionResult Bookingdate(Booking booking)
+        public ActionResult Bookingdate(DateTime eventDate , TimeSpan starttime , TimeSpan endtime)
         {
-            //var b = db.Bookings.Where(x => x.Event_Date == booking.Event_Date).FirstOrDefault();
-            if (booking.Event_Date != null)
+            if (eventDate == null )
+                TempData["ErrorDate"] = " \n Please!  Setect  date \t thanks";
+            bool confirm;
+            //List<int> list = new List<int>();
+            //DateTime startdate = DateTime.ParseExact("01/01/2023", "dd/MM/yyyy", null);
+            //DateTime enddate = DateTime.ParseExact("31/01/2023", "dd/MM/yyyy", null);
+
+
+            var query = db.Bookings.Where(x=>x.Event_Date == eventDate );
+             
+            if (query != null)
             {
-                TempData["Error"] = "This Date is not available \n please!  Setect another date \t thanks";
+                //query = query.Where(x => x.start == starttime && x.end == starttime);
+                
+                TempData["ErrorDate"] = "This Date is not available \n please!  Setect another date \t thanks";
+                confirm = false;
             }
-            return View();
+            else
+            {
+               
+                TempData["ErrorDate"] = "This Date is available \n please! Proceed to Checkout \t thanks";
+
+                confirm = true;
+            }
+
+            return RedirectToAction("Displaybooking","Cart");
         }
         
         public ActionResult BookingComplete()
@@ -42,7 +70,7 @@ namespace ReadRix.Controllers
             return View();
         }
 
-        public ActionResult Orderbooked(Booking order)
+        public ActionResult Orderbooked(Booking order , DateTime eventDate)
         {
             int dollerrate = (int)MailProvider.GetCurrentDollorprice();
             if (BaseHelper.customer != null)
@@ -54,6 +82,7 @@ namespace ReadRix.Controllers
                 if (order.Payment_Type == "CashOnBooking")
                 {
                      order.Booking_Type = "Book";
+                    
                     db.Bookings.Add(order);
                     db.SaveChanges();
 
@@ -78,7 +107,7 @@ namespace ReadRix.Controllers
                         db.SaveChanges();
 
                     }
-                    MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Order Confirmation", "Your Order has been booked and will be delivered within 3 working days, Regards EMS <br /> Thanks");
+                    MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Order has been booked and will be delivered within 3 working days, Regards EMS <br /> Thanks");
                     TempData["Cart"] = Session["Cart"];
                     Session["Cart"] = null;
                     TempData["Cart1"] = Session["Cart1"];
@@ -132,7 +161,7 @@ namespace ReadRix.Controllers
             }
 
 
-            MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Booking has been booked and will Inform you forward through Email, Regards EMS <br /> Thanks");
+            MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Booking has been booked and you will Inform forward through Email, Regards EMS <br /> Thanks");
             TempData["cart"] = Session["cart"];
             Session["cart"] = null;
             TempData["cart"] = Session["cart1"];

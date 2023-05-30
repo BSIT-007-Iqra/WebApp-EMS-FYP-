@@ -12,13 +12,13 @@ namespace WebApplication1.Models
         [Key]
         public int View_ID { get; set; }
 
-        public DateTime? View_Date { get; set; }
+        public DateTime View_Date { get; set; }
 
-        public int? Customer_FID { get; set; }
+        public int Customer_FID { get; set; }
 
-        public int? Hall_FID { get; set; }
+        public int Hall_FID { get; set; }
 
-        public int? Service_FID { get; set; }
+        public int Service_FID { get; set; }
 
         public virtual Customer Customer { get; set; }
 

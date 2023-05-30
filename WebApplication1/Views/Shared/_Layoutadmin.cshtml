@@ -4,6 +4,9 @@
     Model1 db = new Model1();
     int? ordercount = db.Bookings.Where(x => x.Booking_Status== "Booked").Count();
     int? proceedcount = db.Bookings.Where(x => x.Booking_Status == "Proceed").Count();
+    //int? wrcount = db.Withdraw_Amount.Where(x => x.ISTRANSFERED != true).Count();
+   // int? epcount = db.Episodes.Where(x => x.Isapproved != true).Count();
+    
 }
 
 <!DOCTYPE html>
@@ -159,18 +162,18 @@
                     <!-- ============================================================== -->
                     <div class="navbar-header container">
                         <a class="navbar-brand" href="@Url.Action("Indexadmin","Home")">
-                            <!-- Logo icon --><div >
+                            <!-- Logo icon --><div>
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                 <!-- Dark Logo icon -->
-                                <img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="dark-logo" sizes="16x16"/>
+                                <img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="dark-logo" sizes="16x16" />
                                 <!-- Light Logo icon -->
                                 <!--<img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="light-logo" sizes="50x50"/>-->
                             </div>
                             <!--End Logo icon -->
-                            
+
                         </a>
                     </div>
-                    <hr/>
+                    <hr />
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -215,7 +218,7 @@
             <!-- ============================================================== -->
             <!-- Left Sidebar - style you can find in sidebar.scss  -->
             <!-- ============================================================== -->
-            <aside class="left-sidebar"  >
+            <aside class="left-sidebar">
                 <!-- Sidebar scroll-->
                 <div class="scroll-sidebar">
                     <!-- Sidebar navigation-->
@@ -229,7 +232,7 @@
                             </li>
 
                             <li>
-                                <a class="waves-effect waves-dark" href="/Halls/Index" aria-expanded="false"><i class="fa fa-hotel new1" ></i><span class="hide-menu">Manage Hall</span></a>
+                                <a class="waves-effect waves-dark" href="/Halls/Index" aria-expanded="false"><i class="fa fa-hotel new1"></i><span class="hide-menu">Manage Hall</span></a>
                             </li>
                             <li>
                                 <a class="waves-effect waves-dark" href="/Website_Details/Index" aria-expanded="false"><i class="fa fa-globe new1"></i><span class="hide-menu">Manage Website</span></a>
@@ -273,8 +276,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Sub_ServiceCategories")" aria-expanded="false">
-                                            <i class="fa fa-bars new1" ></i><span class="hide-menu"> Sub Category</span>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Sub_ServiceCategory")" aria-expanded="false">
+                                            <i class="fa fa-bars new1"></i><span class="hide-menu"> Sub Category</span>
                                         </a>
                                     </li>
                                     <li>
@@ -282,16 +285,21 @@
                                             <i class="fa fa-solid fa-cubes new1"></i><span class="hide-menu"> Services</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Event_Organizers")" aria-expanded="false">
+                                            <i class="fa fa-solid fa-cubes new1"></i><span class="hide-menu"> Organizer</span>
+                                        </a>
+                                    </li>
                                     @*<li>
-                    <a class="waves-effect waves-dark" href="@Url.Action("Index","SalaryRates")" aria-expanded="false">
-                        <i class="fa fa-money"></i><span class="hide-menu"> Salary Rates </span>
-                    </a>
-                </li>
-                <li>
-                    <a class="waves-effect waves-dark" href="@Url.Action("Index","Premiums")" aria-expanded="false">
-                        <i class="fa fa-solid fa-cubes"></i><span class="hide-menu"> Packages</span>
-                    </a>
-                </li>*@
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","SalaryRates")" aria-expanded="false">
+                                            <i class="fa fa-money"></i><span class="hide-menu"> Salary Rates </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Premiums")" aria-expanded="false">
+                                            <i class="fa fa-solid fa-cubes"></i><span class="hide-menu"> Packages</span>
+                                        </a>
+                                    </li>*@
                                 </ul>
                             </li>
                             <li>
@@ -379,35 +387,48 @@
             </div>
             <!-- ============================================================== -->
         </div>
-                <!-- ============================================================== -->
-                <!-- End Wrapper -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- All Jquery -->
-                <!-- ============================================================== -->
-                <script src="~/Content/Admin/assets/node_modules/jquery/jquery.min.js"></script>
-                <!-- Bootstrap popper Core JavaScript -->
-                <script src="~/Content/Admin/assets/node_modules/bootstrap/js/popper.min.js"></script>
-                <script src="~/Content/Admin/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
-                <!-- slimscrollbar scrollbar JavaScript -->
-                <script src="~/Content/Admin/js/perfect-scrollbar.jquery.min.js"></script>
-                <!--Wave Effects -->
-                <script src="~/Content/Admin/js/waves.js"></script>
-                <!--Menu sidebar -->
-                <script src="~/Content/Admin/js/sidebarmenu.js"></script>
-                <!--Custom JavaScript -->
-                <script src="~/Content/Admin/js/custom.min.js"></script>
-                <!-- ============================================================== -->
-                <!-- This page plugins -->
-                <!-- ============================================================== -->
-                <!--morris JavaScript -->
-                <script src="~/Content/Admin/assets/node_modules/raphael/raphael-min.js"></script>
-                <script src="~/Content/Admin/assets/node_modules/morrisjs/morris.min.js"></script>
-                <!--c3 JavaScript -->
-                <script src="~/Content/Admin/assets/node_modules/d3/d3.min.js"></script>
-                <script src="~/Content/Admin/assets/node_modules/c3-master/c3.min.js"></script>
-                <!-- Chart JS -->
-                <script src="~/Content/Admin/js/dashboard1.js"></script>
-</body>
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <script src="~/Content/Admin/assets/node_modules/jquery/jquery.min.js"></script>
+        <!-- Bootstrap popper Core JavaScript -->
+        <script src="~/Content/Admin/assets/node_modules/bootstrap/js/popper.min.js"></script>
+        <script src="~/Content/Admin/assets/node_modules/bootstrap/js/bootstrap.min.js"></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="~/Content/Admin/js/perfect-scrollbar.jquery.min.js"></script>
+        <!--Wave Effects -->
+        <script src="~/Content/Admin/js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="~/Content/Admin/js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="~/Content/Admin/js/custom.min.js"></script>
+        <!-- ============================================================== -->
+        <!-- This page plugins -->
+        <!-- ============================================================== -->
+        <!--morris JavaScript -->
+        <script src="~/Content/Admin/assets/node_modules/raphael/raphael-min.js"></script>
+        <script src="~/Content/Admin/assets/node_modules/morrisjs/morris.min.js"></script>
+        <!--c3 JavaScript -->
+        <script src="~/Content/Admin/assets/node_modules/d3/d3.min.js"></script>
+        <script src="~/Content/Admin/assets/node_modules/c3-master/c3.min.js"></script>
+        <!-- Chart JS -->
+        <script src="~/Content/Admin/js/dashboard1.js"></script>
+        @if (TempData["Success"] != null)
+        {
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <script type="text/javascript">
+                    toastr.info('@TempData["success"]')
+            </script>
+        }  @if (TempData["error"] != null)
+        {
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <script type="text/javascript">
+                    toastr.error('@TempData["error"]')
+            </script>
+        }
+    </body>
 
 </html>

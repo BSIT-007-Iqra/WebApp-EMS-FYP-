@@ -37,10 +37,10 @@
                     <label><b style="color:red;font-size:15px">@TempData["msg"]</b></label>
                     <form class="row login_form" action="/Customers/loginuser" method="post">
                         <div class="col-md-12 form-group">
-                            <input type="email" class="form-control" id="name" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            <input type="email" class="form-control" id="email" name="Customer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="name" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" id="password" name="Customer_Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
                             <label><b style="color:red;font-size:15px">@ViewBag.message</b></label>

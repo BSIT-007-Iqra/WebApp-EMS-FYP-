@@ -54,6 +54,13 @@
         border-radius: 10px 10px;
         box-shadow: 0 4px 4px 0 #808080;
     }
+    .valid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 0.875em;
+        color: #198754;
+    }
 </style>
 
 <!-- Start Banner Area -->
@@ -83,9 +90,6 @@
                             <table class="table">
 
                                 <tbody class="border2">
-
-
-
                                     @foreach (var item in pro)
                                     {
                                         rowno++;
@@ -256,6 +260,43 @@
                                             <div class="invalid-feedback"> Please enter a valid contact # for Booking updates.</div>
                                         </div>
                                     </div>
+                                    <div class="container">
+                                        <div class="col-md-12 form-group">
+                                            <form action="/Cart/Bookingdate" method="get">
+                                                <div class="input-group">
+                                                    <input type="date" class="form-control" id="txtdateofreservation" name="eventDate" placeholder="Select Date *" required
+                                                           />
+                                                    <input type="time" class="form-control" id="txtdateofreservation" name="starttime" placeholder="Select Date *" required
+                                                           />
+                                                    <input type="time" class="form-control" id="txtdateofreservation" name="endtime" placeholder="Select Date *" required
+                                                           />
+                                                    <div class="invalid-feedback" style="width: 100%;">@TempData["ErrorDate"] </div>
+                                                    <input type="submit" value="Confirm Date" />
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="col-md-12 form-group">
+
+                                            <div class="input-group">
+                                                <select class="wide" required>
+                                                    <option data-display="Enter Event Name"></option>
+                                                    <option value="2">Barat</option>
+                                                    <option value="3">Reception</option>
+                                                    <option value="4">Birthday</option>
+                                                    <option value="5">Party</option>
+                                                    <option value="6">Coorporation Meeting</option>
+                                                    <option value="7">Mehndi</option>
+                                                </select>
+                                                <div class="invalid-feedback" style="width: 100%;"> Event Name required. </div>
+                                            </div>
+                                            @*<input type="text" class="form-control" id="txtdateofreservation" name="Event_Name" placeholder="Enter Event Name" required />*@
+
+                                        </div>
+
+
+                                    </div>
                                 }
 
                                 else
@@ -266,36 +307,7 @@
                                     </div>
 
                                 }
-                                <div class="container">
-                                    <div class="col-md-12 form-group">
 
-                                        <div class="input-group">
-                                            <input type="date" class="form-control" id="txtdateofreservation" name="Event_Date" placeholder="Select Date *" required>
-                                            <div class="invalid-feedback" style="width: 100%;" onclick="window.location.href='/Cart/Bookingdate'">@TempData["Error"] </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="container">
-                                    <div class="col-md-12 form-group ">
-
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Enter Event Name">Mehndi</option>
-                                                <option value="2">Barat</option>
-                                                <option value="3">Reception</option>
-                                                <option value="4">Birthday</option>
-                                                <option value="5">Party</option>
-                                                <option value="6">Coorporation Meeting</option>
-                                            </select>
-                                            <div class="invalid-feedback" style="width: 100%;"> Event Name required. </div>
-                                        </div>
-                                        @*<input type="text" class="form-control" id="txtdateofreservation" name="Event_Name" placeholder="Enter Event Name" required />*@
-
-                                    </div>
-
-
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -349,24 +361,21 @@
                                 <div class="ml-auto h5">Rs:<span>@(total + 100)</span></div>
                             </div>
                             <hr>
-                            @if (Session["cart"] != null && Session["cart1"] != null && total != 0)
+                            @if (Session["cart"] != null && Session["cart1"] != null && total != 0 )
                             {
                                 <center><div class="d-flex"><a class="btn primary-btn" href="/Cart/checkout" style="float:right">Checkout</a> </div></center>
-                                @*if (BaseHelper.customer != null)
-                                    {
 
-                                        <center><div class="d-flex"><a class="btn primary-btn" href="/loginuser/Customers" style="float:right ">Login</a> </div></center>
-
-                                    }*@
                             }
                             else
                             {
                                 <center>
                                     <div class="d-flex">
-                                        
-
+                                        <button type="button" class="btn primary-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Checkout
+                                        </button>
                                     </div>
-                                </center>}
+                                </center>
+                            }
 
                         </div>
                     </div>
@@ -409,6 +418,15 @@
     <script type="text/javascript">
             window.onload = function () {
                 $("#lblError").html('@Html.Raw(TempData["ok"])');
+                $("#MyPopup").modal("show");
+            };
+    </script>
+}
+@if (TempData["ok1"] != null)
+{
+    <script type="text/javascript">
+        window.onclick = function () {
+                $("#lblError").html('@Html.Raw(TempData["ok1"])');
                 $("#MyPopup").modal("show");
             };
     </script>
@@ -475,3 +493,5 @@
     </script>
 }
 <!------------------Modal--------------------->
+<!-- Button trigger modal -->
+<!-- Modal -->

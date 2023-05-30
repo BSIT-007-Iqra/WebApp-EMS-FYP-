@@ -1113,6 +1113,13 @@ h1, h2, h3, h4, h5, h6 {
     font-size: medium;
     font-family: 'Neuton', serif;
 }
+    .header_area .navbar .nav .nav-item:hover .nav-link, .header_area .navbar .nav .nav-item.active .nav-link:hover {
+        color: #b08ead;
+        font-weight: 500;
+        font-size: large;
+        font-family: 'Cookie', cursive;
+        font-style: oblique;
+    }
 
       .header_area .navbar .nav .nav-item.submenu {
         position: relative; }
@@ -5756,8 +5763,10 @@ label {
 /* End Contact Success and error Area css
 ============================================================================================ */
 .footer-area {
-  padding-top: 100px;
-  background-color: #222222; }
+    padding-top: 50px;
+    background-color: #222222;
+    height: 400px;
+}
   .footer-area h6 {
     color: #fff;
     margin-bottom: 25px;
@@ -5788,11 +5797,13 @@ label {
   .footer-social a:hover i {
     color: #b08ead; }
 .footer-social i {
-  color: #cccccc;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s; }
+    color: #eee;
+    font-size: medium;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
 
 @media (max-width: 991px) {
   .single-footer-widget {
@@ -5876,7 +5887,7 @@ label {
   font-weight: 300; }
 
 .footer-text {
-  padding-top: 80px; }
+  padding-top: 50px; }
   @media (max-width: 991px) {
     .footer-text {
       padding-top: 40px; } }

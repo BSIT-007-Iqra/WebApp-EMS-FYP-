@@ -18,11 +18,12 @@ namespace WebApplication1.Models
         [Key]
         public int Feedback_ID { get; set; }
 
+        [Required]
         [StringLength(100)]
         public string Feedback_Description { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? Feedback_Date { get; set; }
+        public DateTime Feedback_Date { get; set; }
 
         public int Customer_FID { get; set; }
 

@@ -29,6 +29,44 @@
         color: #4b3049;
         
     }
+    .feed-fluid {
+        border: dashed;
+        border-color: #4b3047;
+        background-color: #b08eac24;
+    }
+    .notify-fluid {
+        width: 500px;
+        float: right;
+        padding: 10px 10px;
+        text-align: center;
+        padding-left: 170px
+    }
+    /*.button2 {
+        position: relative;
+        overflow: hidden;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        text-transform: capitalize;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(90deg, #b08ead 10%,#B08EAC 50%, #4B3047 100%);
+    }
+        .button2:hover {
+            position: relative;
+            overflow: hidden;
+            color: #222222;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            text-transform: capitalize;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            background: none;
+        }*/
     .button1 {
         position: relative;
         overflow: hidden;
@@ -38,7 +76,7 @@
         display: inline-block;
         text-transform: capitalize;
         font-weight: 500;
-        border:  none;
+        border: none;
         cursor: pointer;
     }
         .button1:hover {
@@ -154,7 +192,7 @@
                         Back
                     </button>
 
-                    <button class=" button " onclick="window.location.href='@Url.Action("Addtobooking","Cart", new {id = Model.Hall_ID})'">
+                    <button class="button" onclick="window.location.href='@Url.Action("Addtobooking","Cart", new {id = Model.Hall_ID})'">
                         Book Now
                     </button>
                 </center>
@@ -242,16 +280,16 @@
                                     a++;
                                     <div class="notification_wrap">
 
-                                        <div class="dropdown" style="width:500px;float:right;">
-                                            <div class="notify_item" style="border-bottom:none">
-                                                <div class="container-fluid">
-                                                    <div class="notify_img" style="border:none; padding: 10px 10px; text-align: center;">
+                                        <div class="dropdown notify-fluid">
+                                            <div class="notify_item" >
+                                                <div class="container-fluid feed-fluid" >
+                                                    <div class="notify_img" style="border:none; ">
                                                         <img src="@Url.Content(item.Customer.Customer_Picture)" alt="" style="width: 100px;height:100px; border-radius:50%"><br />
                                                         <span class="notify_time">@item.Customer.Customer_Name</span>
                                                         <small class="notify_time">@Html.DisplayFor(modelItem => item.Feedback_Date)</small>
                                                     </div>
                                                     <div class="notify_info">
-                                                        <h3 style="border: 1px solid #b08ead; padding: 10px 10px; text-align: center;">@Html.DisplayFor(modelItem => item.Feedback_Description)<a data-toggle="collapse" href="#formlogin_@a" role="button" class="fa fa-reply btn-sm reply1">Reply</a></h3>
+                                                        <h3 style=" text-align: center;">@Html.DisplayFor(modelItem => item.Feedback_Description)<a data-toggle="collapse" href="#formlogin_@a" role="button" class="fa fa-reply btn-sm reply1">Reply</a></h3>
 
 
                                                         <form class="mt-3 collapse review-form-box" id="formlogin_@a" action="/Home/Hall_Details" method="post">
@@ -273,7 +311,7 @@
 
 
 
-                                                <div class="notify_item ml-3" style="border-bottom:none">
+                                                <div class="notify_item ml-3 feed-fluid1">
                                                     <div class="notify_img">
                                                         <img src="@Url.Content(reply.Customer.Customer_Picture)" alt="" style="width: 60px;height:60px; border-radius:50px;position:relative"><br />
                                                     </div>

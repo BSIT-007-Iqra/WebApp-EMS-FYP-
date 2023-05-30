@@ -18,7 +18,8 @@ namespace WebApplication1.Models
         [Key]
         public int Role_ID { get; set; }
 
-        [StringLength(10)]
+        [Required]
+        [StringLength(50)]
         public string Role_Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

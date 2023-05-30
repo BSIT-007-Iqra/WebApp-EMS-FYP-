@@ -18,21 +18,26 @@ namespace WebApplication1.Models
         [Key]
         public int Admin_ID { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Admin_Name { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string Admin_Email { get; set; }
 
+        [Required]
         [StringLength(15)]
         public string Admin_Password { get; set; }
 
+        [Required]
         [StringLength(20)]
         public string Admin_Contact { get; set; }
 
         [StringLength(250)]
         public string Admin_Picture { get; set; }
 
+        [Required]
         [StringLength(10)]
         public string Status { get; set; }
 
