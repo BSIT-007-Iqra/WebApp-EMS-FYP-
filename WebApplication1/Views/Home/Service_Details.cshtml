@@ -45,6 +45,33 @@
         text-align: center;
         padding-left: 170px
     }
+
+    .button1 {
+        position: relative;
+        overflow: hidden;
+        color: #222222;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: inline-block;
+        text-transform: capitalize;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+    }
+
+        .button1:hover {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            text-transform: capitalize;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, #b08ead 10%,#B08EAC 50%, #4B3047 100%);
+        }
 </style>
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -89,7 +116,7 @@
                 <br />
                 <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-rupee" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Price</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Service_Price</h6>
                 <br />
-                
+
 
                 <br />
                 <div>
@@ -101,9 +128,9 @@
             <div class="col-lg-3 col-sm-3 offset-lg-0">
 
                 <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-area-chart" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Date</p> <p style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Service_Date</p>
-    
+
                 <br />
-                <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-file-pdf-o" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Details</p> <p style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">
+                <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-file-o" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Details</p> <p style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">
                     @if (Model.Service_Description.Length < 250)
                     {
                         @Model.Service_Description }
@@ -125,18 +152,29 @@
             <div class="col-lg-6 col-sm-6">
                 <div class="s_Product_carousel" style="border-radius: 10px 10px; box-shadow: 0 4px 4px 0 #808080;">
 
-                    <div class="single-prd-item">
-                        <img class="img-fluid" src="@Url.Content(Model.Service_Picture)" alt="">
+                    <div class="single-prd-item" >
+                        <img class="img-fluid" src="@Url.Content(Model.Service_Picture)" style="height:250px" alt="">
                     </div>
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="@Url.Content(Model.Service_Picture)" alt="">
+                        <img class="img-fluid" src="@Url.Content(Model.Service_Picture)" style="height:250px" alt="">
                     </div>
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="@Url.Content(Model.Service_Picture)" alt="">
+                        <img class="img-fluid" src="@Url.Content(Model.Service_Picture)" style="height:250px" alt="">
                     </div>
 
                 </div>
+
+                <center style="padding-top:5rem">
+                    <button class="button1" onclick="window.location.href='@Url.Action("Services","Home")'">
+                        Back
+                    </button>
+
+                    <button class="button" onclick="window.location.href='@Url.Action("Addtobooking","Cart", new {id = Model.Service_ID})'">
+                        Book Now
+                    </button>
+                </center>
             </div>
+           
         </div>
     </div>
 </div>

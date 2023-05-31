@@ -1,0 +1,292 @@
+﻿@using WebApplication1.Models
+@using WebApplication1.Utils
+@{
+    Model1 db = new Model1();
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+    ViewBag.Title = "Index";
+
+    //int count = 0;
+    List<int> list = new List<int>();
+
+    DateTime startdate = DateTime.ParseExact("01/01/2022", "dd/MM/yyyy", null);
+
+    DateTime enddate = DateTime.ParseExact("31/01/2022", "dd/MM/yyyy", null);
+
+    //for (int i = 0; i < 13; i++)
+    //{
+    //    count = db.Episodes.Where(x => x.EPISODE_DATE >= startdate && x.EPISODE_DATE <= enddate && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Count();
+    //    if (count > 0)
+    //    {
+    //        list.Add(Convert.ToInt32(db.Views.Where(x => x.Episode.EPISODE_DATE >= startdate && x.Episode.EPISODE_DATE <= enddate).Count()));
+    //    }
+    //    else
+    //    {
+    //        list.Add(0);
+    //    }
+    //    startdate = startdate.AddMonths(1);
+    //    enddate = enddate.AddMonths(1);
+    //    count = 0;
+
+    //}
+}
+@{
+
+    List<int> list1 = new List<int>();
+
+    DateTime startdate1 = DateTime.ParseExact("01/01/2022", "dd/MM/yyyy", null);
+
+    DateTime enddate1 = DateTime.ParseExact("31/12/2022", "dd/MM/yyyy", null);
+
+    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+}
+<head>
+
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/utils.js"></script>
+</head>
+<!-- Container fluid  -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor"></h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+    </div>
+
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Sales Chart and browser state-->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div>
+                        <h5 class="card-title mb-0">Services Views Chart</h5>
+                    </div>
+
+                </div>
+                <div class="" style="width:600px;height:345px">
+                    <canvas id="myChart" style="width: 600px; height: 345px "></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex mb-4 no-block">
+                    <h5 class="card-title mb-0 align-self-center">Our Visitors</h5>
+
+                </div>
+                <br /><br />
+                <div id="canvas-holder" style="height:220px; width:100%;">
+                    <canvas id="chart-area"></canvas>
+
+                </div>
+                <ul class="list-inline mt-4 text-center font-12">
+                    <li><i class="fa fa-circle text-success"></i> Tablet</li>
+                    <li><i class="fa fa-circle text-success"></i> Desktops</li>
+                    <li><i class="fa fa-circle text-success"></i> Mobile</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Sales Chart -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Projects of the Month -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-12 d-flex align-items-stretch">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h5 class="card-title">Recent Started Services</h5>
+                    </div>
+
+                </div>
+                <div class="table-responsive mt-3 no-wrap">
+                    <table class="table vm no-th-brd pro-of-month">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Assigned</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in db.Services.OrderByDescending(x => x.Service_ID).Take(5))
+                            {
+
+                                <tr class="active">
+                                    <td>
+                                        <span class="">
+                                            <img src="@Url.Content(item.Event_Organizers.EventOrganizer_Picture)"
+                                                 alt="" width="50" style="border-radius:20px">
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <h6>@item.Event_Organizers.EventOrganizer_Name</h6><small class="text-muted">Event Organizer</small>
+                                    </td>
+                                    <td>@item.Service_Name</td>
+                                    <td>@item.Sub_ServiceCategory.Service_Category.ServiceCategory_Name</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+
+</div>
+<!-- ============================================================== -->
+<!-- End Projects of the Month -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Notification And Feeds -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- Start Notification -->
+    <div class="col-lg-8 col-md-12">
+        <div class="card card-body mailbox">
+            <h5 class="card-title">Notification</h5>
+            <div class="message-center" style="height: 420px !important;">
+                <!-- Message -->
+                @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
+                {
+                    <a href="#">
+                        <div class="btn btn-danger btn-circle"><i class="fa fa-user"></i></div>
+                        <div class="mail-contnet">
+                            <h6 class="text-dark font-medium mb-0">@item.Event_Organizers.EventOrganizer_Name</h6> <span class="mail-desc">@Html.DisplayFor(modelItem => item.Message)</span>
+                            <span class="time">@item.DateTime </span>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Notification -->
+    <!-- Start Feeds -->
+    <div class="col-lg-4 d-flex align-items-stretch">
+        <div class="card w-100">
+
+            <img src="~/Content/AdminPicture/newlogo.jpg" height="300" width="300">
+            <div class="card-body">
+                <h4 class=" card-title">EMS Development </h4>
+                <span class="label label-info label-rounded">Technology</span>
+                <p class="mb-0 mt-3" style="font-family:poppies;font-size:large">
+                    A medium used to express ideas with images, often combined with text or other visual information.
+                    It typically takes the form of a sequence of panels of images. Textual devices such as speech balloons,
+                    captions, and onomatopoeia can indicate dialogue, narration, sound effects, or other information.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Feeds -->
+</div>
+<!-- ============================================================== -->
+<!-- End Notification And Feeds -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- End Page Content -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- End Container fluid  -->
+<!-- ============================================================== -->
+@*<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+
+                data: [@list[0], @list[1], @list[2], @list[3],@list[4], @list[5], @list[6], @list[7], @list[8], @list[9], @list[10], @list[11],],
+                backgroundColor: [
+                    'Salmon',
+                    'yellow',
+                    'pink',
+                    'Red',
+                    'purple',
+                    'Blue',
+                    'Green',
+                    'Gray',
+                    'Brown',
+                    'Maroon',
+                    'Orange',
+                    'black'
+                ],
+
+
+            }]
+        },
+
+    });</script>
+
+ <script>
+    var randomScalingFactor = function () {
+        return Math.round(Math.random() * 100);
+    };
+
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    @list1[0],
+                    @list1[1],
+
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.green,
+
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                'Catering',
+                'Food',
+                'Sound',
+                'Lighting',
+
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    };
+
+    window.onload = function () {
+        var ctx = document.getElementById('chart-area').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    };
+
+
+
+    </script>*@
+

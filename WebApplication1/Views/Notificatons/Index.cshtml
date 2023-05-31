@@ -11,13 +11,13 @@
 <table class="table table-bordered table-hover">
     <tr class="bg-light-extra">
         <th>
-            @Html.DisplayNameFor(model => model.MESSAGE)
+            @Html.DisplayNameFor(model => model.Message)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Writer.WRITER_NAME)
+            @Html.DisplayNameFor(model => model.Event_Organizers.EventOrganizer_Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DATETIME)
+            @Html.DisplayNameFor(model => model.DateTime)
         </th>
         <th>Actions</th>
     </tr>
@@ -26,14 +26,14 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MESSAGE)
+                @Html.DisplayFor(modelItem => item.Message)
                 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Writer.WRITER_NAME)
+                @Html.DisplayFor(modelItem => item.Event_Organizers.EventOrganizer_Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DATETIME)
+                @Html.DisplayFor(modelItem => item.DateTime)
             </td>
             <td>
                 <a class="btn btn-danger fa fa-trash" href=" @Url.Action("Delete", "Notificatons", new { id = item.ID }) "> Delete </a>

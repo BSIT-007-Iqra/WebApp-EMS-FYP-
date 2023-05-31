@@ -1,7 +1,7 @@
-﻿@model ReadRix.Models.Notificaton
+﻿@model WebApplication1.Models.Notification
 
 @{
-    Layout = "~/Views/Shared/_Layoutwriter.cshtml";
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
     ViewBag.Title = "Delete";
 }
 
@@ -13,27 +13,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MESSAGE)
+            @Html.DisplayNameFor(model => model.Message)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MESSAGE)
+            @Html.DisplayFor(model => model.Message)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WRITER_FID)
+            @Html.DisplayNameFor(model => model.EventOrganizers_FID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.WRITER_FID)
+            @Html.DisplayFor(model => model.EventOrganizers_FID)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DATETIME)
+            @Html.DisplayNameFor(model => model.DateTime)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DATETIME)
+            @Html.DisplayFor(model => model.DateTime)
         </dd>
 
     </dl>

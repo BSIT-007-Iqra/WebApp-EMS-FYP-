@@ -64,7 +64,7 @@ namespace WebApplication1.Views.AdminProfile
                     pic.SaveAs(fullpath);
                     admin.Admin_Picture = "~/Content/AdminPicture/" + pic.FileName;
                 }
-
+                admin.Status = "Active";
                 db.Entry(admin).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ProfileIndex","AdminProfile");

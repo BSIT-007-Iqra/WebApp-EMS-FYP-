@@ -33,6 +33,13 @@ namespace WebApplication1.Controllers
             TempData["success"] = "Welcome ☺ " + BaseHelper.Admin.Admin_Name + " into your dashboard ";
             return View();
         }
+        public ActionResult IndexOrganizer()
+        {
+            if (BaseHelper.event_organizers == null)
+                RedirectToAction("login", "Event_Organizers");
+            TempData["success"] = "Welcome ☺ " + BaseHelper.event_organizers.EventOrganizer_Name + " into your dashboard ";
+            return View();
+        }
 
         public ActionResult about()
         {

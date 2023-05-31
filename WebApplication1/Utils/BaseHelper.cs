@@ -15,7 +15,7 @@ namespace WebApplication1.Utils
        public static Website_Details website{ get; set; }
 
        
-        //public static decimal totalsalary { get; set; }
+        public static decimal totalsalary { get; set; }
         //public static IEnumerable<Episode>  Episodelist { get; set; } 
     }
 }

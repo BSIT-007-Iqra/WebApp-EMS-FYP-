@@ -19,7 +19,7 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             var admins = db.Admins.Include(a => a.Role);
-            return View(admins.ToList());
+            return View(db.Admins.Where(x => x.Admin_ID == BaseHelper.Admin.Admin_ID).ToList());
         }
 
         // GET: Admins/Details/5
@@ -54,7 +54,7 @@ namespace WebApplication1.Controllers
             string fullpath = Server.MapPath("~/Content/AdminPicture/" + pic.FileName);
             pic.SaveAs(fullpath);
             admin.Admin_Picture = "~/Content/AdminPicture/" + pic.FileName;
-
+            admin.Status = "Active";
             if (ModelState.IsValid)
             {
 
@@ -98,7 +98,7 @@ namespace WebApplication1.Controllers
                     pic.SaveAs(fullpath);
                     admin.Admin_Picture = "~/Content/AdminPicture/" + pic.FileName;
                 }
-
+                admin.Status = "Active";
                 db.Entry(admin).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -130,8 +130,13 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Admin admin = db.Admins.Find(id);
-            db.Admins.Remove(admin);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                admin.Status = "Active";
+                db.Entry(admin).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            BaseHelper.Admin = null;
             return RedirectToAction("Index");
         }
 

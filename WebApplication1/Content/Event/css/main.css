@@ -3209,10 +3209,11 @@ label {
     right: 0; }
 
 .filter-bar {
-  padding: 0px 20px 10px 20px;
-  background: #828bb3; }
+       padding: 0px 20px 10px 20px;
+    background: #4b3049;
+}
   .filter-bar a, .filter-bar i {
-    color: #000; }
+    color: #fff; }
 
 .main-categories a {
   color: #000; }
@@ -3247,12 +3248,14 @@ label {
   margin-top: 10px;
   border-left: 1px solid #eee;
   border-radius: 0px; }
-  .pagination a {
-    width: 40px;
-    line-height: 40px;
-    text-align: center;
-    display: inline-block;
-    background: #fff; }
+    .pagination a {
+        width: 40px;
+        line-height: 30px;
+        text-align: center;
+        display: inline-block;
+        margin: 2px 2px;
+        background: #b08ead;
+    }
     .pagination a.active {
       color: #fff; }
     .pagination a:hover {

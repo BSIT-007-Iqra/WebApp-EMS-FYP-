@@ -51,6 +51,32 @@
         text-align: center;
         padding-left: 170px
     }
+    .button1 {
+        position: relative;
+        overflow: hidden;
+        color: #222222;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: inline-block;
+        text-transform: capitalize;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+    }
+
+        .button1:hover {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            text-transform: capitalize;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, #b08ead 10%,#B08EAC 50%, #4B3047 100%);
+        }
 </style>
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -96,7 +122,7 @@
                 <br />
                 <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-envelope" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Email</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Venue_Email</h6>
                 <br />
-                
+
 
                 <br />
                 <div>
@@ -110,9 +136,9 @@
                 <br />
                 <p style="font-style: normal;font-family: poppins,sans-serif;color:black; font-weight: bold"><i class="fa fa-map-marker" style="margin-right: 12px; color: #dec08e;  font-size:medium"></i>Cancellation policy</p> <h6 style="margin-left: 20px; font-style: normal; font-family: poppins,sans-serif; font-size: smaller ">@Model.Venue_Location</h6>
                 <br />
-             
+
                 <br />
-              <div>
+                <div>
                     <br />
 
                 </div>
@@ -124,19 +150,30 @@
                     <div class="single-prd-item">
                         <img class="img-fluid" src="@Url.Content(Model.Venue_Picture)" alt="image/">
                     </div>
-                    
-                
+
+
                     <div class="single-prd-item">
                         <img class="img-fluid" src="@Url.Content(Model.Venue_Picture)" alt="image/">
                     </div>
-                    
-                
+
+
                     <div class="single-prd-item">
                         <img class="img-fluid" src="@Url.Content(Model.Venue_Picture)" alt="image/">
                     </div>
-                    
+
                 </div>
+                <center style="padding-top:5rem">
+                    <button class="button1" onclick="window.location.href='@Url.Action("Venue","Home")'">
+                        Back
+                    </button>
+
+                    <button class="button" onclick="window.location.href='@Url.Action("Hall","Home")'">
+                        Book Now
+                    </button>
+                </center>
             </div>
+
+           
         </div>
     </div>
 </div>

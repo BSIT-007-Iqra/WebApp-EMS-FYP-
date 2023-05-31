@@ -1,7 +1,7 @@
-﻿@using ReadRix.Models;
-@using ReadRix.Utils;
+﻿@using WebApplication1.Models;
+@using WebApplication1.Utils;
 @{
-    Layout = "~/Views/Shared/_Layoutwriter.cshtml";
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -45,7 +45,7 @@
                         <textarea class="form-control" name="MESSAGE" rows="8" cols="50"
                                   style="width: 850px; min-height: 50px; height: 125px; "></textarea>
                     </td>
-                    <td class="auto-style6" style="font-size: x-large; font-style: italic; color:black"><b> </b> @BaseHelper.Writer.WRITER_NAME</td>
+                    <td class="auto-style6" style="font-size: x-large; font-style: italic; color:black"><b> </b> @BaseHelper.event_organizers.EventOrganizer_Name</td>
                 </tr>
                 <tr>
                     <td class="auto-style6"></td>

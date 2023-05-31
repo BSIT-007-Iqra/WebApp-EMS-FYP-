@@ -139,129 +139,144 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-8 col-md-7">
+        <div class="col-xl-9 col-lg-8 col-md-7">
 
-                <!-- End Filter Bar -->
-                <!-- Start Best Seller -->
-                <section class="lattest-product-area pb-40 category-list">
-                    <div class="container" style="margin-top:2rem">
-                        <div class="row">
-                            @foreach (var item in Model)
+            <!-- End Filter Bar -->
+            <!-- Start Best Seller -->
+            <section class="lattest-product-area pb-40 category-list">
+                <div class="container" style="margin-top:2rem">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            if (ViewData["serviceid"] == null || item.SubCategory_FID == (int)ViewData["serviceid"])
                             {
-                                if (ViewData["serviceid"] == null || item.SubCategory_FID == (int)ViewData["serviceid"])
-                                {
-                                    <!-- single product -->
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080; border: dashed; border-color: #c9c9c9; height: 600px">
-                                            <img class="img-fluid" onclick="window.location.href='@Url.Action("Services","Home",new {id = item.Service_ID})'" src="@Url.Content(item.Service_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="">
-                                            <div class="product-details card-body">
+                                <!-- single product -->
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="single-product card" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080; border: dashed; border-color: #c9c9c9; height: 600px">
+                                        <img class="img-fluid" onclick="window.location.href='@Url.Action("Services","Home",new {id = item.Service_ID})'" src="@Url.Content(item.Service_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="">
+                                        <div class="product-details card-body">
 
-                                                <h3 class="fun" onclick="window.location.href='@Url.Action("Services","Home",new {id = item.Service_ID})'">
+                                            <h3 class="fun" onclick="window.location.href='@Url.Action("Services","Home",new {id = item.Service_ID})'">
 
-                                                    <i class="fa fa-home" style="margin-right:1rem"></i>@item.Service_Name <small><i class="fa fa-star" style="color: #e88e4d; margin-left: 2rem"></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i></small>
-                                                </h3>
-                                                <p style=" color: #4B3047;cursor:pointer" onclick="window.location.href='@Url.Action("Services","Home",new {id = item.Service_ID})'">
-                                                    @if (item.Service_Description.Length < 250)
-                                                    {
-                                                        @item.Service_Description }
-                                                    else
-                                                    {
-                                                        @item.Service_Description.Substring(0, 185)<span>......</span>
-                                                    }
-                                                </p>
-                                                <hr />
+                                                <i class="fa fa-home" style="margin-right:1rem"></i>@item.Service_Name <small><i class="fa fa-star" style="color: #e88e4d; margin-left: 2rem"></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i></small>
+                                            </h3>
+                                            <p style=" color: #4B3047;cursor:pointer" onclick="window.location.href='@Url.Action("Services","Home",new {id = item.Service_ID})'">
+                                                @if (item.Service_Description.Length < 250)
+                                                {
+                                                    @item.Service_Description }
+                                                else
+                                                {
+                                                    @item.Service_Description.Substring(0, 185)<span>......</span>
+                                                }
+                                            </p>
+                                            <hr />
 
-                                                <center>
-                                                    <div class="price card-footer">
-                                                        <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Service Price: <b>@item.Service_Price</b><small style="margin-left">(Per head)</small></h6>
+                                            <center>
+                                                <div class="price card-footer">
+                                                    <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Service Price: <b>@item.Service_Price</b><small style="margin-left">(Per head)</small></h6>
 
-                                                    </div>
-                                                </center>
-
-                                                <div class="prd-bottom justify-content-center" style="margin-left:1rem">
-
-                                                    @if (Session["cart"] == null)
-                                                    {
-
-
-                                                        <button class="button btn-sm" onclick="window.location.href='/Home/Hall'">Select Hall First...</button>
-
-
-                                                    }
-                                                    else
-                                                    { <a href="@Url.Action("Addtobooking1","Cart",new {id = item.Service_ID})" class="social-info">
-                                                            <span class="ti-bag"></span>
-                                                            <p class="hover-text">Book Service </p>
-                                                        </a>
-                                                    }
-
-                                                    <a href="@Url.Action("Service_Details","Home",new {id = item.Service_ID})" class="social-info">
-                                                        <span class="lnr lnr-move"></span>
-                                                        <p class="hover-text">Service View</p>
-                                                    </a>
                                                 </div>
+                                            </center>
+
+                                            <div class="prd-bottom justify-content-center" style="margin-left:1rem">
+
+                                                @if (Session["cart"] == null)
+                                                {
+
+
+                                                    <button class="button btn-sm" onclick="window.location.href='/Home/Hall'">Select Hall First...</button>
+
+
+                                                }
+                                                else
+                                                { <a href="@Url.Action("Addtobooking1","Cart",new {id = item.Service_ID})" class="social-info">
+                                                        <span class="ti-bag"></span>
+                                                        <p class="hover-text">Book Service </p>
+                                                    </a>
+                                                }
+
+                                                <a href="@Url.Action("Service_Details","Home",new {id = item.Service_ID})" class="social-info">
+                                                    <span class="lnr lnr-move"></span>
+                                                    <p class="hover-text">Service View</p>
+                                                </a>
                                             </div>
-
                                         </div>
+
                                     </div>
-                                    <!-- single product -->
-                                }
+                                </div>
+                                <!-- single product -->
                             }
-                        </div>
-
-                        <!-- pagination -->
-                        <div class="pagination-wrapper mt-5">
-                                <ul class="page-pagination">
-
-                                    @if (ViewData["catid"] == null)
-                                    {
-
-                                        var countservices = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name.Contains("Cuisine")).Count();
-                                        for (int page1 = 1; count / 10 >= 0 && countservices > 0; page1++)
-                                        {
-                                            <li><a class="page-numbers" href="@Url.Action("Services", "Home", new { page = page1 })" >@page1</a> </li>
-                                            count = count - 10;
-                                        }
-                                    }
-                                    else
-                                    {
-
-                                        var catid = (int)ViewData["catid"];
-                                        var countservice = db.Services.Where(x => x.SubCategory_FID == catid).Count();
-                                        for (int page1 = 1; count / 10 >= 0 && countservice > 0; page1++)
-                                        {
-                                            <li><a class="page-numbers" href="@Url.Action("Services","Home",new { page = page1 })" style="border-right:double;border-left:double">@page1</a> </li>
-                                            count = count - 10;
-                                        }
-                                    }
-                                </ul>
-                            </div>
-
-
-                        <!-- //pagination -->
+                        }
                     </div>
-                </section>
-                <!-- End Best Seller -->
-                <!-- Start Filter Bar -->
-                @*<div class="filter-bar d-flex flex-wrap align-items-center">
-                        <div class="sorting mr-auto">
-                            <select>
-                                <option value="1">Show 12</option>
-                                <option value="1">Show 12</option>
-                                <option value="1">Show 12</option>
-                            </select>
-                        </div>
+
+                    <!-- pagination -->
+                    @*<div class="pagination-wrapper mt-5">
+            <ul class="page-pagination">
+
+                @if (ViewData["catid"] == null)
+                {
+
+                    var countservices = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name.Contains("Cuisine")).Count();
+                    for (int page1 = 1; count / 10 >= 0 && countservices > 0; page1++)
+                    {
+                        <li><a class="page-numbers" href="@Url.Action("Services", "Home", new { page = page1 })">@page1</a> </li>
+                        count = count - 10;
+                    }
+                }
+                else
+                {
+
+                    var catid = (int)ViewData["catid"];
+                    var countservice = db.Services.Where(x => x.SubCategory_FID == catid).Count();
+                    for (int page1 = 1; count / 10 >= 0 && countservice > 0; page1++)
+                    {
+                        <li><a class="page-numbers" href="@Url.Action("Services","Home",new { page = page1 })" style="border-right:double;border-left:double">@page1</a> </li>
+                        count = count - 10;
+                    }
+                }
+            </ul>
+        </div>*@
+
+                    <div class="filter-bar d-flex flex-wrap align-items-center">
+
                         <div class="pagination">
-                            <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                            <a href="#" class="active">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                            <a href="#">6</a>
-                            <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                            <ul class="page-pagination">
+
+                                @if (ViewData["catid"] == null)
+                                {
+
+                                    var countservices = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name.Contains("Cuisine")).Count();
+                                    for (int page1 = 1; count / 10 >= 0 && countservices > 0; page1++)
+                                    {
+                                        <li><a class="page-numbers" href="@Url.Action("Services", "Home", new { page = page1 })">@page1</a> </li>
+                                        count = count - 10;
+                                    }
+                                }
+                                else
+                                {
+
+                                    var catid = (int)ViewData["catid"];
+                                    var countservice = db.Services.Where(x => x.SubCategory_FID == catid).Count();
+                                    for (int page1 = 1; count / 10 >= 0 && countservice > 0; page1++)
+                                    {
+                                        <li><a class="page-numbers" href="@Url.Action("Services","Home",new { page = page1 })" style="border-right:double;border-left:double">@page1</a> </li>
+                                        count = count - 10;
+                                    }
+                                }
+                            </ul>
+
                         </div>
-                    </div>*@
-                <!-- End Filter Bar -->
-            </div>
+                    </div>
+                    <!-- //pagination -->
+                </div>
+            </section>
+            <!-- End Best Seller -->
+            <!-- Start Filter Bar -->
+            @**@
+            <!-- End Filter Bar -->
+        </div>
         </div>
     </div>
+<script type="text/javascript">
+    window.onload = function () { window.scrollBy(0, 230); }
+</script>

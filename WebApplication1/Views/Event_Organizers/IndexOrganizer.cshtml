@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ReadRix.Models.Writer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<center><h1><b>Writers Applied Requests</b></h1></center>
+
+<br />
+<table class="table table-bordered table-hover">
+    <tr class="bg-light-extra">
+        <th>
+            Writer Image
+        </th>
+        <th>
+            Writer Name
+        </th>
+        <th width="10px">
+            Writer Email
+        </th>
+        <th>
+           Writer Password
+        </th>
+        @*<th>
+            Writer Contact
+        </th>*@
+        <th width="10px">
+          Writer Address
+        </th>
+      
+        <th width="5px">
+            Writer Status
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        <img height="100" width="80" src="@Url.Content(item.WRITER_IMAGE)" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.WRITER_NAME)
+    </td>
+    <td width="7px">
+        @Html.DisplayFor(modelItem => item.WRITER_EMAIL)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.WRITER_PASSWORD)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.WRITER_CONTACT)
+    </td>*@
+    <td>
+        @Html.DisplayFor(modelItem => item.WRITER_ADDRESS)
+    </td>
+    
+    <td>
+        @Html.DisplayFor(modelItem => item.STATUS)
+    </td>
+    <td>
+        <a class="btn btn-primary fa fa-toggle-on " href="@Url.Action("activateaccount","Writers",new { id= item.WRITER_ID})"></a> |
+        <a class="btn btn-danger fa fa-ban " href="@Url.Action("blockaccount","Writers",new { id= item.WRITER_ID})"></a> |
+        <a class="btn btn-success fa fa-book " href="@Url.Action("Details","Writers",new { id= item.WRITER_ID})"></a>
+       
+
+    </td>
+</tr>
+    }
+
+</table>
