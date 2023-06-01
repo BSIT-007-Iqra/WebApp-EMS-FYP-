@@ -3,7 +3,6 @@
 @{
     Model1 db = new Model1();
 }
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,12 +11,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="keywords"
+          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, AdminWrap lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, AdminWrap lite design, AdminWrap lite dashboard bootstrap 5 dashboard template">
+    <meta name="description"
+          content="AdminWrap Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault() Organizer Wrap</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
-    <!-- Favicon-->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/AdminPicture/logo1.ico">
-    <title>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault() Admin </title>
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/Organizer/assets/images/favicon.png">
     <!-- Bootstrap Core CSS -->
     <link href="~/Content/Organizer/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/Organizer/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
@@ -27,19 +29,19 @@
     <!--c3 CSS -->
     <link href="~/Content/Organizer/assets/node_modules/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="~/Content/Organizer/css/style.css" rel="stylesheet">
+    <link href="~/Content/Organizer/html/css/style.css" rel="stylesheet">
     <!-- Dashboard 1 Page CSS -->
-    <link href="~/Content/Organizer/css/pages/dashboard1.css" rel="stylesheet">
+    <link href="~/Content/Organizer/html/css/pages/dashboard1.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="~/Content/Organizer/css/colors/default.css" id="theme" rel="stylesheet">
+    <link href="~/Content/Organizer/html/css/colors/default.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="~/Content/Admin/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="~/Content/Admin/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- toastr  -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
-
     @RenderSection("head", required: false)
 </head>
 
@@ -50,7 +52,7 @@
     <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label"> Organizer Wrap</p>
+            <p class="loader__label"> organizer Wrap</p>
         </div>
     </div>
     <!-- ============================================================== -->
@@ -65,20 +67,24 @@
                 <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-header container">
-                    <a class="navbar-brand" href="@Url.Action("Indexadmin","Home")">
-                        <!-- Logo icon --><div>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="@Url.Action("IndexOrganizer","Home")">
+                        <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="dark-logo" sizes="16x16" />
+                            <img src="~/Content/Organizer/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <!--<img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="light-logo" sizes="50x50"/>-->
-                        </div>
+                            <img src="~/Content/Organizer/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                        </b>
                         <!--End Logo icon -->
-
+                        <!-- Logo text --><span>
+                            <!-- dark Logo text -->
+                            <img src="~/Content/Organizer/assets/images/logo-text2.png" alt="homepage" class="dark-logo" />
+                            <!-- Light Logo text -->
+                            <img src="~/Content/Organizer/assets/images/logo-light-text2.png" class="light-logo" alt="homepage" />
+                        </span>
                     </a>
                 </div>
-                <hr />
                 <!-- ============================================================== -->
                 <!-- End Logo -->
                 <!-- ============================================================== -->
@@ -88,7 +94,8 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark" href="javascript:void(0)"><i class="fa fa-bars ti-close"></i></a>
+                            <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
+                               href="javascript:void(0)"><i class="fa fa-bars"></i></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- Search -->
@@ -114,7 +121,7 @@
                         <!-- Profile -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown u-pro">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="@Url.Action("Index","Writers")"
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="@Url.Action("Index","Organizers")"
                                id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="@Url.Content(BaseHelper.event_organizers.EventOrganizer_Picture)" alt="" class="" /> <span class="hidden-md-down">@BaseHelper.event_organizers.EventOrganizer_Name &nbsp;</span>
                             </a>
@@ -142,18 +149,18 @@
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Event_Organizers")" aria-expanded="false">
-                                <i class="fa fa-solid fa-cubes new1"></i><span class="hide-menu"> Organizer</span>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Organizers")" aria-expanded="false">
+                                <i class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span>
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Services")" aria-expanded="false">
-                                <i class="fa fa-table"></i><span class="hide-menu">Manage Services</span>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Artifacts")" aria-expanded="false">
+                                <i class="fa fa-table"></i><span class="hide-menu">Manage Artifacts</span>
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Halls")" aria-expanded="false">
-                                <i class="fa fa-bookmark-o"></i><span class="hide-menu">Add Halls</span>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Episodes")" aria-expanded="false">
+                                <i class="fa fa-bookmark-o"></i><span class="hide-menu">Add Episodes</span>
                             </a>
                         </li>
                         <li>
@@ -172,17 +179,17 @@
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("ViewReport","Event_Organizers")" aria-expanded="false">
+                            <a class="waves-effect waves-dark" href="@Url.Action("ViewReport","Organizers")" aria-expanded="false">
                                 <i class="fa fa-file"></i><span class="hide-menu">View Report</span>
                             </a>
                         </li>
+
+
                         <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("logout","Event_Organizers")" aria-expanded="false">
-                                <i class="fa fa-sign-out new1"></i><span class="hide-menu"><b style="color:#745871">Logout</b></span>
+                            <a class="waves-effect waves-dark" href="@Url.Action("logout","Organizers")" aria-expanded="false">
+                                <i class="fa fa-sign-out"></i><span class="hide-menu" style="color:hotpink">Logout</span>
                             </a>
                         </li>
-
-
                     </ul>
 
                 </nav>
@@ -202,7 +209,7 @@
 
                 <!-- ============================================================== -->
             </div>
-            <footer class="footer"> © 2023 Writerwrap by <a>EMS.com</a> </footer>
+            <footer class="footer"> © 2022 Organizer wrap by <a>EMS.com</a> </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

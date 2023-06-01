@@ -1,33 +1,30 @@
-﻿@using WebApplication1.Models
-@using WebApplication1.Utils
+﻿@using WebApplication1.Models;
+@using WebApplication1.Utils;
 @{
     Model1 db = new Model1();
     Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
-    ViewBag.Title = "Index";
-
-    //int count = 0;
+    int count = 0;
     List<int> list = new List<int>();
 
-    DateTime startdate = DateTime.ParseExact("01/01/2022", "dd/MM/yyyy", null);
+    DateTime startdate = DateTime.ParseExact("01/05/2023", "dd/MM/yyyy", null);
+    DateTime enddate = DateTime.ParseExact("31/05/2023", "dd/MM/yyyy", null);
+    for (int i = 0; i < 13; i++)
+    {
+        count = db.Bookings.Where(x => x.Event_Date >= startdate && x.Event_Date <= enddate && x.Booking_Type == "Booked").Count();
+        if (count > 0)
+        {
+            list.Add(Convert.ToInt32(db.Booking_Details.Where(x => x.Booking.Booking_Type == "Booked" && x.Booking.Booking_Status != "Cancelled" && x.Booking.Event_Date >= startdate && x.Booking.Event_Date <= enddate).Sum(x => x.Price)));
+        }
+        else
+        {
+            list.Add(0);
+        }
+        startdate = startdate.AddMonths(1);
+        enddate = enddate.AddMonths(1);
+        count = 0;
 
-    DateTime enddate = DateTime.ParseExact("31/01/2022", "dd/MM/yyyy", null);
+    }
 
-    //for (int i = 0; i < 13; i++)
-    //{
-    //    count = db.Episodes.Where(x => x.EPISODE_DATE >= startdate && x.EPISODE_DATE <= enddate && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Count();
-    //    if (count > 0)
-    //    {
-    //        list.Add(Convert.ToInt32(db.Views.Where(x => x.Episode.EPISODE_DATE >= startdate && x.Episode.EPISODE_DATE <= enddate).Count()));
-    //    }
-    //    else
-    //    {
-    //        list.Add(0);
-    //    }
-    //    startdate = startdate.AddMonths(1);
-    //    enddate = enddate.AddMonths(1);
-    //    count = 0;
-
-    //}
 }
 @{
 
@@ -40,20 +37,19 @@
     list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
     list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
     list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
+    //list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").Count()));
+
 }
 <head>
 
     <script src="~/Scripts/Chart.min.js"></script>
     <script src="~/Scripts/utils.js"></script>
 </head>
-<!-- Container fluid  -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Bread crumb and right sidebar toggle -->
+
 <!-- ============================================================== -->
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-        <h3 class="text-themecolor"></h3>
+        <h3 class="text-themecolor">Dashboard</h3>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
@@ -66,6 +62,7 @@
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <!-- Sales Chart and browser state-->
+<!-- Sales Chart and browser state-->
 <!-- ============================================================== -->
 <div class="row">
     <!-- Column -->
@@ -74,13 +71,14 @@
             <div class="card-body">
                 <div class="d-flex no-block">
                     <div>
-                        <h5 class="card-title mb-0">Services Views Chart</h5>
+                        <h5 class="card-title mb-0">Bookings Chart</h5>
                     </div>
 
                 </div>
                 <div class="" style="width:600px;height:345px">
                     <canvas id="myChart" style="width: 600px; height: 345px "></canvas>
                 </div>
+
             </div>
         </div>
     </div>
@@ -93,7 +91,8 @@
 
                 </div>
                 <br /><br />
-                <div id="canvas-holder" style="height:220px; width:100%;">
+                <br />
+                <div id="canvas-holder" style="height:200px; width:100%;">
                     <canvas id="chart-area"></canvas>
 
                 </div>
@@ -110,12 +109,94 @@
 <!-- ============================================================== -->
 <!-- End Sales Chart -->
 <!-- ============================================================== -->
+<!-- Notification And Feeds -->
+<!-- ============================================================== -->
+<div class="row">
+    <!-- Start Notification -->
+    <div class="col-lg-6 col-md-12">
+        <div class="card card-body mailbox">
+            <h5 class="card-title">Notification</h5>
+            <div class="message-center" style="height: 420px !important;">
+                <!-- Message -->
+                @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
+                {
+                    <a href="#">
+                        <div class="btn btn-danger btn-circle"><i class="fa fa-user"></i></div>
+                        <div class="mail-contnet">
+                            <h6 class="text-dark font-medium mb-0">@item.Event_Organizers.EventOrganizer_Name</h6> <span class="mail-desc">@Html.DisplayFor(modelItem => item.Message)</span>
+                            <span class="time">@item.DateTime </span>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Notification -->
+    <!-- Start Feeds -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Feeds</h5>
+                <ul class="feeds">
+                    @*<li>
+                            <div class="bg-light-info"><i class="fa fa-bell-o"></i></div> You have @db.Withdraw_Amount.Where(x => x.ISTRANSFERED != true).Count() withdraw
+                            requests. <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                        </li>
+                        <li>
+                            <div class="bg-light-success"><i class="fa fa-server"></i></div> You have @db.Episodes.Where(x => x.Isapproved != true).Count()
+                            episode approval requests.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                        </li>*@
+                    <li class="li1">
+                        <div class="bg-light-warning"><i class="fa fa-shopping-cart text-dark"></i></div>
+                        <b class="b1">
+                            @db.Bookings.Where(x => x.Booking_Status == "Booked").Count()
+                        </b> New
+                        Booking received.<span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                    </li>
+                    <li class="li1">
+                        <div class="bg-light-warning"><i class="fa fa-bell-o text-dark"></i></div>
+                        You have  <b class="b1">
+                            @db.Bookings.Where(x => x.Booking_Status == "Proceed").Count()
+                        </b>
+                        Proceeding Bookings.
+                        <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                    </li>
+                    <li class="li1">
+                        <div class="bg-light-warning"><i class="fa fa-send-o text-dark"></i></div>You Cancelled  <b class="b1">
+                            @db.Bookings.Where(x => x.Booking_Status == "Cancelled").Count()
+                        </b>
+                        Bookings.
+                        <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                    </li>
+                    <li class="li1">
+                        <div class="bg-light-warning"><i class="fa fa-bell text-dark"></i></div>
+
+                        You have received
+                        <b class="b1">
+                            @db.Notifications.Where(x => x.DateTime >= System.DateTime.Today).Count()
+                    </b>
+                    notifications.
+                    <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                </li>
+                <li class="li1">
+                    <div class="bg-light-inverse"><i class="fa fa-bell-o text-dark"></i></div>
+                    New Version just arrived. <span class="text-muted">27 May</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Feeds -->
+</div>
+<!-- ============================================================== -->
+<!-- End Notification And Feeds -->
 <!-- ============================================================== -->
 <!-- Projects of the Month -->
 <!-- ============================================================== -->
 <div class="row">
     <!-- Column -->
-    <div class="col-lg-12 d-flex align-items-stretch">
+    <div class="col-lg-8 d-flex align-items-stretch">
         <div class="card w-100">
             <div class="card-body">
                 <div class="d-flex">
@@ -125,7 +206,7 @@
 
                 </div>
                 <div class="table-responsive mt-3 no-wrap">
-                    <table class="table vm no-th-brd pro-of-month">
+                    <table class="table vm no-th-brd pro-of-month table-responsive-sm">
                         <thead>
                             <tr>
                                 <th colspan="2">Assigned</th>
@@ -160,36 +241,6 @@
     </div>
     <!-- Column -->
     <!-- Column -->
-
-</div>
-<!-- ============================================================== -->
-<!-- End Projects of the Month -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- Notification And Feeds -->
-<!-- ============================================================== -->
-<div class="row">
-    <!-- Start Notification -->
-    <div class="col-lg-8 col-md-12">
-        <div class="card card-body mailbox">
-            <h5 class="card-title">Notification</h5>
-            <div class="message-center" style="height: 420px !important;">
-                <!-- Message -->
-                @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
-                {
-                    <a href="#">
-                        <div class="btn btn-danger btn-circle"><i class="fa fa-user"></i></div>
-                        <div class="mail-contnet">
-                            <h6 class="text-dark font-medium mb-0">@item.Event_Organizers.EventOrganizer_Name</h6> <span class="mail-desc">@Html.DisplayFor(modelItem => item.Message)</span>
-                            <span class="time">@item.DateTime </span>
-                        </div>
-                    </a>
-                }
-            </div>
-        </div>
-    </div>
-    <!-- End Notification -->
-    <!-- Start Feeds -->
     <div class="col-lg-4 d-flex align-items-stretch">
         <div class="card w-100">
 
@@ -206,18 +257,15 @@
             </div>
         </div>
     </div>
-    <!-- End Feeds -->
 </div>
 <!-- ============================================================== -->
-<!-- End Notification And Feeds -->
+<!-- End Projects of the Month -->
 <!-- ============================================================== -->
 <!-- ============================================================== -->
 <!-- End Page Content -->
 <!-- ============================================================== -->
 <!-- ============================================================== -->
-<!-- End Container fluid  -->
-<!-- ============================================================== -->
-@*<script>
+<script>
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
@@ -247,7 +295,7 @@
 
     });</script>
 
- <script>
+<script>
     var randomScalingFactor = function () {
         return Math.round(Math.random() * 100);
     };
@@ -288,5 +336,4 @@
 
 
 
-    </script>*@
-
+</script>
