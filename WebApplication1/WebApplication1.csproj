@@ -343,6 +343,7 @@
     <Compile Include="Utils\BaseHelper.cs" />
     <Compile Include="Utils\ConversionData.cs" />
     <Compile Include="Utils\ConversionRate.cs" />
+    <Compile Include="Utils\Dates.cs" />
     <Compile Include="Utils\Dropboxapi.cs" />
     <Compile Include="Utils\MailProvider.cs" />
     <Compile Include="Utils\NotificationFunction.cs" />

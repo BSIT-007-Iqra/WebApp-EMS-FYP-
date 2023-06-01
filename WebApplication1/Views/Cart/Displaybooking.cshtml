@@ -21,6 +21,21 @@
     decimal total = 0;
     int rowno = -1;
     int rowno1 = -1;
+    var dates = new EventDates();
+    bool confirm = false;
+    if (Session["dates"] != null)
+    {
+        dates = (EventDates)Session["dates"];
+
+    }
+
+    string startTimeFormatted = dates.Start_Time.ToString(@"hh\:mm");
+    string endTimeFormatted = dates.End_Time.ToString(@"hh\:mm");
+    string sessionDateTime = dates.Event_Date.ToString("yyyy-MM-dd");
+    string eventname = dates.Event_Name;
+    confirm = dates.Confirm;
+
+
 
 }
 <style>
@@ -54,6 +69,7 @@
         border-radius: 10px 10px;
         box-shadow: 0 4px 4px 0 #808080;
     }
+
     .valid-feedback {
         display: none;
         width: 100%;
@@ -152,7 +168,7 @@
                                         <tr rowspan="5">
                                             <td class="thumbnail-img">
 
-                                                <img class="img-fluid pic-td" src="@Url.Content(item.Service_Picture)" alt="" />
+                                                <img class="img-fluid pic-td" src="@Url.Content(item.Service_Picture)" width="300px" height="300px" alt="" />
 
                                             </td>
 
@@ -263,46 +279,36 @@
                                     <div class="container">
                                         <div class="col-md-12 form-group">
                                             <form action="/Cart/Bookingdate" method="get">
-                                                <div class="input-group">
-                                                    <input type="date" class="form-control" id="txtdateofreservation" name="eventDate" placeholder="Select Date *" required
-                                                           />
-                                                    <input type="time" class="form-control" id="txtdateofreservation" name="starttime" placeholder="Select Date *" required
-                                                           />
-                                                    <input type="time" class="form-control" id="txtdateofreservation" name="endtime" placeholder="Select Date *" required
-                                                           />
-                                                    <div class="invalid-feedback" style="width: 100%;">@TempData["ErrorDate"] </div>
-                                                    <input type="submit" value="Confirm Date" />
+                                                <div>
+                                                    <label>Select Date:</label><br />
+                                                    <input type="date" class="form-control" id="txtdateofreservation" name="eventDate" placeholder="Select Date *" required /><br />
+                                                    <label>Select Event Start Time:</label><br />
+                                                    <input type="time" class="form-control" id="starttime" name="starttime" placeholder="Select start date *" required /><br />
+                                                    <label>Select Event End Time:</label><br />
+                                                    <input type="time" class="form-control" name="endtime" id="endtime" placeholder="Select end date *" required /><br />
+                                                    <div class="input-group">
+                                                        <select class="wide" id="eventname" name="Event_Name" required>
+                                                            <option value=" ">Select An Event</option>
+                                                            <option value="Barat">Barat</option>
+                                                            <option value="Reception">Reception</option>
+                                                            <option value="Birthday">Birthday</option>
+                                                            <option value="Party">Party</option>
+                                                            <option value="Coorporation Meeting">Coorporation Meeting</option>
+                                                            <option value="Mehndi">Mehndi</option>
+                                                        </select>
+                                                    </div><br />
+                                                    <div style="width: 100%; color:darkred"><b>@TempData["ErrorDate"] </b> </div>
+                                                    <input type="submit" class="btn btn-block primary-btn" value="Confirm Date" />
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
-                                    <div class="container">
-                                        <div class="col-md-12 form-group">
 
-                                            <div class="input-group">
-                                                <select class="wide" required>
-                                                    <option data-display="Enter Event Name"></option>
-                                                    <option value="2">Barat</option>
-                                                    <option value="3">Reception</option>
-                                                    <option value="4">Birthday</option>
-                                                    <option value="5">Party</option>
-                                                    <option value="6">Coorporation Meeting</option>
-                                                    <option value="7">Mehndi</option>
-                                                </select>
-                                                <div class="invalid-feedback" style="width: 100%;"> Event Name required. </div>
-                                            </div>
-                                            @*<input type="text" class="form-control" id="txtdateofreservation" name="Event_Name" placeholder="Enter Event Name" required />*@
-
-                                        </div>
-
-
-                                    </div>
                                 }
 
                                 else
                                 {
                                     <div class="mb-3">
-
                                         <a href="@Url.Action("loginuser","Customers")" class="button">Customer login</a>
                                     </div>
 
@@ -361,7 +367,7 @@
                                 <div class="ml-auto h5">Rs:<span>@(total + 100)</span></div>
                             </div>
                             <hr>
-                            @if (Session["cart"] != null && Session["cart1"] != null && total != 0 )
+                            @if (Session["cart"] != null && Session["cart1"] != null && total != 0 && confirm == true)
                             {
                                 <center><div class="d-flex"><a class="btn primary-btn" href="/Cart/checkout" style="float:right">Checkout</a> </div></center>
 
@@ -442,6 +448,18 @@
         $('[id*=txtdateofreservation]').attr('min', date);
     });
 </script>
+<script>
+
+     let date = document.getElementById("txtdateofreservation");
+     date.value = "@sessionDateTime";
+     let starttime = document.getElementById("starttime")
+     starttime.value = "@startTimeFormatted";
+     let endtime = document.getElementById("endtime")
+     endtime.value = "@endTimeFormatted";
+     let eventname = document.getElementById("eventname")
+     eventname.value = "@eventname";
+</script>
+
 <script>
     function ValidateInput() {
         var pattern = /^03[\d]{9}$/;

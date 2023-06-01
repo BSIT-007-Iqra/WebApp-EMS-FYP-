@@ -22,8 +22,8 @@ namespace ReadRix.Controllers
             {
                 TempData["new"] = "Login into your account OR Register Account";
             }
-        
-            else if(Session["cart"] == null || Session["cart1"] == null)
+
+            else if (Session["cart"] == null || Session["cart1"] == null)
             {
                 TempData["ok1"] = "Select Hall and Services First before checkout";
             }
@@ -31,36 +31,84 @@ namespace ReadRix.Controllers
             return View();
         }
 
-        public ActionResult Bookingdate(DateTime eventDate , TimeSpan starttime , TimeSpan endtime)
+        public ActionResult Bookingdate(DateTime eventDate, TimeSpan starttime, TimeSpan endtime, string Event_Name)
         {
-            if (eventDate == null )
-                TempData["ErrorDate"] = " \n Please!  Setect  date \t thanks";
+            if (Event_Name == " ")
+            {
+                TempData["ErrorDate"] = " \n Please!  Setect  Event  \t thanks";
+                return RedirectToAction("Displaybooking", "Cart");
+            }
             bool confirm;
-            //List<int> list = new List<int>();
-            //DateTime startdate = DateTime.ParseExact("01/01/2023", "dd/MM/yyyy", null);
-            //DateTime enddate = DateTime.ParseExact("31/01/2023", "dd/MM/yyyy", null);
+            var query = db.Bookings.Where(x => x.Event_Date == eventDate);
 
-
-            var query = db.Bookings.Where(x=>x.Event_Date == eventDate );
-             
             if (query != null)
             {
-                //query = query.Where(x => x.start == starttime && x.end == starttime);
-                
-                TempData["ErrorDate"] = "This Date is not available \n please!  Setect another date \t thanks";
-                confirm = false;
+                bool isOverlap = false;
+
+                foreach(var item in query) 
+                {
+                    if (starttime >= item.Event_Start_Time && starttime <= item.Event_End_Time)
+                    {
+                        // Overlapping start timing found
+                        isOverlap = true;
+                        break;
+                    }
+
+                    if (endtime >= item.Event_Start_Time && endtime <= item.Event_End_Time)
+                    {
+                        // Overlapping end timing found
+                        isOverlap = true;
+                        break;
+                    }
+                }
+                if (isOverlap)
+                {
+                    confirm = false;
+                    var dates = new EventDates
+                    {
+                        Event_Date = eventDate,
+                        Start_Time = starttime,
+                        End_Time = endtime,
+                        Confirm = confirm,
+                        Event_Name = Event_Name
+                    };
+                    Session["dates"] = dates;
+                    TempData["ErrorDate"] = "These timing are not available \n please!  Setect another date or timing of the day. Thanks";
+                }
+                else
+                {
+                    TempData["ErrorDate"] = "These timing are available \n Please Proceed Next.Thanks";
+                    confirm = true;
+                    var dates = new EventDates
+                    {
+                        Event_Date = eventDate,
+                        Start_Time = starttime,
+                        End_Time = endtime,
+                        Confirm = confirm,
+                        Event_Name = Event_Name
+                    };
+                    Session["dates"] = dates;
+
+                }
             }
             else
             {
-               
-                TempData["ErrorDate"] = "This Date is available \n please! Proceed to Checkout \t thanks";
-
+                TempData["ErrorDate"] = "These timing are available \n Please Proceed Next.Thanks";
                 confirm = true;
-            }
+                var dates = new EventDates
+                {
+                    Event_Date = eventDate,
+                    Start_Time = starttime,
+                    End_Time = endtime,
+                    Confirm = confirm,
+                    Event_Name = Event_Name
+                };
+                Session["dates"] = dates;
 
-            return RedirectToAction("Displaybooking","Cart");
+            }
+            return RedirectToAction("Displaybooking", "Cart");
         }
-        
+
         public ActionResult BookingComplete()
         {
             return View();
@@ -70,19 +118,30 @@ namespace ReadRix.Controllers
             return View();
         }
 
-        public ActionResult Orderbooked(Booking order , DateTime eventDate)
+        public ActionResult Orderbooked(Booking order)
         {
             int dollerrate = (int)MailProvider.GetCurrentDollorprice();
             if (BaseHelper.customer != null)
             {
                 order.Customer_FID = BaseHelper.customer.Customer_ID;
-                    order.Booking_Status = "Booked";
-                    order.Event_Date = System.DateTime.Now;
-                   
+                order.Booking_Status = "Booked";
+
+                #region EventDates
+
+                var dates = (EventDates)Session["dates"];
+
+                order.Event_Start_Time = dates.Start_Time;
+                order.Event_End_Time = dates.End_Time;
+                order.Event_Date = dates.Event_Date;
+                order.Event_Name= dates.Event_Name;
+
+                #endregion
+
+
                 if (order.Payment_Type == "CashOnBooking")
                 {
-                     order.Booking_Type = "Book";
-                    
+                    order.Booking_Type = "Book";
+
                     db.Bookings.Add(order);
                     db.SaveChanges();
 
@@ -112,11 +171,12 @@ namespace ReadRix.Controllers
                     Session["Cart"] = null;
                     TempData["Cart1"] = Session["Cart1"];
                     Session["Cart1"] = null;
-                  
+
 
                     return RedirectToAction("BookingComplete");
                 }
-                else {
+                else
+                {
                     order.Booking_Type = "Proceed";
                     Session["order"] = order;
                     return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=iqrabajwa00@gmail.com&item_name=EMS&return=https://localhost:44373/Cart/PaypalOrderbooked&amount=" + (double.Parse(Session["Amount"].ToString()) / dollerrate));
@@ -162,17 +222,20 @@ namespace ReadRix.Controllers
 
 
             MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Booking has been booked and you will Inform forward through Email, Regards EMS <br /> Thanks");
-            TempData["cart"] = Session["cart"];
-            Session["cart"] = null;
-            TempData["cart"] = Session["cart1"];
-            Session["cart1"] = null;
+            TempData["Cart"] = Session["Cart"];
+            Session["Cart"] = null;
+            TempData["Cart1"] = Session["Cart1"];
+            Session["Cart1"] = null;
+
+            TempData["dates"] = Session["dates"];
+            Session["dates"] = null;
             return RedirectToAction("BookingComplete");
 
         }
 
         public ActionResult Addtobooking(int id)
         {
-            
+
             List<Hall> HallList = new List<Hall>();
             //if (Session["cart"] != null)
             //{
@@ -260,8 +323,6 @@ namespace ReadRix.Controllers
         }
         public ActionResult Closeboking()
         {
-
-            Session["cart"] = null;
             return RedirectToAction("index", "Home");
         }
     }

@@ -3,20 +3,14 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
-    List<Hall> pro = new List<Hall>();
-    if (Session["Cart"] != null)
-    {
-        pro = (List<Hall>)Session["Cart"];
-    }
+    List<Service> pro1 = (List<Service>)TempData.Peek("Cart1");
 
     <!---service-->
-    List<Service> pro1 = new List<Service>();
-    if (Session["Cart1"] != null)
-    {
-        pro1 = (List<Service>)Session["Cart1"];
-    }
-    decimal total = 0;
+    List<Hall> pro = (List<Hall>)TempData.Peek("Cart");
 
+    var dates = (EventDates)TempData.Peek("dates");
+
+    decimal total = 0;
 }
 <style>
 
@@ -151,24 +145,43 @@
                                     <h3>Billing Information</h3>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="username">Username *</label>
-                                    <div class="input-group">
+                                <div class=" container hide">
+                                    <div class="col-md-12 form-group">
+                                        <label> Customer Name</label>
                                         <input type="text" class="form-control" id="username" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" readonly required>
-                                        <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <label> Customer Email</label>
+                                        <input type="email" class="form-control" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <label> Customer Contact</label>
+                                        <input type="text" class="form-control" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <label> Event Name</label>
+                                        <input type="text" class="form-control" placeholder="@dates.Event_Name" readonly required>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <label> Event Date</label>
+                                        <input type="text" class="form-control" placeholder="@dates.Event_Date.ToShortDateString()" readonly required>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <label> Event Start Time</label>
+                                        <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@dates.Start_Time" readonly required>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+
+                                        <label> Event End Time</label>
+                                        <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@dates.End_Time" readonly required>
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email">Email *</label>
-                                    <input type="email" class="form-control" id="email" name="Customer_Email" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
-                                    <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="address">Address *</label>
-                                    <input type="tel" class="form-control" id="phone" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
-                                    <div class="invalid-feedback"> Please enter your Contact. </div>
-                                </div>
-
                                 <hr class="mb-4">
                                 <div>
                                     <div class="d-block my-3">
@@ -191,33 +204,36 @@
                                             <h3>Booking Details</h3>
                                         </div>
                                         <div class="rounded p-2 bg-light">
-
-                                            @foreach (var item in pro)
+                                            @if (pro != null)
                                             {
-                                                total += (decimal)item.Hall_Price;
-                                                <div class="media mb-2 border-bottom">
-                                                    <div class="media-body">
-                                                        <img src="@Url.Content(item.Hall_Picture)" height="50" width="50" />
-                                                        <a href="detail.html">@item.Hall_Name</a>
-                                                        <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span> Rs:@(item.Hall_Price)</div>
+                                                foreach (var item in pro)
+                                                {
+                                                    total += (decimal)item.Hall_Price;
+                                                    <div class="media mb-2 border-bottom">
+                                                        <div class="media-body">
+                                                            <img src="@Url.Content(item.Hall_Picture)" height="50" width="50" />
+                                                            <a href="detail.html">@item.Hall_Name</a>
+                                                            <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span> Rs:@(item.Hall_Price)</div>
+                                                        </div>
                                                     </div>
-                                                </div>}
-
+                                                }
+                                            }
 
                                         </div>
                                         <div class="rounded p-2 bg-light">
-
-                                            @foreach (var item in pro1)
+                                            @if (pro1 != null)
                                             {
-                                                total += (decimal)item.Service_Price;
-                                                <div class="media mb-2 border-bottom">
-                                                    <div class="media-body">
-                                                        <img src="@Url.Content(item.Service_Picture)" height="50" width="50" />
-                                                        <a href="detail.html">@item.Service_Name</a>
-                                                        <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span> Rs:@(item.Service_Price)</div>
-                                                    </div>
-                                                </div>}
-
+                                                foreach (var item in pro1)
+                                                {
+                                                    total += (decimal)item.Service_Price;
+                                                    <div class="media mb-2 border-bottom">
+                                                        <div class="media-body">
+                                                            <img src="@Url.Content(item.Service_Picture)" height="50" width="50" />
+                                                            <a href="detail.html">@item.Service_Name</a>
+                                                            <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span> Rs:@(item.Service_Price)</div>
+                                                        </div>
+                                                    </div>}
+                                            }
 
                                         </div>
                                     </div>
@@ -262,8 +278,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="ml-auto button1 btn-lg hvr-hover" style="color:white" onclick="window.print()">Print Now</button>
-                                    <a class="primary-btn hvr-hover" style="color:white" href="@Url.Action("Closebooking","Cart")">Close Order?</a>
+                                    <button class="btn btn-lg primary-btn" style="color:white" onclick="window.print()">Print Now</button>
+                                    <a class="btn btn-lg primary-btn" style="color:white" href="@Url.Action("Closeboking","Cart")">Close Order?</a>
                                 </div>
                             </div>
 

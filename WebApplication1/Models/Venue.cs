@@ -14,7 +14,6 @@ namespace WebApplication1.Models
         {
             Feedbacks = new HashSet<Feedback>();
             Halls = new HashSet<Hall>();
-            Packages = new HashSet<Package>();
         }
 
         [Key]
@@ -49,8 +48,5 @@ namespace WebApplication1.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hall> Halls { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Package> Packages { get; set; }
     }
 }

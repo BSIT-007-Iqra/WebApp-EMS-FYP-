@@ -15,9 +15,9 @@ namespace WebApplication1.Models
 
         public int Booking_FID { get; set; }
 
-        public int Hall_FID { get; set; }
+        public int? Hall_FID { get; set; }
 
-        public int Service_FID { get; set; }
+        public int? Service_FID { get; set; }
 
         public int? Package_FID { get; set; }
 

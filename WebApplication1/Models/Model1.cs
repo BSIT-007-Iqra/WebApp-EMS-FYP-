@@ -84,9 +84,8 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Hall>()
                 .HasMany(e => e.Booking_Details)
-                .WithRequired(e => e.Hall)
-                .HasForeignKey(e => e.Hall_FID)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.Hall)
+                .HasForeignKey(e => e.Hall_FID);
 
             modelBuilder.Entity<Hall>()
                 .HasMany(e => e.Feedbacks)
@@ -98,6 +97,11 @@ namespace WebApplication1.Models
                 .WithRequired(e => e.Hall)
                 .HasForeignKey(e => e.Hall_FID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Hall>()
+                .HasMany(e => e.Services)
+                .WithOptional(e => e.Hall)
+                .HasForeignKey(e => e.Hall_Fid);
 
             modelBuilder.Entity<Hall>()
                 .HasMany(e => e.Views)
@@ -117,17 +121,11 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Service>()
                 .HasMany(e => e.Booking_Details)
-                .WithRequired(e => e.Service)
-                .HasForeignKey(e => e.Service_FID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Service>()
-                .HasMany(e => e.Feedbacks)
                 .WithOptional(e => e.Service)
                 .HasForeignKey(e => e.Service_FID);
 
             modelBuilder.Entity<Service>()
-                .HasMany(e => e.Halls)
+                .HasMany(e => e.Feedbacks)
                 .WithOptional(e => e.Service)
                 .HasForeignKey(e => e.Service_FID);
 
@@ -162,11 +160,6 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Venue>()
                 .HasMany(e => e.Halls)
-                .WithOptional(e => e.Venue)
-                .HasForeignKey(e => e.Venue_FID);
-
-            modelBuilder.Entity<Venue>()
-                .HasMany(e => e.Packages)
                 .WithOptional(e => e.Venue)
                 .HasForeignKey(e => e.Venue_FID);
         }

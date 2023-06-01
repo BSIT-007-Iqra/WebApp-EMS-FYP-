@@ -41,6 +41,10 @@ namespace WebApplication1.Models
 
         public int? Customer_FID { get; set; }
 
+        public TimeSpan? Event_Start_Time { get; set; }
+
+        public TimeSpan? Event_End_Time { get; set; }
+
         public virtual Customer Customer { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

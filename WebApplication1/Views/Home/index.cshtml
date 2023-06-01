@@ -23,6 +23,7 @@
             font-weight: bold;
             font-size: x-large;
         }
+
     .deal-title1 {
         font-size: 30px;
         line-height: 66px;
@@ -32,10 +33,11 @@
         font-family: 'Cookie', cursive;
         font-style: oblique;
     }
+
     img {
-       
         display: none;
     }
+
     .img-venue {
         border-radius: 8px;
         box-shadow: 0 4px 8px 0 #B08EAD;
@@ -43,6 +45,7 @@
         height: 200px;
         width: 100%
     }
+
     .custom-card {
         border-radius: 8px;
         box-shadow: 0 4px 4px 0 #808080;
@@ -76,7 +79,7 @@
                                 <center>
                                     <h1><span>EMS</span> </h1>
                                     <p style="color:white">
-                                        Life is an event. Make it memorable. Our business is making memories. <br/>Find the best wedding halls, banquent
+                                        Life is an event. Make it memorable. Our business is making memories. <br />Find the best wedding halls, banquent
                                         and marquees for your Shaadi
                                     </p>
                                 </center>
@@ -121,26 +124,17 @@
                 <section class="features-area section_gap">
                     <div class="container" style="background-color:white;">
                         <div class="row features-inner">
-                            <!-- single features -->
+
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="form-group">
-                                    <div class='input-group date' id='datetimepicker11' data-display="Select Date">
-                                        <input type="date" id="txtdateofreservation" class="form-control" placeholder="Date" />
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- single features -->
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="form-group">
+                                    <label>Location</label>
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Select Location"></option>
-                                            <option value="1">Satellite Town</option>
-                                            <option value="2">Model Town</option>
-                                            <option value="3">Wapta Town</option>
-                                            <option value="4">GT. Road</option>
+                                            <option value=" " data-display="Select Location"></option>
+                                            <option value="Satellite Town">Satellite Town</option>
+                                            <option value="Model Town">Model Town</option>
+                                            <option value="Wapta Town">Wapta Town</option>
+                                            <option value="GT. Road">GT. Road</option>
                                         </select>
 
                                     </div>
@@ -149,14 +143,35 @@
 
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="form-group">
+                                    <label>Slots</label>
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Select Slot">Lunch</option>
-                                            <option value="2">Dinner</option>
+                                            <option value=" " data-display="Select Slot"></option>
+                                            <option value="Lunch">Lunch</option>
+                                            <option value="Dinner">Dinner</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <!-- single features -->
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="common-filter">
+                                    <div class="price-range-area">
+                                        <div id="price-range"></div>
+                                        <div class="value-wrapper d-flex">
+                                            <div class="price">Price:</div>
+                                            <span>Rs.</span>
+                                            <div id="lower-value"></div>
+                                            <div class="to">to</div>
+                                            <span>Rs.</span>
+                                            <div id="upper-value"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- single features -->
                             <div class="col-lg-3 col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <div class="input-group">
@@ -325,7 +340,7 @@
                         <div class="single-deal">
                             <div class="overlay"></div>
                             <img src="~/Content/SitePics/gallery_hero_1280.jpg" class="img-fluid w-100" alt="">
-                           
+
                             <a href="~/Content/SitePics/gallery_hero_1280.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
                                     <h4 class="deal-title1">Drinks</h4>
@@ -336,7 +351,7 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="single-deal">
                             <div class="overlay"></div>
-                           
+
                             <img class="img-fluid w-100" src="~/Content/SitePics/menu.jpg" alt="">
                             <a href="~/Content/SitePics/menu.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
@@ -348,7 +363,7 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="single-deal">
                             <div class="overlay"></div>
-                          
+
                             <img class="img-fluid w-100" src="~/Content/SitePics/hall3.jpg" alt="">
                             <a href="~/Content/SitePics/hall3.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
@@ -360,7 +375,7 @@
                     <div class="col-lg-8 col-md-8">
                         <div class="single-deal">
                             <div class="overlay"></div>
-                           
+
                             <img class="img-fluid w-100" src="~/Content/SitePics/events w6.jpg" alt="">
                             <a href="~/Content/SitePics/events w6.jpg" class="img-pop-up" target="_blank">
                                 <div class="deal-details">
@@ -398,7 +413,7 @@
                         <h1>Exclusive Best Deal Services!</h1>
                         <p>Who are in extremely love with eco friendly system.</p>
                     </div>
-                 
+
                 </div>
                 <a href="~/Content/Event/#" class="primary-btn">Booking Now</a>
             </div>
@@ -408,7 +423,7 @@
                     @foreach (var item in query1.Take(4))
                     {
                         <div class="single-exclusive-slider">
-                            <img class="img-fluid" src="@Url.Content(item.Service_Picture)"  style="height:300px;width:300px" alt="">
+                            <img class="img-fluid" src="@Url.Content(item.Service_Picture)" style="height:300px;width:300px" alt="">
                             <div class="product-details">
                                 <div class="price">
                                     <h6>@item.Service_Price</h6>

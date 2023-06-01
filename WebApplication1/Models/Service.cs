@@ -14,7 +14,6 @@ namespace WebApplication1.Models
         {
             Booking_Details = new HashSet<Booking_Details>();
             Feedbacks = new HashSet<Feedback>();
-            Halls = new HashSet<Hall>();
             Packages = new HashSet<Package>();
             Views = new HashSet<View>();
         }
@@ -44,6 +43,8 @@ namespace WebApplication1.Models
 
         public int SubCategory_FID { get; set; }
 
+        public int? Hall_Fid { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking_Details> Booking_Details { get; set; }
 
@@ -52,8 +53,7 @@ namespace WebApplication1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Feedback> Feedbacks { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Hall> Halls { get; set; }
+        public virtual Hall Hall { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Package> Packages { get; set; }

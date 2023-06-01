@@ -17,8 +17,12 @@
     {
         pro1 = (List<Service>)Session["Cart1"];
     }
+    var dates = new EventDates();
+    if (Session["dates"] != null)
+    {
+        dates = (EventDates)Session["dates"];
 
-
+    }
     decimal total = 0;
 
 }
@@ -168,60 +172,60 @@
                                         <tbody class="border2">
 
 
-                                            @if ( pro != null)
+                                            @if (pro != null)
                                             {
-                                           foreach (var item in pro)
-                                            {
+                                                foreach (var item in pro)
+                                                {
 
 
-                                                total += (decimal)item.Hall_Price;
+                                                    total += (decimal)item.Hall_Price;
 
-                                                <tr rowspan="5">
-                                                    <td class="thumbnail-img">
+                                                    <tr rowspan="5">
+                                                        <td class="thumbnail-img">
 
-                                                        <img class="img-fluid pic-td" src="@Url.Content(item.Hall_Picture)" alt="" />
+                                                            <img src="@Url.Content(item.Hall_Picture)" width="200px" height="200px" alt="" />
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td class="name-pr">
-                                                        <p class="p1">Name</p><br />
-                                                        <hr /><h5>
-                                                            @item.Hall_Name
-                                                        </h5>
+                                                        <td class="name-pr">
+                                                            <p class="p1">Name</p><br />
+                                                            <hr /><h5>
+                                                                @item.Hall_Name
+                                                            </h5>
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td class="user-name">
-                                                        <p class="p1">Location</p><br /> <hr /><h5> @item.Hall_Location</h5>
+                                                        <td class="user-name">
+                                                            <p class="p1">Location</p><br /> <hr /><h5> @item.Hall_Location</h5>
 
-                                                    </td>
-                                                    <td class="price-pr">
-                                                        <p class="p1">Price</p><br /><hr /> <h5>Rs: @item.Hall_Price</h5>
+                                                        </td>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Price</p><br /><hr /> <h5>Rs: @item.Hall_Price</h5>
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td class="price-pr">
-                                                        <p class="p1">Details</p><br /><hr />
-                                                        <h5>
-                                                            @if (item.Hall_Description.Length < 90)
-                                                            {
-                                                                @item.Hall_Description }
-                                                            else
-                                                            {
-                                                                @item.Hall_Description.Substring(0, 60)<span>......</span>}
-                                                        </h5>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Details</p><br /><hr />
+                                                            <h5>
+                                                                @if (item.Hall_Description.Length < 90)
+                                                                {
+                                                                    @item.Hall_Description }
+                                                                else
+                                                                {
+                                                                    @item.Hall_Description.Substring(0, 60)<span>......</span>}
+                                                            </h5>
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td class="price-pr">
-                                                        <p class="p1">Type</p><br /><hr /><h5> @item.Venue_Type</h5>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Type</p><br /><hr /><h5> @item.Venue_Type</h5>
 
-                                                    </td>
+                                                        </td>
 
-                                                </tr>
-                                                Session["Amount"] = total + 100;
+                                                    </tr>
+                                                    Session["Amount"] = total + 100;
 
-                                            }
+                                                }
                                             }
                                             @if (pro1 != null)
                                             {
@@ -229,53 +233,55 @@
                                                 {
                                                     total += (decimal)item.Service_Price;
 
-                                                <tr rowspan="5">
-                                                    <td class="thumbnail-img">
+                                                    <tr rowspan="5">
+                                                        <td class="img-thumbnail">
+                                                            <img src="@Url.Content(item.Service_Picture)" width="200px" height="200px" alt="" />
 
-                                                        <img class="img-fluid pic-td" src="@Url.Content(item.Service_Picture)" alt="" />
+                                                        </td>
 
-                                                    </td>
+                                                        <td class="name-pr">
+                                                            <p class="p1">Name</p><br />
+                                                            <hr /><h5>
+                                                                @item.Service_Name
+                                                            </h5>
 
-                                                    <td class="name-pr">
-                                                        <p class="p1">Name</p><br />
-                                                        <hr /><h5>
-                                                            @item.Service_Name
-                                                        </h5>
+                                                        </td>
+                                                        <td class="user-name">
+                                                            <p class="p1">Category</p><br /> <hr /><h5> @item.Sub_ServiceCategory.Sub_category_Name</h5>
 
-                                                    </td>
-                                                    <td class="user-name">
-                                                        <p class="p1">Category</p><br /> <hr /><h5> @item.Sub_ServiceCategory.Sub_category_Name</h5>
+                                                        </td>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Price</p><br /><hr /> <h5>Rs: @item.Service_Price</h5>
 
-                                                    </td>
-                                                    <td class="price-pr">
-                                                        <p class="p1">Price</p><br /><hr /> <h5>Rs: @item.Service_Price</h5>
-
-                                                    </td>
-
+                                                        </td>
 
 
-                                                    <td class="price-pr">
-                                                        <p class="p1">Details</p><br /><hr />
-                                                        <h5>
-                                                            @if (item.Service_Description.Length < 90)
-                                                            {
-                                                                @item.Service_Description }
-                                                            else
-                                                            {
-                                                                @item.Service_Description.Substring(0, 60)<span>......</span>}
-                                                        </h5>
 
-                                                    </td>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Details</p><br /><hr />
+                                                            <h5>
+                                                                @if (item.Service_Description.Length < 90)
+                                                                {
+                                                                    @item.Service_Description }
+                                                                else
+                                                                {
+                                                                    @item.Service_Description.Substring(0, 60)<span>......</span>}
+                                                            </h5>
 
-                                                 
-                                                </tr>
+                                                        </td>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Type</p><br /><hr /><h5> Hall Service</h5>
 
-                                                   
+                                                        </td>
+
+                                                    </tr>
+
+
 
                                                 }
                                             }
                                         </tbody>
-                                        
+
                                     </table>
                                 </div>
                             </div>
@@ -294,49 +300,50 @@
                                             <br />
 
                                         </div>
-                                       
-                                            <div class=" container hide">
-                                                <div class="col-md-12 form-group">
 
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="username" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" readonly required>
-                                                        <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 form-group">
+                                        <div class=" container hide">
+                                            <div class="col-md-12 form-group">
+                                                <label> Customer Name</label>
+                                                <input type="text" class="form-control" id="username" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" readonly required>
 
-                                                    <input type="email" class="form-control" id="email" name="Customer_Email" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
-                                                    <div class="invalid-feedback"> Please enter a valid Email address for Booking updates. </div>
-                                                </div>
-                                                <div class="col-md-12 form-group">
-
-                                                    <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
-                                                    <div class="invalid-feedback"> Please enter a valid contact # for Booking updates.</div>
-                                                </div>
                                             </div>
-                                       
-                                        <div class="container">
                                             <div class="col-md-12 form-group">
 
-                                                <div class="input-group">
-                                                    <input type="date" class="form-control" id="txtdateofreservation" name="Event_Date" placeholder="Select Date *" readonly required>
-                                                    <div class="invalid-feedback" style="width: 100%;"> Date required. </div>
-                                                </div>
+                                                <label> Customer Email</label>
+                                                <input type="email" class="form-control" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
+                                            </div>
+                                            <div class="col-md-12 form-group">
 
+                                                <label> Customer Contact</label>
+                                                <input type="text" class="form-control" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <label> Event Name</label>
+                                                <input type="text" class="form-control" placeholder="@dates.Event_Name" readonly required>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <label> Event Date</label>
+                                                <input type="text" class="form-control" placeholder="@dates.Event_Date.ToShortDateString()" readonly required>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <label> Event Start Time</label>
+                                                <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@dates.Start_Time" readonly required>
+                                            </div>
+                                            <div class="col-md-12 form-group">
+
+                                                <label> Event End Time</label>
+                                                <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@dates.End_Time" readonly required>
                                             </div>
                                         </div>
-                                        <div class="container">
-                                            <div class="col-md-12 form-group ">
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" id="txtdateofreservation" name="Event_Name" placeholder="Enter Event Name" readonly required>
-                                                    <div class="invalid-feedback" style="width: 100%;"> Event Name required. </div>
-                                                </div>
 
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="col-lg-6 col-sm-12" style="margin-top:2rem">
                                 <div class="order-box border1">
@@ -364,7 +371,7 @@
                                         <h4>Service Charges</h4>
                                         <div class="ml-auto font-weight-bold"> Rs:0.00</div>
                                     </div>
-                                    
+
                                     <hr>
                                     <div class="d-flex gr-total">
                                         <h5>Grand Total</h5>
@@ -375,12 +382,12 @@
                                         <div class="title-left"> <h3 style="color: #b08ead">Payment</h3> </div>
                                         <div class="d-block my-3">
                                             @*<div class="custom-control custom-radio">
-                                                <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
-                                                <label class="custom-control-label" for="credit">cash on delivery</label>
-                                            </div>*@
+                                                    <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
+                                                    <label class="custom-control-label" for="credit">cash on delivery</label>
+                                                </div>*@
 
                                             <div class="custom-control custom-radio">
-                                                <input id="paypal" name="Payment_Type" value="Paypal" type="radio" class="custom-control-input" required>
+                                                <input id="paypal" name="Payment_Type" value="Paypal" type="radio" class="custom-control-input" checked required>
                                                 <label class="custom-control-label" for="paypal">Paypal</label>
                                             </div>
                                         </div><hr class="mb-1">
@@ -391,19 +398,19 @@
                                     </form>
                                 </div>
                             </div>
-
                         </div>
-
-
-
-
                     </div>
+
+
+
+
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
 
-        <!--================End Cart Area =================-->
-        @*<div class="row">
+    <!--================End Cart Area =================-->
+    @*<div class="row">
             <div class="col-sm-6 col-lg-6 mb-3">
                 <div class="checkout-address">
                     <div class="title-left">
@@ -565,7 +572,7 @@
             </div>
         </div>*@
 
-    </div>
+</div>
 </div>
 <!-- End Cart -->
 

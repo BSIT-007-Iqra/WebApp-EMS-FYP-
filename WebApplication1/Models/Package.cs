@@ -29,8 +29,6 @@ namespace WebApplication1.Models
 
         public int Hall_FID { get; set; }
 
-        public int? Venue_FID { get; set; }
-
         public decimal Price { get; set; }
 
         [StringLength(50)]
@@ -42,7 +40,5 @@ namespace WebApplication1.Models
         public virtual Hall Hall { get; set; }
 
         public virtual Service Service { get; set; }
-
-        public virtual Venue Venue { get; set; }
     }
 }
