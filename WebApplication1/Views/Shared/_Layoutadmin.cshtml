@@ -45,7 +45,7 @@
     <![endif]-->
         <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 
-        @RenderSection("head", required: false)
+       @*@RenderSection("head", required: false)*@
         <style>
             .text-themecolor {
                 color: #ac77a7 !important;
@@ -281,7 +281,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="waves-effect waves-dark" href="@Url.Action("Index","Services")" aria-expanded="false">
+                                        <a class="waves-effect waves-dark" href="@Url.Action("IndexServices","Services")" aria-expanded="false">
                                             <i class="fa fa-solid fa-cubes new1"></i><span class="hide-menu"> Services</span>
                                         </a>
                                     </li>

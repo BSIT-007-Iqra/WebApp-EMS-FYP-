@@ -1,8 +1,8 @@
-﻿@model IEnumerable<ReadRix.Models.View>
-@using ReadRix.Models
+﻿@model IEnumerable<WebApplication1.Models.View>
+@using WebApplication1.Models
 
 @{
-    Layout = "~/Views/Shared/_Layoutwriter.cshtml";
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
 
     Model1 db1 = new Model1();
     int srno = 0;
@@ -13,19 +13,19 @@
     <br />
     <table>
         <tr>
-            <td width="33%" rowspan="3"><img src="@Url.Content(db1.WEBSITE_DETAILS.Select(x=>x.WEBSITE_LOGO).FirstOrDefault())" width="80" height="80" /><h2><b>@db1.WEBSITE_DETAILS.Select(x => x.WEBSITE_NAME).FirstOrDefault()</b></h2></td>
+            <td width="33%" rowspan="3"><img src="@Url.Content(db1.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" width="80" height="80" /><h2><b>@db1.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</b></h2></td>
             <td width="33%"></td>
-            <td width="33%"><b>Email:</b>@db1.WEBSITE_DETAILS.Select(x=>x.WEBSITE_EMAIL).FirstOrDefault()</td>
+            <td width="33%"><b>Email:</b>@db1.Website_Details.Select(x=>x.Website_Email).FirstOrDefault()</td>
         </tr>
        <tr>
             
             <td></td>
-            <td><b>Address:</b>@db1.WEBSITE_DETAILS.Select(x => x.WEBSITE_ADDRESS).FirstOrDefault()</td>
+            <td><b>Address:</b>@db1.Website_Details.Select(x => x.Website_Address).FirstOrDefault()</td>
         </tr>
         <tr>
            
             <td></td>
-            <td><b>COntact:</b>@db1.WEBSITE_DETAILS.Select(x => x.WEBSITE_CONTACT).FirstOrDefault()</td>
+            <td><b>COntact:</b>@db1.Website_Details.Select(x => x.Website_Contact).FirstOrDefault()</td>
         </tr>
     </table>
 
@@ -44,16 +44,16 @@
             </tr>
             <tr>
                 <td>Category:</td>
-                <td> @Html.DropDownList("Category", null, "Select Category--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td> @Html.DropDownList("Service_Category", null, "Select Category--:--", htmlAttributes: new { @class = "form-control" })</td>
                 <td>SubCategory:</td>
-                <td>@Html.DropDownList("SubCategory", null, "Select SubCategory--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>@Html.DropDownList("Sub_ServiceCategory", null, "Select SubCategory--:--", htmlAttributes: new { @class = "form-control" })</td>
 
             </tr>
             <tr>
-                <td>Artifact:</td>
-                <td>@Html.DropDownList("Artifact1", null, "Select Artifact--:--", htmlAttributes: new { @class = "form-control" })</td>
-                <td>Episode:</td>
-                <td>@Html.DropDownList("Episode", null, "Select Episode--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Sevices:</td>
+                <td>@Html.DropDownList("Sevices", null, "Select Sevices--:--", htmlAttributes: new { @class = "form-control" })</td>
+                @*<td>Episode:</td>
+                <td>@Html.DropDownList("Episode", null, "Select Episode--:--", htmlAttributes: new { @class = "form-control" })</td>*@
             </tr>
 
             <tr>
@@ -66,10 +66,10 @@
                 <td><input class="form-control" type="datetime-local" name="Todate" value="@ViewBag.Todate" /></td>
             </tr>*@
             <tr>
-                <td>Artifact:</td>
-                <td>@Html.DropDownList("Artifact", null, "Select Artifact--:--", htmlAttributes: new { @class = "form-control" })</td>
-                <td>Writer:</td>
-                <td>@Html.DropDownList("Writer", null, "Select Writer--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Sevices:</td>
+                <td>@Html.DropDownList("Sevices", null, "Select Sevices--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Event Organizer:</td>
+                <td>@Html.DropDownList("Event_Organizers", null, "Select Event Organizer--:--", htmlAttributes: new { @class = "form-control" })</td>
             </tr>
             <tr>
                 <td colspan="4">
@@ -90,23 +90,23 @@
             </th>
 
             <th>
-                Artifact Picture
+               Picture
             </th>
             <th>
-                Artifact Name
+               Name
             </th>
-            <th>
+            @*<th>
                 Episode NO
-            </th>
+            </th>*@
             <th>
                 Views Date
             </th>
 
             <th>
-                Reader Name
+                Customer Name
             </th>
             <th>
-                Reader Email
+                Customer Email
             </th>
 
         </tr>
@@ -119,22 +119,22 @@
                     @srno
                 </td>
                 <td>
-                    <img height="100" width="90" src="@Url.Content(item.Artifact.ARTIFACT_PICTURE)" />
+                    <img height="100" width="90" src="@Url.Content(item.Service.Service_Picture)" />
                 </td>
                 <td>
-                    @item.Artifact.ARTIFACT_NAME
+                    @item.Service.Service_Name
+                </td>
+                @*<td>
+                    @item.Service.EPISODE_NO
+                </td>*@
+                <td>
+                    @item.View_Date.ToString("F")
                 </td>
                 <td>
-                    @item.Episode.EPISODE_NO
+                    @item.Customer.Customer_Name
                 </td>
                 <td>
-                    @item.VIEW_DATE.ToString("F")
-                </td>
-                <td>
-                    @item.Reader.READER_NAME
-                </td>
-                <td>
-                    @item.Reader.READER_EMAIL
+                    @item.Customer.Customer_Email
                 </td>
 
             </tr>
