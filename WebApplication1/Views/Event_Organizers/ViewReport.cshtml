@@ -15,15 +15,15 @@
         <tr>
             <td width="33%" rowspan="3"><img src="@Url.Content(db1.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" width="80" height="80" /><h2><b>@db1.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</b></h2></td>
             <td width="33%"></td>
-            <td width="33%"><b>Email:</b>@db1.Website_Details.Select(x=>x.Website_Email).FirstOrDefault()</td>
+            <td width="33%"><b>Email:</b>@db1.Website_Details.Select(x => x.Website_Email).FirstOrDefault()</td>
         </tr>
-       <tr>
-            
+        <tr>
+
             <td></td>
             <td><b>Address:</b>@db1.Website_Details.Select(x => x.Website_Address).FirstOrDefault()</td>
         </tr>
         <tr>
-           
+
             <td></td>
             <td><b>COntact:</b>@db1.Website_Details.Select(x => x.Website_Contact).FirstOrDefault()</td>
         </tr>
@@ -38,38 +38,38 @@
             </tr>
             <tr>
                 <td>From Date:</td>
-                <td><input class="form-control" type="datetime-local" name="Fromdate" value="@ViewBag.Fromdate"/></td>
+                <td><input class="form-control" type="datetime-local" name="Fromdate" value="@ViewBag.Fromdate" /></td>
                 <td>To Date:</td>
                 <td><input class="form-control" type="datetime-local" name="Todate" value="@ViewBag.Todate" /></td>
             </tr>
             <tr>
                 <td>Category:</td>
-                <td> @Html.DropDownList("Service_Category", null, "Select Category--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td> @Html.DropDownList("Category", null, "Select Category--:--", htmlAttributes: new { @class = "form-control" })</td>
                 <td>SubCategory:</td>
-                <td>@Html.DropDownList("Sub_ServiceCategory", null, "Select SubCategory--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>@Html.DropDownList("SubCategory", null, "Select SubCategory--:--", htmlAttributes: new { @class = "form-control" })</td>
 
             </tr>
             <tr>
                 <td>Sevices:</td>
-                <td>@Html.DropDownList("Sevices", null, "Select Sevices--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Html.DropDownList("Sevices", null, "Select Sevices--:--", htmlAttributes: new { class = "form-control" })</td>
                 @*<td>Episode:</td>
-                <td>@Html.DropDownList("Episode", null, "Select Episode--:--", htmlAttributes: new { @class = "form-control" })</td>*@
+                    <td>@Html.DropDownList("Episode", null, "Select Episode--:--", htmlAttributes: new { @class = "form-control" })</td>*@
             </tr>
 
             <tr>
                 <td colspan="4"> Do you want to search by this? Select date from above </td>
             </tr>
             @*<tr>
-                <td>From Date:</td>
-                <td><input class="form-control" type="datetime-local" name="Fromdate" /></td>
-                <td>To Date:</td>
-                <td><input class="form-control" type="datetime-local" name="Todate" value="@ViewBag.Todate" /></td>
-            </tr>*@
+                    <td>From Date:</td>
+                    <td><input class="form-control" type="datetime-local" name="Fromdate" /></td>
+                    <td>To Date:</td>
+                    <td><input class="form-control" type="datetime-local" name="Todate" value="@ViewBag.Todate" /></td>
+                </tr>*@
             <tr>
                 <td>Sevices:</td>
-                <td>@Html.DropDownList("Sevices", null, "Select Sevices--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Html.DropDownList("Sevices", null, "Select Sevices--:--", htmlAttributes: new { class = "form-control" })</td>
                 <td>Event Organizer:</td>
-                <td>@Html.DropDownList("Event_Organizers", null, "Select Event Organizer--:--", htmlAttributes: new { @class = "form-control" })</td>
+                <td>Html.DropDownList("Event_Organizers", null, "Select Event Organizer--:--", htmlAttributes: new { class = "form-control" })</td>
             </tr>
             <tr>
                 <td colspan="4">
@@ -90,14 +90,14 @@
             </th>
 
             <th>
-               Picture
+                Picture
             </th>
             <th>
-               Name
+                Name
             </th>
             @*<th>
-                Episode NO
-            </th>*@
+                    Episode NO
+                </th>*@
             <th>
                 Views Date
             </th>
@@ -125,8 +125,8 @@
                     @item.Service.Service_Name
                 </td>
                 @*<td>
-                    @item.Service.EPISODE_NO
-                </td>*@
+                        @item.Service.EPISODE_NO
+                    </td>*@
                 <td>
                     @item.View_Date.ToString("F")
                 </td>
@@ -140,16 +140,16 @@
             </tr>
 
         }
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td ><h4><b>Total Veiws are:</b></h4></td>
-        <td ><h4><b>@srno</b></h4></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><h4><b>Total Veiws are:</b></h4></td>
+            <td><h4><b>@srno</b></h4></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
         <tr> </tr>
     </table>
 </div>

@@ -30,15 +30,10 @@
 
     List<int> list1 = new List<int>();
 
-    DateTime startdate1 = DateTime.ParseExact("01/01/2022", "dd/MM/yyyy", null);
 
-    DateTime enddate1 = DateTime.ParseExact("31/12/2022", "dd/MM/yyyy", null);
-
-    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
-    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
-    list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Customer_FID == x.Customer.Customer_ID).Count()));
-    //list1.Add(Convert.ToInt32(db.Views.Where(x => x.View_Date >= startdate1 && x.View_Date <= enddate1 && x.Service.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").Count()));
-
+    list1.Add(Convert.ToInt32(db.Customers.ToList().Count()));
+    list1.Add(Convert.ToInt32(db.Event_Organizers.ToList().Count()));
+   
 }
 <head>
 
@@ -174,20 +169,20 @@
                         You have received
                         <b class="b1">
                             @db.Notifications.Where(x => x.DateTime >= System.DateTime.Today).Count()
-                    </b>
-                    notifications.
-                    <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
-                </li>
-                <li class="li1">
-                    <div class="bg-light-inverse"><i class="fa fa-bell-o text-dark"></i></div>
-                    New Version just arrived. <span class="text-muted">27 May</span>
-                </li>
+                        </b>
+                        notifications.
+                        <span class="text-muted">@System.DateTime.Today.ToString("d")</span>
+                    </li>
+                    <li class="li1">
+                        <div class="bg-light-inverse"><i class="fa fa-bell-o text-dark"></i></div>
+                        New Version just arrived. <span class="text-muted">27 May</span>
+                    </li>
 
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-<!-- End Feeds -->
+    <!-- End Feeds -->
 </div>
 <!-- ============================================================== -->
 <!-- End Notification And Feeds -->
@@ -317,11 +312,9 @@
                 label: 'Dataset 1'
             }],
             labels: [
-                'Catering',
-                'Food',
-                'Sound',
-                'Lighting',
-
+                'Customer',
+                'Event_Organizer',
+                
             ]
         },
         options: {

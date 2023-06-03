@@ -69,7 +69,7 @@ namespace WebApplication1.Models
         [StringLength(50)]
         public string Venue_Type { get; set; }
         [NotMapped]
-        public int Quantity { get; set; } = 100;
+        public int Quantity { get; set; }
 
         public int? Venue_FID { get; set; }
 

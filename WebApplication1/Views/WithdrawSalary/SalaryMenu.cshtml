@@ -1,0 +1,45 @@
+﻿@using WebApplication1.Models;
+@{
+    Model1 db = new Model1();
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+}
+<style>
+    .new {
+        background: #b08ead;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: double;
+        padding-top: 70px;
+        padding-bottom: 120px
+    }
+</style>
+
+<div class="new">
+    <div class="container">
+        <div class="row">
+
+            <center>
+
+                <img src="@Url.Content(db.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" style="width:180px;height:180px" />
+                <h2 style="color:black;">
+                    <b>SALARY STANDARDS </b>
+                </h2>
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th><b>Type</b></th>
+                            <th><b>Salary<small>(Per Month)</small></b></th>
+                        </tr>
+                        <tr>
+                            <td><b>Event_Organizer <small>(All Types)</small></b></td>
+                            <td>20000 <small>(Rupees)</small></td>
+                        </tr>
+
+                    </table>
+                    <h6> © EMS Event_Organizer , Median Month wise Salary. </h6>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>

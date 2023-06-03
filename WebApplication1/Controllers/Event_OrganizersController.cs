@@ -46,6 +46,7 @@ namespace WebApplication1.Controllers
         {
             Event_Organizers event_Organizers = db.Event_Organizers.Where(x => x.EventOrganizer_ID == id).FirstOrDefault();
             event_Organizers.Status = 1;
+            event_Organizers.Event_Organizer_HireDate = DateTime.UtcNow;
             MailProvider.SentfromMail(event_Organizers.EventOrganizer_Email, "Account Activation Mail!!", "Dear " + event_Organizers.EventOrganizer_Name + "!! Your account has been Activated by Admin. Check out Your account details.<br /> Regards EMS, Thanks!!");
             TempData["success"] = event_Organizers.EventOrganizer_Email + " Account has been Activated";
             db.Entry(event_Organizers).State = EntityState.Modified;
@@ -241,16 +242,14 @@ namespace WebApplication1.Controllers
         public ActionResult login(Event_Organizers event_Organizers)
         {
 
-            int v = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).Count();
+            //int v = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).Count();
             Event_Organizers var = db.Event_Organizers.Where(x => event_Organizers.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).FirstOrDefault();
-            if (v > 0) {
-
-
+            if (var != null)
+            { 
                 if (var.Status == 1)
                 {
                     BaseHelper.event_organizers = var;
                     return RedirectToAction("IndexOrganizer", "home");
-
                 }
 
                 else if (var.Status == -1)

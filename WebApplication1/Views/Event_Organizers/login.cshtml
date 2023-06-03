@@ -37,7 +37,7 @@
                 <div class="login_form_inner">
 
                     <h1><b>Log in to enter As Organizer</b></h1>
-                    <label><b style="color:red;font-size:20px">@TempData["msg"]</b></label>
+                    <label><b style="color:red;font-size:20px">@ViewBag.message</b></label>
                     <form class="row login_form" action="/Event_Organizers/login" method="post">
                         <div class="col-md-12 form-group">
                             <input type="email" class="form-control" id="name" name="EventOrganizer_Email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">

@@ -37,6 +37,34 @@ namespace WebApplication1.Controllers
         {
             if (BaseHelper.event_organizers == null)
                 RedirectToAction("login", "Event_Organizers");
+
+            decimal totalSalary = 0;
+            DateTime? hireDate = BaseHelper.event_organizers.Event_Organizer_HireDate;
+            DateTime currentDate = DateTime.Now;
+            int months = 0;
+
+            if (hireDate != null)
+            {
+
+                TimeSpan duration = (TimeSpan)(currentDate - hireDate);
+                months = (currentDate.Year - hireDate.Value.Year) * 12 + currentDate.Month - hireDate.Value.Month;
+            }
+            for (int i=0; i<=months; i++)
+            {
+                var salary =  20000;
+                totalSalary += salary;
+            }
+
+            var withDrawAmount = db.Withdraw_Amount.Where(x => x.Organizer_FID == BaseHelper.event_organizers.EventOrganizer_ID && x.IsTranffered == true).Sum(x => (decimal?)x.Withdraw_Amount1) ?? 0;
+            if (withDrawAmount >= totalSalary)
+            {
+                totalSalary = 0;
+            }
+            else
+            {
+                totalSalary = totalSalary - withDrawAmount;
+            }
+            BaseHelper.totalsalary = totalSalary;
             TempData["success"] = "Welcome ☺ " + BaseHelper.event_organizers.EventOrganizer_Name + " into your dashboard ";
             return View();
         }
@@ -243,7 +271,7 @@ namespace WebApplication1.Controllers
 
         }
         //HAll
-        public ActionResult Hall(int? id , string filter)
+        public ActionResult Hall(int? id, string filter)
         {
 
             if (id != null)

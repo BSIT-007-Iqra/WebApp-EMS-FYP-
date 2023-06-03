@@ -1,0 +1,42 @@
+﻿@using WebApplication1.Models;
+@using WebApplication1.Utils;
+@{
+    Model1 db = new Model1();
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+}
+<br /><center>
+    <h4 style="font-size:40px"><b>Widthdraw Amount Request!!</b></h4> 
+</center>
+<br />
+<br /><a class="btn btn-info " href="/WithdrawSalary/Withdrawhistory">View Withdraw History</a>
+<div class="container">
+
+    <div class="row">
+        <br />
+        <div class="col-lg-3 col-sm-2 col-sm-offset-1"></div>
+        <div class="col-lg-6 col-sm-5 col-sm-offset-1">
+            <center>
+               <label style="color:darkred;font-size:20px"><b>@TempData["ok"]</b></label>
+                <form action="/WithdrawSalary/Withdraw" method="post">
+                    <div class="form-group">
+                        <label>PayPal Account</label><br />
+                        <input type="text"
+                               name="Paypal_Account" required class="form-control" placeholder="Enter your paypal account" />
+                    </div>
+                    <div class="form-group">
+                        <label>Withdraw Amount</label><br />
+                        <input type="text" name="Withdraw_Amount1" required class="form-control" placeholder="Enter required amount" />
+                    </div>
+
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" value="Send Request " class="btn btn-block btn-lg btn-info" style="font-size:15px;" />
+                    </div>
+
+                </form>
+            </center>
+        </div>
+        <div class="col-lg-3 col-sm-2 col-sm-offset-1"></div>
+
+    </div>
+</div>

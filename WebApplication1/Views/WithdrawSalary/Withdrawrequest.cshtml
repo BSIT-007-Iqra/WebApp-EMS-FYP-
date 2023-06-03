@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebApplication1.Models.Withdraw_Amount>
+
+@{
+    ViewBag.Title = "Withdrawrequest";
+}
+
+
+<center><h1><b>Withdraw Requests</b></h1></center>
+<br />
+<p>
+    <a class="btn btn-info " href="@Url.Action("AllWithdrawhistory","WithdrawSalary")">Withdraw History</a>
+</p>
+<table class="table table-bordered table-hover">
+    <tr class="bg-light-extra">
+        <th>
+            Writer Name
+        </th>
+        <th>
+            Withdraw Amount
+        </th>
+        <th>
+            Request Time
+        </th>
+        @*<th>
+            Receive Amount Time
+        </th>*@
+        <th>
+            Paypal Account
+        </th>
+        <th>
+            IsTransfered
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event_Organizers.EventOrganizer_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Withdraw_Amount1)
+            </td>
+            <td>
+                @item.Request_Time.ToString("F")
+            </td>
+            @*<td>
+                @item.Recive_Time.ToString("F")
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Paypal_Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsTranffered)
+            </td>
+            <td>
+                <a class="btn btn-info fa fa-send" href="@Url.Action("TransferAmount","WithdrawSalary",new { id=item.Id })">Transfer Amount</a>
+            </td>
+        </tr>
+    }
+
+</table>

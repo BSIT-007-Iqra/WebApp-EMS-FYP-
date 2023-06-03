@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebApplication1.Models.Withdraw_Amount>
+
+@{
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+}
+<br />
+<center><h1><b>Withdraw History</b></h1></center>
+<br />
+<p>
+    <a class="btn btn-info " href="@Url.Action("Withdraw","WithdrawSalary")">Back to List</a>
+</p>
+<table class="table table-bordered table-hover">
+    <tr class="bg-light-extra">
+        <th>
+            Name
+        </th>
+        <th>
+           Withdraw Amount
+        </th>
+        <th>
+           Request Time
+        </th>
+        <th>
+           Receive Time
+        </th>
+        <th>
+           Paypal Account
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event_Organizers.EventOrganizer_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Withdraw_Amount1)
+        </td>
+        <td>
+           @item.Request_Time.ToString("F")
+        </td>
+        <td>
+            @item.Recive_Time.ToString("F")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paypal_Account)
+        </td>
+       
+    </tr>
+}
+
+</table>

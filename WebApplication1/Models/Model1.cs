@@ -8,7 +8,7 @@ namespace WebApplication1.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model1")
+            : base("name=Model13")
         {
         }
 
@@ -29,6 +29,7 @@ namespace WebApplication1.Models
         public virtual DbSet<Venue> Venues { get; set; }
         public virtual DbSet<View> Views { get; set; }
         public virtual DbSet<Website_Details> Website_Details { get; set; }
+        public virtual DbSet<Withdraw_Amount> Withdraw_Amount { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -73,6 +74,12 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Event_Organizers>()
                 .HasMany(e => e.Services)
+                .WithRequired(e => e.Event_Organizers)
+                .HasForeignKey(e => e.Organizer_FID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Event_Organizers>()
+                .HasMany(e => e.Withdraw_Amount)
                 .WithRequired(e => e.Event_Organizers)
                 .HasForeignKey(e => e.Organizer_FID)
                 .WillCascadeOnDelete(false);

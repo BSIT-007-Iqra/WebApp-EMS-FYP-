@@ -13,6 +13,7 @@ namespace WebApplication1.Models
         {
             Notifications = new HashSet<Notification>();
             Services = new HashSet<Service>();
+            Withdraw_Amount = new HashSet<Withdraw_Amount>();
         }
 
         [Key]
@@ -43,6 +44,8 @@ namespace WebApplication1.Models
 
         public int? Admin_FID { get; set; }
 
+        public DateTime? Event_Organizer_HireDate { get; set; }
+
         public virtual Admin Admin { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -50,5 +53,8 @@ namespace WebApplication1.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Withdraw_Amount> Withdraw_Amount { get; set; }
     }
 }
