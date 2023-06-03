@@ -208,12 +208,12 @@
                                             {
                                                 foreach (var item in pro)
                                                 {
-                                                    total += (decimal)item.Hall_Price;
+                                                    total += (decimal)(item.Per_Head_Price * item.Quantity);
                                                     <div class="media mb-2 border-bottom">
                                                         <div class="media-body">
                                                             <img src="@Url.Content(item.Hall_Picture)" height="50" width="50" />
                                                             <a href="detail.html">@item.Hall_Name</a>
-                                                            <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span> Rs:@(item.Hall_Price)</div>
+                                                            <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span> Qty:@(item.Quantity)<span class="mx-2">|</span> Rs:@(item.Per_Head_Price * item.Quantity)</div>
                                                         </div>
                                                     </div>
                                                 }
@@ -225,12 +225,12 @@
                                             {
                                                 foreach (var item in pro1)
                                                 {
-                                                    total += (decimal)item.Service_Price;
+                                                    total += (decimal)(item.Service_Price * pro.FirstOrDefault().Quantity);
                                                     <div class="media mb-2 border-bottom">
                                                         <div class="media-body">
                                                             <img src="@Url.Content(item.Service_Picture)" height="50" width="50" />
                                                             <a href="detail.html">@item.Service_Name</a>
-                                                            <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span> Rs:@(item.Service_Price)</div>
+                                                            <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span> Qty:@(pro.FirstOrDefault().Quantity)<span class="mx-2">|</span> Rs:@(item.Service_Price*pro.FirstOrDefault().Quantity)</div>
                                                         </div>
                                                     </div>}
                                             }

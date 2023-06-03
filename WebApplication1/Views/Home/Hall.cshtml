@@ -49,36 +49,29 @@
                     </div>
 
                 </div><hr />
-                <div class="common-filter">
-                    <div class="top-filter-head" style="margin-top:1rem">Cancellation Policy</div>
-                    <form action="#">
-                        <ul>
+                      <div class="common-filter">
+                          <div class="top-filter-head" style="margin-top:1rem">Cancellation Policy</div>
+                          <div class="sidebar-categories mt-50">
+                              <ul class="main-categories">
+                                  @foreach (var hall in db.Halls.Where(x => x.Cancellation_Policy != " ").Select(x => x.Cancellation_Policy).Distinct())
+                                  {
+                                      <li class="main-nav-list"><a href="@Url.Action("Hall", "Home", new { filter = hall })"><b>@hall</b></a></li>
+                                  }
 
 
-
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand" onlick="window.loaction.href=''"><label for="apple">Refundable</label></li>
-
-
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand" onclick="window.location.href=''"><label for="apple">Non-Refundable</label></li>
-
-
-                            @*<li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Non-Refundable</label></li>
-                                                <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                                <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>*@
-                        </ul>
-                    </form>
-                </div><hr />
-                <div class="common-filter">
-                    <div class="top-filter-head">Capacity</div>
-                    <form action="#">
-                        <ul>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                        </ul>
-                    </form>
-                </div><hr />
-                <div class="common-filter">
-                    <div class="top-filter-head">Budget</div>
+                              </ul>
+                          </div>
+                      </div>
+                @*<div class="common-filter">
+                        <div class="top-filter-head">Capacity</div>
+                        <form action="#">
+                            <ul>
+                                <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
+                            </ul>
+                        </form>
+                    </div><hr />
+                    <div class="common-filter">*@
+                @*<div class="top-filter-head">Budget</div>
                     <div class="price-range-area">
                         <div id="price-range"></div>
                         @foreach (var sub in db.Halls)
@@ -86,15 +79,15 @@
                             <div class="value-wrapper d-flex">
                                 <div class="price">@sub.Hall_Price :</div>
                                 <span>$</span>
-                                <div id="lower-value"></div>
+                                <div id="lower-value" name="lower-value"></div>
                                 <div class="to">to</div>
                                 <span>$</span>
-                                <div id="upper-value"></div>
+                                <div id="upper-value" name="upper-value"></div>
                             </div>
 
                         }
-                    </div>
-                </div>
+                    </div>  </div>*@
+
             </div>
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
@@ -106,7 +99,7 @@
                     <div class="row">
                         @foreach (var item in db.Halls)
                         {
-                            if (ViewData["hallid"] == null || item.Venue_FID == (int)ViewData["hallid"])
+                            if ((ViewData["hallid"] == null && ViewData["filter"] == null) || (ViewData["hallid"] != null && item.Venue_FID == (int)ViewData["hallid"]) || (ViewData["filter"] != null && item.Cancellation_Policy == (string)ViewData["filter"]))
                             {
                                 <!-- single product -->
                                 <div class="col-lg-6 col-md-6">

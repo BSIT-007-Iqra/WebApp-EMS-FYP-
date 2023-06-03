@@ -215,6 +215,7 @@ namespace ReadRix.Controllers
                 od.Price = item.Service_Price;
                 od.Service_FID = item.Service_ID;
                 od.Booking_FID = o.Booking_ID;
+
                 db.Booking_Details.Add(od);
                 db.SaveChanges();
 
@@ -271,32 +272,34 @@ namespace ReadRix.Controllers
 
         }
 
-        //public actionresult plustocart(int id)
-        //{
-        //    list<shopartifact> tblartifactlist = new list<shopartifact>();
-        //    
-        //    tblartifactlist[id].quantity++;
-        //    session["cart"] = tblartifactlist;
-        //    return redirecttoaction("displaycart");
+        public ActionResult PlusToCart(int id)
+        {
+            List<Hall> tblhallList = new List<Hall>();
+            if (Session["cart"] != null)
+            {
+                tblhallList = (List<Hall>)Session["cart"];
+            }
+            tblhallList[id].Quantity += 5;
+            Session["cart"] = tblhallList;
+            return RedirectToAction("Displaybooking");
 
-        //}
-        //public actionresult minusfromcart(int id)
-        //{
-        //    list<shopartifact> tblartifactlist = new list<shopartifact>();
-        //    if (session["cart"] != null)
-        //    {
-        //        tblartifactlist = (list<shopartifact>)session["cart"];
-        //    }
-        //    tblartifactlist[id].quantity--;
-        //    if (tblartifactlist[id].quantity < 0)
-        //    {
-        //        tblartifactlist.removeat(id);
-        //    }
-        //    session["cart"] = tblartifactlist;
+        }
+        public ActionResult MinusFromCart(int id)
+        {
+            List<Hall> tblHallList = new List<Hall>();
+            if (Session["cart"] != null)
+            {
+                tblHallList = (List<Hall>)Session["cart"];
+            }
+            tblHallList[id].Quantity--;
+            if (tblHallList[id].Quantity < 0)
+            {
+                tblHallList.RemoveAt(id);
+            }
+            Session["cart"] = tblHallList;
 
-        //    return redirecttoaction("displaycart");
-        //}
-
+            return RedirectToAction("Displaybooking");
+        }
         public ActionResult Removefromcart(int id)
         {
             List<Hall> hallList = new List<Hall>();

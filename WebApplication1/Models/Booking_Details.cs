@@ -21,6 +21,8 @@ namespace WebApplication1.Models
 
         public int? Package_FID { get; set; }
 
+        public int? No_Of_People { get; set; }
+
         public virtual Booking Booking { get; set; }
 
         public virtual Hall Hall { get; set; }

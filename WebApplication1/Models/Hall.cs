@@ -68,8 +68,12 @@ namespace WebApplication1.Models
         [Required]
         [StringLength(50)]
         public string Venue_Type { get; set; }
+        [NotMapped]
+        public int Quantity { get; set; } = 100;
 
         public int? Venue_FID { get; set; }
+
+        public decimal? Per_Head_Price { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking_Details> Booking_Details { get; set; }

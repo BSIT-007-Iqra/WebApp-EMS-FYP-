@@ -46,6 +46,34 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        [HttpPost]
+        public ActionResult SearchHall(string slot, string location, decimal? pricerange)
+        {
+            var halls = db.Halls.ToList();
+            if (slot != " ")
+            {
+                halls = halls.Where(x => x.Event_Slot == slot).ToList();
+            }
+            if (location != " ")
+            {
+                halls = halls.Where(x => x.Hall_Location == location).ToList();
+            }
+            if (pricerange != null)
+            {
+                halls = halls.Where(x => x.Hall_Price <= pricerange).ToList();
+            }
+            var seacrhFilter = new SearchFilterData
+            {
+                Location = location ?? " ",
+                Price = pricerange ?? 1000,
+                Slot = slot ?? " ",
+            };
+            Session["searchfilter"] = seacrhFilter;
+            TempData["halls"] = halls;
+
+            return RedirectToAction("index");
+
+        }
         public ActionResult servicecategory()
         {
 
@@ -109,24 +137,26 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-               
-                    foodLeftover.Date = System.DateTime.Now;
-                   
-                    foodLeftover.Customer_FID = BaseHelper.customer.Customer_ID;
 
-                    db.FoodLeftovers.Add(foodLeftover);
-                    db.SaveChanges();
-                    TempData["ok"] = "Request Received!!";
-                }
-                else
-                {
-                    TempData["ok"] = "Login into your account first!!";
-                }
-            
+                foodLeftover.Date = System.DateTime.Now;
+
+                foodLeftover.Customer_FID = BaseHelper.customer.Customer_ID;
+
+                db.FoodLeftovers.Add(foodLeftover);
+                db.SaveChanges();
+                TempData["ok"] = "Request Received!!";
+            }
+            else
+            {
+                TempData["ok"] = "Login into your account first!!";
+                return RedirectToAction("index", "home");
+
+            }
+
             MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Request Confirmation", "Your Request has been received and will be contact within 3 working days\n Regards: EMS <br /> Thanks");
 
-
-            return RedirectToAction("index","home");
+            TempData["ok"] = "Your Request has been Sent to  EMS.Thanks";
+            return RedirectToAction("Foodleftover", "home");
         }
         public ActionResult blog()
         {
@@ -134,14 +164,14 @@ namespace WebApplication1.Controllers
 
             return View();
         }
-       
+
         public ActionResult venue(int? id)
         {
             if (id != null)
             {
                 ViewData["veuneid"] = id;
             }
-            
+
             return View();
         }
 
@@ -174,7 +204,7 @@ namespace WebApplication1.Controllers
 
             return View(query);
         }
-       
+
 
         public string GetService()
         {
@@ -185,12 +215,17 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult Services(int? id, int? page)
+        public ActionResult Services(int? id, int? page, int? hallid)
         {
             if (id != null)
             {
                 ViewData["serviceid"] = id;
-                //ViewBag.msg = "ok";
+
+            }
+            if (hallid != null && hallid != 0)
+            {
+                Session["hallid"] = hallid;
+
             }
             var pagesize = 10;
             var liststart = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name.Contains("Cuisine")).OrderByDescending(x => x.Service_Date).Skip(0).Take(pagesize);
@@ -208,14 +243,17 @@ namespace WebApplication1.Controllers
 
         }
         //HAll
-        public ActionResult Hall(int? id)
+        public ActionResult Hall(int? id , string filter)
         {
 
             if (id != null)
             {
                 ViewData["hallid"] = id;
             }
-            List<Hall> li = db.Halls.OrderBy(x => x.Venue_FID).ToList();
+            if (!string.IsNullOrEmpty(filter))
+            {
+                ViewData["filter"] = filter;
+            }
 
             return View();
 

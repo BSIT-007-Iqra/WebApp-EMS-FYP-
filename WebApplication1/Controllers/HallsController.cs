@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 
@@ -48,10 +44,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Hall_ID,Hall_Name,Hall_Description,Hall_Picture,Hall_Picture1,Hall_Picture2,Hall_Picture3,Hall_Price,Event_Slot,Event_Time_Slot,Hall_Location,Staff,Ameities,Cancellation_Policy,Venue_Type,Venue_FID")] Hall hall)
+        public ActionResult Create([Bind(Include = "Hall_ID,Hall_Name,Hall_Description,Hall_Picture,Hall_Picture1,Hall_Picture2,Hall_Picture3,Hall_Price,Event_Slot,Event_Time_Slot,Hall_Location,Staff,Ameities,Cancellation_Policy,Venue_Type,Venue_FID,Per_Head_Price")] Hall hall)
         {
             if (ModelState.IsValid)
             {
+                hall.Per_Head_Price = hall.Hall_Price / 100;
                 db.Halls.Add(hall);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,10 +79,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Hall_ID,Hall_Name,Hall_Description,Hall_Picture,Hall_Picture1,Hall_Picture2,Hall_Picture3,Hall_Price,Event_Slot,Event_Time_Slot,Hall_Location,Staff,Ameities,Cancellation_Policy,Venue_Type,Venue_FID")] Hall hall)
+        public ActionResult Edit([Bind(Include = "Hall_ID,Hall_Name,Hall_Description,Hall_Picture,Hall_Picture1,Hall_Picture2,Hall_Picture3,Hall_Price,Event_Slot,Event_Time_Slot,Hall_Location,Staff,Ameities,Cancellation_Policy,Venue_Type,Venue_FID,Per_Head_Price")] Hall hall)
         {
             if (ModelState.IsValid)
             {
+                hall.Per_Head_Price = hall.Hall_Price / 100;
                 db.Entry(hall).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

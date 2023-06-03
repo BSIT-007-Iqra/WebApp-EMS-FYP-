@@ -13,4 +13,10 @@ namespace WebApplication1.Utils
         public bool Confirm { get; set; } = false;
         public string Event_Name { get; set; } = " ";
     }
+    public class SearchFilterData
+    {
+        public string Location { get; set; } = " ";
+        public string Slot { get; set; } = " ";
+        public decimal Price { get; set; } = 1000;
+    }
 }

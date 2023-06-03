@@ -8,6 +8,11 @@
     var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
 
     var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).OrderByDescending(x => x.Views.Count()).ToList();
+    var searchFilter = new SearchFilterData();
+    if (Session["searchfilter"] != null)
+    {
+        searchFilter = (SearchFilterData)Session["searchfilter"];
+    }
 }
 <style>
     .fun {
@@ -121,75 +126,75 @@
 
                 </div>
                 <!-- start features Area -->
-                <section class="features-area section_gap">
-                    <div class="container" style="background-color:white;">
-                        <div class="row features-inner">
+                <form action="/home/SearchHall" method="post">
+                    <section class="features-area section_gap">
+                        <div class="container" style="background-color:white;">
+                            <div class="row features-inner">
 
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label>Location</label>
-                                    <div class="input-group">
-                                        <select class="wide">
-                                            <option value=" " data-display="Select Location"></option>
-                                            <option value="Satellite Town">Satellite Town</option>
-                                            <option value="Model Town">Model Town</option>
-                                            <option value="Wapta Town">Wapta Town</option>
-                                            <option value="GT. Road">GT. Road</option>
-                                        </select>
 
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <div class="input-group">
+                                            <select class="wide" name="location" id="location">
+                                                <option value=" " selected>Select Location</option>
+
+                                                @foreach (var hall in db.Halls.Where(x => x.Hall_Location != " ").Select(x => x.Hall_Location).Distinct())
+                                                {
+                                                    <option value="@hall">@hall</option>
+                                                }
+                                            </select>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <label>Slots</label>
-                                    <div class="input-group">
-                                        <select class="wide">
-                                            <option value=" " data-display="Select Slot"></option>
-                                            <option value="Lunch">Lunch</option>
-                                            <option value="Dinner">Dinner</option>
-                                        </select>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Slots</label>
+                                        <div class="input-group">
+                                            <select class="wide" name="slot" id="slot">
+                                                <option value=" " selected>Select Slot</option>
+
+                                                @foreach (var hall in db.Halls.Where(x =>x.Event_Slot != " ").Select(x => x.Event_Slot).Distinct())
+                                                {
+                                                    <option value="@hall">@hall</option>
+                                                }
+                                               
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- single features -->
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="common-filter">
-                                    <div class="price-range-area">
-                                        <div id="price-range"></div>
-                                        <div class="value-wrapper d-flex">
-                                            <div class="price">Price:</div>
-                                            <span>Rs.</span>
-                                            <div id="lower-value"></div>
-                                            <div class="to">to</div>
-                                            <span>Rs.</span>
-                                            <div id="upper-value"></div>
+                                <!-- single features -->
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Price:</label>
+                                        <div class="input-group">
+                                            <input type="range" id="price-range" min="1000" max="100000" step="1" value="50">
+                                            <div id="selected-price"></div>
+                                            <input type="text" id="pricerange" name="pricerange" hidden />
                                         </div>
                                     </div>
 
                                 </div>
-                            </div>
 
-                            <!-- single features -->
-                            <div class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <center>
+                                <!-- single features -->
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <center>
+                                                <input class="btn primary-btn lnr lnr-magnifier" type="submit" style="padding:0 4rem;text-transform:capitalize" value="Search" />
+                                                @*Search <span class="lnr lnr-magnifier"></span>*@
 
-
-                                            <button class="btn primary-btn search" style="padding:0 4rem;text-transform:capitalize">
-                                                Search <span class="lnr lnr-magnifier"></span>
-                                            </button>
-
-
-                                        </center>
+                                            </center>
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </form>
                 <!-- end features Area -->
             </div>
         </div>
@@ -198,6 +203,81 @@
 
 </section>
 <!-- End banner Area -->
+@if (TempData["halls"] != null)
+{
+    var halls = (List<Hall>)TempData.Peek("halls");
+    if (halls.Count == 0)
+    {
+        <div>No Halls For Avaiable..</div>
+    }
+    else
+    {
+        <section class="lattest-product-area pb-40 category-list">
+            <center> <h3>Search Result</h3></center><hr />
+            <div class="container" style="margin-top:2rem">
+                <div class="row">
+                    @foreach (var item in halls)
+                    {
+                        <!-- single product -->
+                        <div class="col-lg-3 col-md-3">
+                            <div class="single-product" style="border-radius: 8px; box-shadow: 0 4px 4px 0 #808080; border: dashed; border-color: #c9c9c9;height:350px">
+                                <div class="product-details card-body">
+                                    <img src="@Url.Content(item.Hall_Picture)" style="border-radius: 8px; box-shadow: 0 4px 8px 0 #B08EAD;cursor:pointer; height:250px;width:100%" alt="" />
+
+                                    <h3 class="fun" onclick="window.location.href='@Url.Action("Hall", "Home", new { id = item.Hall_ID })'">
+
+                                        <i class="fa fa-home" style="margin-right:1rem"></i>@item.Hall_Name<br /> <small><i class="fa fa-star" style="color: #e88e4d; margin-left: 2rem"></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i></small>
+                                    </h3>
+                                    <p style=" color: #4B3047;cursor:pointer" onclick="window.location.href='@Url.Action("Hall", "Home", new { id = item.Hall_ID })'">
+                                        @if (item.Hall_Description.Length < 90)
+                                        {
+                                            @item.Hall_Description }
+                                        else
+                                        {
+                                            @item.Hall_Description.Substring(0, 20)<span>......</span>}
+                                    </p>
+                                    <hr />
+                                    <h5 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                        <i class="fa fa-map-marker" style="margin-right: 1rem; color: #4B3047;"></i> @item.Hall_Location
+                                    </h5>
+
+                                    <center>
+                                        <div class="price card-footer">
+                                            <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Hall_Price</b></h6>
+
+                                        </div>
+                                    </center>
+                                    <center>
+                                        <div class="price card-footer">
+                                            <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Slots at: <b>@item.Event_Slot</b></h6>
+
+                                        </div>
+                                    </center>
+
+                                    <div class="prd-bottom justify-content-center" style="margin-left:1rem">
+
+                                        <a href="@Url.Action("Addtobooking", "Cart", new { id = item.Hall_ID })" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">Book Now</p>
+                                        </a>
+
+                                        <a href="@Url.Action("Hall_Details", "Home", new { id = item.Hall_ID })" class="social-info">
+                                            <span class="lnr lnr-move"></span>
+                                            <p class="hover-text">Venues View</p>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+        <!-- single product -->
+    }
+}
+
 <!-- start features Area -->
 <section class="features-area section_gap">
     <div class="container">
@@ -612,15 +692,29 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="//code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <script>
-    $(function () {
-        $("#datepicker").datepicker({
-            minDate: 0, // minimum date is today
-            beforeShowDay: function (date) {
-                // disable previous dates
-                var today = new Date();
-                return [date >= today];
-            }
-        });
+    var priceRange = document.getElementById("price-range");
+    var selectedPrice = document.getElementById("selected-price");
+    var setPrice = document.getElementById("pricerange");
+
+    priceRange.addEventListener("input", function () {
+        var price = priceRange.value;
+        selectedPrice.textContent = "Selected Price: Rs. " + price;
+        setPrice.value = price;
     });
+
+
+     let locations = document.getElementById("location");
+     locations.value = "@searchFilter.Location";
+     console.log(location.value);
+     let slot = document.getElementById("slot")
+     slot.value = "@searchFilter.Slot";
+     let price = document.getElementById("pricerange")
+    price.value = "@searchFilter.Price";
+    var pricesRange = document.getElementById("price-range");
+    pricesRange.value = @searchFilter.Price;
+    var selectedsPrice = document.getElementById("selected-price");
+    selectedsPrice.textContent = "Selected Price: Rs. " + @searchFilter.Price;
+    console.log(@searchFilter.Price);
 </script>

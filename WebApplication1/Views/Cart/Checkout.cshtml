@@ -178,7 +178,7 @@
                                                 {
 
 
-                                                    total += (decimal)item.Hall_Price;
+                                                    total += (decimal)(item.Per_Head_Price * item.Quantity);
 
                                                     <tr rowspan="5">
                                                         <td class="thumbnail-img">
@@ -221,9 +221,23 @@
                                                             <p class="p1">Type</p><br /><hr /><h5> @item.Venue_Type</h5>
 
                                                         </td>
+                                                        <td class="name-pr">
+                                                            <p class="p1">Total Price</p>
+                                                            <hr /><h5>
+                                                                @(item.Per_Head_Price * item.Quantity)
+                                                            </h5>
 
+                                                        </td>
+
+
+                                                        <td class="name-pr">
+                                                            <p class="p1">No Of People</p>
+                                                            <hr /><h5>
+                                                                @item.Quantity
+                                                            </h5>
+
+                                                        </td>
                                                     </tr>
-                                                    Session["Amount"] = total + 100;
 
                                                 }
                                             }
@@ -231,7 +245,7 @@
                                             {
                                                 foreach (var item in pro1)
                                                 {
-                                                    total += (decimal)item.Service_Price;
+                                                    total += (decimal)(item.Service_Price * pro.FirstOrDefault().Quantity);
 
                                                     <tr rowspan="5">
                                                         <td class="img-thumbnail">
@@ -273,12 +287,25 @@
                                                             <p class="p1">Type</p><br /><hr /><h5> Hall Service</h5>
 
                                                         </td>
+                                                        <td class="remove-pr">
+                                                            <p class="p1">No Of People</p><hr /><h5>
+                                                                @pro.FirstOrDefault().Quantity
+                                                            </h5>
+
+
+                                                        </td>
+                                                        <td class="remove-pr">
+                                                            <p class="p1">Total Price</p><hr /><h5>
+                                                                @(pro.FirstOrDefault().Quantity * item.Service_Price)
+                                                            </h5>
+                                                        </td>
 
                                                     </tr>
 
 
 
                                                 }
+                                                Session["Amount"] = total + 100;
                                             }
                                         </tbody>
 
@@ -286,7 +313,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="row my-5">
                             <div class="col-sm-12 col-lg-6">
@@ -382,9 +408,9 @@
                                         <div class="title-left"> <h3 style="color: #b08ead">Payment</h3> </div>
                                         <div class="d-block my-3">
                                             @*<div class="custom-control custom-radio">
-                                                    <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
-                                                    <label class="custom-control-label" for="credit">cash on delivery</label>
-                                                </div>*@
+                                <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
+                                <label class="custom-control-label" for="credit">cash on delivery</label>
+                            </div>*@
 
                                             <div class="custom-control custom-radio">
                                                 <input id="paypal" name="Payment_Type" value="Paypal" type="radio" class="custom-control-input" checked required>
