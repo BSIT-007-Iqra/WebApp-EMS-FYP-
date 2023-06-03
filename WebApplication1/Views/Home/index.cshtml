@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
     var query = db.Halls.Where(x => x.Venue_Type == "Hall").OrderByDescending(x => x.Views.Count()).ToList();
-    var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
+    //var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
 
-    var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).OrderByDescending(x => x.Views.Count()).ToList();
+    //var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).OrderByDescending(x => x.Views.Count()).ToList();
 }
 <style>
     .fun {
@@ -420,7 +420,7 @@
             <div class="col-lg-6 no-padding exclusive-right">
                 <div class="active-exclusive-product-slider">
                     <!-- single exclusive carousel -->
-                    @foreach (var item in query1.Take(4))
+                    @*@foreach (var item in query1.Take(4))
                     {
                         <div class="single-exclusive-slider">
                             <img class="img-fluid" src="@Url.Content(item.Service_Picture)" style="height:300px;width:300px" alt="">
@@ -442,7 +442,7 @@
                             </div>
                         </div>
 
-                    }<!-- single exclusive carousel -->
+                    }*@<!-- single exclusive carousel -->
 
                 </div>
             </div>
