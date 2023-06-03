@@ -1,4 +1,7 @@
 ﻿@model WebApplication1.Models.Service
+@{
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+}
 <!-- ============================================================== -->
 <div class="page-wrapper">
     <!-- ============================================================== -->
@@ -100,7 +103,7 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-actions no-color">
-                        <button type="submit" class="btn btn-primary fa fa-trash"> Delete </button> 
+                        <button type="submit" class="btn btn-primary fa fa-trash"> Delete </button>
                         <a class="btn btn-warning fa fa-arrow-circle-o-left" href="@Url.Action("Index","Services")"> Back to List </a>
                     </div>
                 }

@@ -282,5 +282,105 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "home");
 
         }
+        public ActionResult SalaryMenu()
+        {
+            return View();
+        }
+        public ActionResult ViewReport(DateTime? Todate, DateTime? Fromdate, int? Category, int? SubCategory, int? Writer, int? Artifact, int? Artifact1, int? Episode)
+
+        {
+            ViewBag.Category = new SelectList(db.Service_Category, "ServiceCategory_ID", "ServiceCategory_Name");
+            ViewBag.Writer = new SelectList(db.Event_Organizers.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID), "EventOrganizer_ID", "EventOrganizer_Name");
+
+            if (Category == null)
+            {
+                ViewBag.SubCategory = new SelectList(db.Sub_ServiceCategory, "SubCategory_ID", "Sub_category_Name");
+
+            }
+            else
+            {
+                ViewBag.SubCategory = new SelectList(db.Sub_ServiceCategory.Where(x => x.Service_Category_FID == Category), "SubCategory_ID", "Sub_category_Name");
+
+            }
+
+            //if (Writer == null)
+            //{
+            //    ViewBag.Service = new SelectList(db.Services.Where(x => x.Event_Organizers == BaseHelper.event_organizers.EventOrganizer_ID), "Service_ID", "Service_Name");
+            //}
+            //else
+            //{
+            //    ViewBag.Service = new SelectList(db.Services.Where(x => x.Event_Organizers == Writer), "Service_ID", "Service_Name");
+
+            //}
+            //if (SubCategory == null)
+            //{
+            //    ViewBag.Artifact1 = new SelectList(db.Artifacts.Where(x => x.WRITER_FID == BaseHelper.Writer.WRITER_ID), "Service_ID", "Service_Name");
+            //}
+            //else
+            //{
+            //    ViewBag.Artifact1 = new SelectList(db.Artifacts.Where(x => x.SUB_CATEGORY_FID == SubCategory && x.WRITER_FID == BaseHelper.Writer.WRITER_ID), "Service_ID", "Service_Name");
+            //}
+            //if (Artifact1 == null)
+            //{
+            //    ViewBag.Episode = new SelectList(db.Episodes, "EPISODE_ID", "EPISODE_NO");
+            //}
+            //else
+            //{
+            //    ViewBag.Episode = new SelectList(db.Episodes.Where(x => x.ARTIFACT_FID == Artifact1), "EPISODE_ID", "EPISODE_NO");
+            //}
+
+
+            if (Todate == null)
+            {
+
+                Todate = DateTime.Now;
+            }
+
+            if (Fromdate == null)
+            {
+
+                Fromdate = DateTime.Today;
+            }
+            ViewBag.Fromdate = Fromdate.Value.ToString("s");
+            ViewBag.Todate = Todate.Value.ToString("s");
+            var od = db.Views.Select(x => x.View_ID).ToList();
+            //if (Category != null)
+            //{
+            //    var subod = db.Episodes.Where(x => x.Artifact.SubCategory.CATEGORY_FID == Category && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
+            //    if (SubCategory != null)
+            //    {
+            //        subod = db.Episodes.Where(x => x.Artifact.SUB_CATEGORY_FID == SubCategory && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
+            //    }
+            //    if (Artifact1 != null)
+            //    {
+            //        subod = db.Episodes.Where(x => x.ARTIFACT_FID == Artifact1 && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
+            //    }
+            //    if (Episode != null)
+            //    {
+            //        subod = db.Episodes.Where(x => x.EPISODE_ID == Episode && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
+            //    }
+
+            //    od = db.Views.Where(x => subod.Contains(x.EPISODE_FID)).Select(x => x.VIEW_ID).ToList();
+            //}
+
+            //if (Writer != null)
+            //{
+            //    var subod = db.Episodes.Where(x => x.Artifact.Writer.WRITER_ID == Writer && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
+
+            //    if (Artifact != null)
+            //    {
+            //        subod = db.Episodes.Where(x => x.ARTIFACT_FID == Artifact && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
+            //    }
+
+            //    od = db.Views.Where(x => subod.Contains(x.EPISODE_FID)).Select(x => x.VIEW_ID).ToList();
+            //}
+
+
+            var orderslist = db.Views.Where(x => x.View_Date <= Todate && x.View_Date >= Fromdate && od.Contains(x.View_ID)).ToList();
+
+
+            return View(orderslist);
+        }
+
     }
 }

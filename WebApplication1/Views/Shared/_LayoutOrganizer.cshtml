@@ -19,7 +19,7 @@
     <title>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault() Organizer Wrap</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/adminwrap-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/Organizer/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/AdminPicture/logo1.ico">
     <!-- Bootstrap Core CSS -->
     <link href="~/Content/Organizer/assets/node_modules/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/Organizer/assets/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
@@ -43,6 +43,108 @@
     <!-- toastr  -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
     @RenderSection("head", required: false)
+    <style>
+        .text-themecolor {
+            color: #ac77a7 !important;
+            font-size: x-large;
+            font-weight: 600;
+        }
+
+        .sidebar-nav > ul > li.active > a i {
+            color: #ac77a7;
+        }
+
+        .sidebar-nav ul li a.active i, .sidebar-nav ul li a:hover i {
+            color: #4B3047;
+        }
+
+        .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover {
+            color: #4B3047;
+        }
+
+        .sidebar-nav ul li a {
+            color: #ac77a7 !important;
+            padding: 10px 35px 10px 15px;
+            display: block;
+            font-size: 15px;
+            font-weight: 400;
+            text-decoration: none;
+        }
+
+            .sidebar-nav ul li a:hover {
+                color: #4B3047 !important;
+                font-weight: 500;
+            }
+
+        .new1 {
+            color: #dec08e;
+        }
+
+            .new1:hover {
+                color: #d8ba89;
+            }
+
+        .primary-btn {
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+            padding: 0 30px;
+            line-height: 50px;
+            border-radius: 50px;
+            display: inline-block;
+            text-transform: capitalize;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            background: linear-gradient(90deg, #B08EAD 60%, #4B3049 100%, #B08EAD 50%);
+            -webkit-transition: all 0.3s ease 0s;
+            -moz-transition: all 0.3s ease 0s;
+            -o-transition: all 0.3s ease 0s;
+            transition: all 0.3s ease 0s;
+        }
+
+            .primary-btn:is(:hover) {
+                color: white;
+                font-weight: bold;
+            }
+
+        element.style {
+        }
+
+        .table td, .table th {
+            border: 1px solid #e9edf2;
+            box-shadow: 3px 5px 5px #888888;
+        }
+
+        .sidebar-nav ul li a.active i, .sidebar-nav ul li a:hover i {
+            color: #4B3047;
+        }
+
+        .table td, .table th {
+            padding: 0.75rem;
+            vertical-align: top;
+            font-family: poppins,sans-serif;
+        }
+
+        .b1 {
+            font-weight: bold;
+            color: black;
+        }
+
+        .li1 {
+            font-family: poppins,sans-serif;
+            font-size: medium;
+            color: #ac77a7;
+        }
+
+        .p1 {
+            color: #4b3049;
+            font-family: poppins,sans-serif;
+            font-style: normal;
+            font-weight: bold;
+            font-size: medium;
+        }
+    </style>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -65,26 +167,23 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- ============================================================== -->
+                <!-- ============================================================== -->
                 <!-- Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="@Url.Action("IndexOrganizer","Home")">
-                        <!-- Logo icon --><b>
+                <div class="navbar-header container">
+                    <a class="navbar-brand" href="@Url.Action("Indexadmin","Home")">
+                        <!-- Logo icon --><div>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="~/Content/Organizer/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="dark-logo" sizes="16x16" />
                             <!-- Light Logo icon -->
-                            <img src="~/Content/Organizer/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                        </b>
+                            <!--<img src="~/Content/AdminPicture/logo1.png" alt="homepage" class="light-logo" sizes="50x50"/>-->
+                        </div>
                         <!--End Logo icon -->
-                        <!-- Logo text --><span>
-                            <!-- dark Logo text -->
-                            <img src="~/Content/Organizer/assets/images/logo-text2.png" alt="homepage" class="dark-logo" />
-                            <!-- Light Logo text -->
-                            <img src="~/Content/Organizer/assets/images/logo-light-text2.png" class="light-logo" alt="homepage" />
-                        </span>
+
                     </a>
                 </div>
+                <hr />
                 <!-- ============================================================== -->
                 <!-- End Logo -->
                 <!-- ============================================================== -->
@@ -123,7 +222,8 @@
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="@Url.Action("Index","Organizers")"
                                id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="@Url.Content(BaseHelper.event_organizers.EventOrganizer_Picture)" alt="" class="" /> <span class="hidden-md-down">@BaseHelper.event_organizers.EventOrganizer_Name &nbsp;</span>
+                                <img src="@Url.Content(BaseHelper.event_organizers.EventOrganizer_Picture)" alt="" class="" /> 
+                                <span class="hidden-md-down">@BaseHelper.event_organizers.EventOrganizer_Name &nbsp;</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
                         </li>
@@ -141,21 +241,22 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
+                <nav class="sidebar-nav" style="margin-top:2.5rem ">
                     <ul id="sidebarnav">
                         <li>
-                            <a class="waves-effect waves-dark" href="/Home/IndexOrganizer" aria-expanded="false">
-                                <i class="fa fa-tachometer new1"></i><span class="hide-menu">Dashboard</span>
+                            <a class="waves-effect waves-dark" href="/Home/IndexOrganizer" aria-expanded="false" >
+                                <i class="fa fa-tachometer new1"  style=" color:#4B3047"></i><span class="hide-menu"> <b  style=" color: #4B3047">Dashboard</b></span>
                             </a>
                         </li>
                         <li>
-                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Event_Organizers")" aria-expanded="false">
+                          
+                            <a class="waves-effect waves-dark" href="/Event_Organizers/IndexOrganizer" aria-expanded="false">
                                 <i class="fa fa-user-circle-o new1"></i><span class="hide-menu">Profile</span>
                             </a>
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="@Url.Action("Index","Services")" aria-expanded="false">
-                                <i class="fa fa-table new1"></i><span class="hide-menu">Manage Artifacts</span>
+                                <i class="fa fa-table new1"></i><span class="hide-menu">Manage Services</span>
                             </a>
                         </li>
                         <li>

@@ -1,4 +1,7 @@
 ﻿@model WebApplication1.Models.Service
+@{
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+}
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
 <!-- ============================================================== -->
@@ -98,7 +101,7 @@
 
             <div class="form-group">
                 <div class="col-sm-8">
-                    <button type="submit" class="btn btn-primary btn-lg fa fa-save"> Save </button> 
+                    <button type="submit" class="btn btn-primary btn-lg fa fa-save"> Save </button>
                     <a class="btn btn-warning btn-lg fa fa-arrow-circle-o-left" href="@Url.Action("Index", "Services")"> Back to List </a>
                 </div>
             </div>

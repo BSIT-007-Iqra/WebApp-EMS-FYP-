@@ -1,35 +1,36 @@
-﻿@model IEnumerable<ReadRix.Models.Writer>
+﻿@model IEnumerable<WebApplication1.Models.Event_Organizers>
 
 @{
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
     ViewBag.Title = "Index";
 }
 
-<center><h1><b>Writers Applied Requests</b></h1></center>
+<center><h1><b>Event_Organizer Applied Requests</b></h1></center>
 
 <br />
 <table class="table table-bordered table-hover">
     <tr class="bg-light-extra">
         <th>
-            Writer Image
+             Image
         </th>
         <th>
-            Writer Name
+             Name
         </th>
         <th width="10px">
-            Writer Email
+             Email
         </th>
         <th>
-           Writer Password
+            Password
         </th>
-        @*<th>
+        <th>
             Writer Contact
-        </th>*@
-        <th width="10px">
-          Writer Address
         </th>
+        @*<th width="10px">
+         Address
+        </th>*@
       
         <th width="5px">
-            Writer Status
+             Status
         </th>
         <th>Actions</th>
     </tr>
@@ -38,32 +39,32 @@
     {
 <tr>
     <td>
-        <img height="100" width="80" src="@Url.Content(item.WRITER_IMAGE)" />
+        <img height="100" width="80" src="@Url.Content(item.EventOrganizer_Picture)" />
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.WRITER_NAME)
+        @Html.DisplayFor(modelItem => item.EventOrganizer_Name)
     </td>
     <td width="7px">
-        @Html.DisplayFor(modelItem => item.WRITER_EMAIL)
+        @Html.DisplayFor(modelItem => item.EventOrganizer_Email)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.WRITER_PASSWORD)
+        @Html.DisplayFor(modelItem => item.EventOrganizer_Password)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EventOrganizer_Contact)
     </td>
     @*<td>
-        @Html.DisplayFor(modelItem => item.WRITER_CONTACT)
+        @Html.DisplayFor(modelItem => item.ad)
     </td>*@
+
     <td>
-        @Html.DisplayFor(modelItem => item.WRITER_ADDRESS)
-    </td>
-    
-    <td>
-        @Html.DisplayFor(modelItem => item.STATUS)
+        @Html.DisplayFor(modelItem => item.Status)
     </td>
     <td>
-        <a class="btn btn-primary fa fa-toggle-on " href="@Url.Action("activateaccount","Writers",new { id= item.WRITER_ID})"></a> |
-        <a class="btn btn-danger fa fa-ban " href="@Url.Action("blockaccount","Writers",new { id= item.WRITER_ID})"></a> |
-        <a class="btn btn-success fa fa-book " href="@Url.Action("Details","Writers",new { id= item.WRITER_ID})"></a>
-       
+        <a class="btn btn-primary fa fa-toggle-on " href="@Url.Action("activateaccount","Event_Organizers",new { id= item.EventOrganizer_ID})"></a> |
+        <a class="btn btn-danger fa fa-ban " href="@Url.Action("blockaccount","Event_Organizers",new { id= item.EventOrganizer_ID})"></a> |
+        <a class="btn btn-success fa fa-book " href="@Url.Action("Details","Event_Organizers",new { id= item.EventOrganizer_ID})"></a>
+
 
     </td>
 </tr>
