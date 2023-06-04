@@ -200,7 +200,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <p>
-                    @Model.Venue_Details
+                  
                 </p>
                 <p>
                    
@@ -251,7 +251,7 @@
 
                             <h3 class="col-lg-12" style="color: darkcyan; font-family: 'Baskerville Old Face'"><b>Reviews</b></h3>
 
-                            @foreach (var item in db.Feedbacks.Where(x => x.Venue_FID == Model.Venue_ID && x.Feedback_FID == null && x.Service_FID == null && x.Hall_FID == null).Take(4))
+                            @foreach (var item in db.Feedbacks.Where(x => x.Venue_FID == Model.Venue_ID && x.Feedback_FID == null && x.Service_FID == null && x.Hall_FID == null))
                             {
                                 a++;
                                 <div class="notification_wrap">

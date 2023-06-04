@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
-using WebApplication1.Utils;
 
 namespace WebApplication1.Controllers
 {
@@ -18,7 +17,7 @@ namespace WebApplication1.Controllers
         // GET: Packages
         public ActionResult Index()
         {
-            var packages = db.Packages.Where(x=>x.Service.Organizer_FID == BaseHelper.event_organizers.EventOrganizer_ID).Include(p => p.Hall).Include(p => p.Service);
+            var packages = db.Packages.Include(p => p.Hall).Include(p => p.Service);
             return View(packages.ToList());
         }
 
@@ -50,10 +49,11 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Package_ID,Package_Name,Package_Details,Service_FID,Hall_FID,Price,Status")] Package package)
+        public ActionResult Create([Bind(Include = "Package_ID,Package_Name,Package_Details,Service_FID,Hall_FID,Packages_Price,Status")] Package package)
         {
             if (ModelState.IsValid)
             {
+                package.Per_Head_Price = package.Packages_Price / 100;
                 db.Packages.Add(package);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,7 +86,7 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Package_ID,Package_Name,Package_Details,Service_FID,Hall_FID,Price,Status")] Package package)
+        public ActionResult Edit([Bind(Include = "Package_ID,Package_Name,Package_Details,Service_FID,Hall_FID,Packages_Price,Status")] Package package)
         {
             if (ModelState.IsValid)
             {

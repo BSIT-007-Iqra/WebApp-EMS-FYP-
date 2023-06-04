@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
     List<Service> pro1 = (List<Service>)TempData.Peek("Cart1");
+    List<Package> pro2 = (List<Package>)TempData.Peek("Cart2");
 
     <!---service-->
     List<Hall> pro = (List<Hall>)TempData.Peek("Cart");
@@ -231,6 +232,22 @@
                                                             <img src="@Url.Content(item.Service_Picture)" height="50" width="50" />
                                                             <a href="detail.html">@item.Service_Name</a>
                                                             <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span> Qty:@(pro.FirstOrDefault().Quantity)<span class="mx-2">|</span> Rs:@(item.Service_Price*pro.FirstOrDefault().Quantity)</div>
+                                                        </div>
+                                                    </div>}
+                                            }
+
+                                        </div>
+                                        <div class="rounded p-2 bg-light">
+                                            @if (pro2 != null)
+                                            {
+                                                foreach (var item in pro2)
+                                                {
+                                                    total += (decimal)(item.Packages_Price * item.Quantity);
+                                                    <div class="media mb-2 border-bottom">
+                                                        <div class="media-body">
+                                                            <img src="~/Content/WebsitePicture/images.png" height="50" width="50" />
+                                                            <a href="detail.html">@item.Package_Name</a>
+                                                            <div class="small text-muted">Price:@item.Packages_Price <span class="mx-2">|</span> Qty:@(item.Quantity)<span class="mx-2">|</span> Rs:@(item.Packages_Price*item.Quantity)</div>
                                                         </div>
                                                     </div>}
                                             }

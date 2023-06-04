@@ -79,7 +79,9 @@
                         <table style="margin-left:40px">
                             <tr>
                                 <td width="33%" rowspan="3"><img src="@Url.Content(db.Website_Details.Select(x=>x.Website_Logo).FirstOrDefault())" width="50" height="50" />@*<h2><b>@db.Website_Details.Select(x => x.Website_Name).FirstOrDefault()</b></h2>*@</td>
-                                <td width="33%"></td><td width="33%"></td><td width="33%"></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
+                                <td width="33%"></td>
                                 <td width="33%"><b>Email:</b>@db.Website_Details.Select(x => x.Website_Email).FirstOrDefault()</td>
                             </tr>
                             <tr>
@@ -106,7 +108,7 @@
                             </div>
                             <!-- /pull-left -->
                             <div class="text-center">
-                                <br /><br /><hr /><h2><b>Invoice</b></h2><hr/>
+                                <br /><br /><hr /><h2><b>Invoice</b></h2><hr />
                             </div>
                             <!-- /pull-right -->
                             <div class="clearfix"></div>
@@ -149,33 +151,53 @@
                                     <tr>
                                         <th class=""><b>Image</b></th>
                                         <th class=""><b>Name</b></th>
+                                        <th class=""><b>Hall Price</b></th>
+                                        <th class=""><b>Quantity</b></th>
+                                        <th class=""><b>Total Price</b></th>
 
-                                        <th style="width:140px" class="text-right"><b> Price</b></th>
-                                        <th style="width:90px" class="text-right"><b>Total</b></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.Booking_Details)
                                     {
                                         total += (decimal)item.Price;
-                                        <tr>
+                                        if (item.Hall_FID != null)
+                                        {
+                                            <tr>
 
-                                            <td class=""> <img height="100" width="90" src="@Url.Content(item.Hall.Hall_Picture)" /></td>
-                                            <td class=""> @item.Hall.Hall_Name</td>
+                                                <td class=""> <img height="100" width="90" src="@Url.Content(item.Hall.Hall_Picture)" /></td>
+                                                <td class=""> @item.Hall.Hall_Name</td>
 
-                                            <td class="text-right">@item.Price</td>
-                                            <td class="text-right">@(item.Price )</td>
-                                        </tr>
-                                    <tr>
+                                                <td class="">@item.Hall.Hall_Price</td>
+                                                <td class="">@item.No_Of_People</td>
+                                                <td class="">@(item.Price )</td>
+                                            </tr>
+                                        }
+                                        if (item.Service_FID != null)
+                                        {
+                                            <tr>
 
-                                            <td class=""> <img height="100" width="90" src="@Url.Content(item.Service.Service_Picture)" /></td>
-                                            <td class=""> @item.Service.Service_Name</td>
+                                                <td class=""> <img height="100" width="90" src="@Url.Content(item.Service.Service_Picture)" /></td>
+                                                <td class=""> @item.Service.Service_Name</td>
 
-                                            <td class="text-right">@item.Price</td>
-                                            <td class="text-right">@(item.Price )</td>
-                                        </tr>
+                                                <td class="">@item.Service.Service_Price</td>
+                                                <td></td>
+                                                <td class="">@(item.Price )</td>
+                                            </tr>
+                                        }
+                                        if (item.Package_FID != null)
+                                        {
+                                            <tr>
+
+                                                <td class=""> <img height="100" width="90" src="~/Content/WebsitePicture/images.png" /></td>
+                                                <td class=""> @item.Package.Package_Name</td>
+
+                                                <td class="">@item.Package.Packages_Price</td>
+                                                <td class="">@item.No_Of_People</td>
+                                                <td class="">@(item.Price)</td>
+                                            </tr>
+                                        }
                                     }
-
                                     <tr>
                                         <td colspan="3" rowspan="4">
 

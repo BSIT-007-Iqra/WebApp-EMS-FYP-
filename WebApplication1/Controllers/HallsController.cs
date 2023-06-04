@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
             var halls = db.Halls.Include(h => h.Venue);
             return View(halls.ToList());
         }
-
+     
         // GET: Halls/Details/5
         public ActionResult Details(int? id)
         {

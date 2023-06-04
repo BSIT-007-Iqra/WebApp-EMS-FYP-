@@ -29,10 +29,14 @@ namespace WebApplication1.Models
 
         public int Hall_FID { get; set; }
 
-        public decimal Price { get; set; }
-
+        [Required]
         [StringLength(50)]
         public string Status { get; set; }
+
+        public decimal Packages_Price { get; set; }
+        [NotMapped]
+        public int Quantity { get; set; } = 100;
+        public decimal Per_Head_Price { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking_Details> Booking_Details { get; set; }

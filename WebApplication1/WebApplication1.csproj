@@ -899,6 +899,7 @@
     <Content Include="Content\SitePics\Venue_1280.jpg" />
     <Content Include="Content\WebsitePicture\EMSlogo.png" />
     <Content Include="Content\AdminPicture\newlogo.jpg" />
+    <Content Include="Content\WebsitePicture\images.png" />
     <Content Include="Picture\Aurora Banquet Hall Weddings 4  .jpg-1613018904742.jpg" />
     <Content Include="Picture\Aurora Banquet Hall Weddings 6  .jpg-1613018936989.jpg" />
     <Content Include="Picture\EMSlogo.png" />
@@ -1389,6 +1390,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Foodleftover.cshtml" />
     <Content Include="Views\Home\IndexOrganizer.cshtml" />
+    <Content Include="Views\Home\Packages.cshtml" />
     <None Include="Views\Home\servicecategory.cshtml" />
     <Content Include="Views\Home\ChatRoom.cshtml" />
     <None Include="Views\Home\contact.cshtml" />

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Utils;
+using static Dropbox.Api.Files.ListRevisionsMode;
 using static Dropbox.Api.TeamLog.SharedLinkAccessLevel;
 
 namespace WebApplication1.Controllers
@@ -146,7 +147,7 @@ namespace WebApplication1.Controllers
             BaseHelper.customer = null;
             return RedirectToAction("Index");
         }
-        
+
 
         protected override void Dispose(bool disposing)
         {
@@ -274,8 +275,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult CustomerHistory()
         {
-
-            return View();
+            var order = db.Bookings.Where(x => x.Booking_Status == "Booked" && x.Customer_FID == BaseHelper.customer.Customer_ID).ToList();
+            return View(order);
 
         }
         public ActionResult Invoice(int id)
@@ -285,7 +286,8 @@ namespace WebApplication1.Controllers
         }
         public ActionResult CancelledBookings()
         {
-            return View();
+            var order = db.Bookings.Where(x => x.Booking_Status == "Cancelled" && x.Customer_FID == BaseHelper.customer.Customer_ID).ToList();
+            return View(order);
         }
         public ActionResult CancelBookings(int id)
         {
@@ -295,7 +297,7 @@ namespace WebApplication1.Controllers
 
             db.Entry(order).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("CancelledOrders");
+            return RedirectToAction("CancelledBookings");
         }
         public ActionResult ActiveBookings(int id)
         {

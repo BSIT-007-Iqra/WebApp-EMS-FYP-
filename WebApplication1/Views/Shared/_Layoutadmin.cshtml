@@ -273,10 +273,10 @@
                             <ul id="sidebarnav">
 
                                 <li>
-                                        <a class="waves-effect waves-dark" href="@Url.Action("IndexOrganizer","Event_Organizers")" aria-expanded="false">
-                                            <i class="fa fa-user new1"></i><span class="hide-menu">Event Organizers</span>
-                                        </a>
-                                    </li>
+                                    <a class="waves-effect waves-dark" href="@Url.Action("IndexOrganizer","Event_Organizers")" aria-expanded="false">
+                                        <i class="fa fa-user new1"></i><span class="hide-menu">Event Organizers</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a class="waves-effect waves-dark" href="@Url.Action("Index","Service_Category")" aria-expanded="false">
                                         <i class="fa fa-bars new1"></i><span class="hide-menu"> Category</span>
@@ -297,11 +297,7 @@
                                         <i class="fa fa-solid fa-cubes new1"></i><span class="hide-menu"> Organizer</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="waves-effect waves-dark" href="@Url.Action("ViewReport","Admins")" aria-expanded="false">
-                                        <i class="fa fa-file new1"></i><span class="hide-menu">Booking Report</span>
-                                    </a>
-                                </li>
+
                                 @*<li>
                                         <a class="waves-effect waves-dark" href="@Url.Action("Index","SalaryRates")" aria-expanded="false">
                                             <i class="fa fa-money"></i><span class="hide-menu"> Salary Rates </span>
@@ -363,7 +359,11 @@
                             </a>
                         </li>
 
-
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("ViewReport","Admins")" aria-expanded="false">
+                                <i class="fa fa-file new1"></i><span class="hide-menu">Booking Report</span>
+                            </a>
+                        </li>
                         <li>
                             <a class="waves-effect waves-dark" href="@Url.Action("logout","Admins")" aria-expanded="false">
                                 <i class="fa fa-sign-out new1"></i><span class="hide-menu"><b style="color:#745871">Logout</b></span>

@@ -1,4 +1,5 @@
-﻿@using WebApplication1.Models
+﻿@model IEnumerable<WebApplication1.Models.Booking>
+@using WebApplication1.Models
 @using WebApplication1.Utils
 
 @{
@@ -50,34 +51,31 @@
                     <th>Actions</th>
                 </tr>
 
-                @foreach (var item in db.Bookings.Where(x => x.Booking_Type == "Book" && x.Booking_Status == "Booked"))
+                @foreach (var item in Model)
                 {
-                    if (item.Customer_FID == BaseHelper.customer.Customer_ID)
-                    {
-                        srno++;
-                        <tr>
-                            <td>
-                                @srno
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Customer.Customer_Name)
-                            </td>
-                            <td>
-                                @item.Event_Date.ToLongDateString()
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Booking_Status)
-                            </td>
+                    srno++;
+                    <tr>
+                        <td>
+                            @srno
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.Customer_Name)
+                        </td>
+                        <td>
+                            @item.Event_Date.ToLongDateString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Booking_Status)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Payment_Type)
-                            </td>
-                            <td>
-                                <a class="btn btn-danger" href="@Url.Action("CancelledBookings", "Customers", new { id = item.Booking_ID })"> Cancel? </a>
-                                <a class="btn btn-info" href="@Url.Action("Invoice", "Customers", new { id = item.Booking_ID })"> Invoice </a>
-                            </td>
-                        </tr>
-                    }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Payment_Type)
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="@Url.Action("CancelBookings", "Customers", new { id = item.Booking_ID })"> Cancel? </a>
+                            <a class="btn btn-info" href="@Url.Action("Invoice", "Customers", new { id = item.Booking_ID })"> Invoice </a>
+                        </td>
+                    </tr>
                 }
 
             </table>

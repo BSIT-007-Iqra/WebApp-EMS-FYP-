@@ -17,6 +17,11 @@
     {
         pro1 = (List<Service>)Session["Cart1"];
     }
+    List<Package> pro2 = new List<Package>();
+    if (Session["Cart2"] != null)
+    {
+        pro2 = (List<Package>)Session["Cart2"];
+    }
     var dates = new EventDates();
     if (Session["dates"] != null)
     {
@@ -307,6 +312,70 @@
                                                 }
                                                 Session["Amount"] = total + 100;
                                             }
+                                            @if (pro2 != null)
+                                            {
+                                                foreach (var item in pro2)
+                                                {
+                                                   
+                                                    total += (decimal)(item.Per_Head_Price * item.Quantity);
+
+                                                    <tr rowspan="5">
+                                                        <td class="thumbnail-img">
+
+                                                            <img class="img-fluid pic-td" src="~/Content/WebsitePicture/images.png" style="width:300px; height:300px" alt="" />
+
+                                                        </td>
+
+                                                        <td class="name-pr">
+                                                            <p class="p1">Name</p>
+                                                            <hr /><h5>
+                                                                @item.Package_Name
+                                                            </h5>
+
+                                                        </td>
+                                                        <td class="user-name">
+                                                            <p class="p1">Category</p> <hr /><h5> @item.Service.Sub_ServiceCategory.Sub_category_Name</h5>
+
+                                                        </td>
+                                                        <td class="price-pr">
+                                                            <p class="p1">Price</p><hr /> <h5>Rs: @item.Packages_Price</h5>
+
+                                                        </td>
+
+
+
+                                                        <td class="price-pr">
+                                                            <p class="p1">Details</p><br /><hr />
+                                                            <h5>
+                                                                @if (item.Package_Details.Length < 90)
+                                                                {
+                                                                    @item.Package_Details }
+                                                                else
+                                                                {
+                                                                    @item.Package_Details.Substring(0, 60)<span>......</span>}
+                                                            </h5>
+
+                                                        </td>
+
+                                                        <td class="remove-pr">
+                                                            <p class="p1">No Of People</p><hr /><h5>
+                                                                @item.Quantity
+                                                            </h5>
+
+
+                                                        </td>
+                                                        <td class="remove-pr">
+                                                            <p class="p1">Total Price</p><hr /><h5>
+                                                                @(item.Quantity * item.Per_Head_Price)
+                                                            </h5>
+                                                        </td>
+
+                                                      
+                                                    </tr>
+
+                                                }
+
+                                            }
                                         </tbody>
 
                                     </table>
@@ -408,9 +477,9 @@
                                         <div class="title-left"> <h3 style="color: #b08ead">Payment</h3> </div>
                                         <div class="d-block my-3">
                                             @*<div class="custom-control custom-radio">
-                                <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
-                                <label class="custom-control-label" for="credit">cash on delivery</label>
-                            </div>*@
+                                                    <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
+                                                    <label class="custom-control-label" for="credit">cash on delivery</label>
+                                                </div>*@
 
                                             <div class="custom-control custom-radio">
                                                 <input id="paypal" name="Payment_Type" value="Paypal" type="radio" class="custom-control-input" checked required>
@@ -432,173 +501,173 @@
 
                 </div>
             </div>
-   
-    </section>
 
-    <!--================End Cart Area =================-->
-    @*<div class="row">
-            <div class="col-sm-6 col-lg-6 mb-3">
-                <div class="checkout-address">
-                    <div class="title-left">
-                        <h3 style="color: #b08ead">Billing address</h3>
+        </section>
+
+        <!--================End Cart Area =================-->
+        @*<div class="row">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="checkout-address">
+                        <div class="title-left">
+                            <h3 style="color: #b08ead">Billing address</h3>
+                        </div>
+
+                        @if (BaseHelper.customer != null)
+                        {
+                            <div class="mb-3 hide">
+                                <label for="username">Username *</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="username" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" readonly required>
+                                    <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email">Email *</label>
+                                <input type="email" class="form-control" id="email" name="Customer_Email" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
+                                <div class="invalid-feedback"> Please enter a valid Email address for Booking updates. </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address">Contact *</label>
+                                <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
+                                <div class="invalid-feedback"> Please enter a valid contact # for Booking updates.</div>
+                            </div>
+                            <div class="container">
+                                <div class="col-md-12 form-group">
+
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="txtdateofreservation" name="Event_Date" placeholder="Select Date *" readonly required>
+                                        <div class="invalid-feedback" style="width: 100%;"> Date required. </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="col-md-12 form-group ">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="txtdateofreservation" name="Event_Name" placeholder="Enter Event Name" readonly required>
+                                        <div class="invalid-feedback" style="width: 100%;"> Event Name required. </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+                        else
+                        {
+                            <div>Please Login Into your account to fill your details</div>
+                        }
+                        <hr class="mb-4">
+                        <form class="needs-validation" action="/Cart/Orderbooked" novalidate>
+                            <div class="title-left"> <h3 style="color: #b08ead">Payment</h3> </div>
+                            <div class="d-block my-3">
+                                <div class="custom-control custom-radio">
+                        <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
+                        <label class="custom-control-label" for="credit">cash on delivery</label>
                     </div>
 
-                    @if (BaseHelper.customer != null)
-                    {
-                        <div class="mb-3 hide">
-                            <label for="username">Username *</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="username" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" readonly required>
-                                <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email">Email *</label>
-                            <input type="email" class="form-control" id="email" name="Customer_Email" readonly placeholder="@BaseHelper.customer.Customer_Email" required>
-                            <div class="invalid-feedback"> Please enter a valid Email address for Booking updates. </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address">Contact *</label>
-                            <input type="text" class="form-control" id="phone" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Contact" readonly required>
-                            <div class="invalid-feedback"> Please enter a valid contact # for Booking updates.</div>
-                        </div>
-                        <div class="container">
-                            <div class="col-md-12 form-group">
-
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="txtdateofreservation" name="Event_Date" placeholder="Select Date *" readonly required>
-                                    <div class="invalid-feedback" style="width: 100%;"> Date required. </div>
+                                <div class="custom-control custom-radio">
+                                    <input id="paypal" name="PAYMENT_TYPE" value="Paypal" type="radio" class="custom-control-input" required>
+                                    <label class="custom-control-label" for="paypal">Paypal</label>
                                 </div>
-
+                            </div><hr class="mb-1">
+                            <div class="col-12 d-flex shopping-box">
+                                <button type="submit" class="ml-auto btn primary-btn" style="color:white">Place Booking</button>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="col-md-12 form-group ">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="txtdateofreservation" name="Event_Name" placeholder="Enter Event Name" readonly required>
-                                    <div class="invalid-feedback" style="width: 100%;"> Event Name required. </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    }
-
-                    else
-                    {
-                        <div>Please Login Into your account to fill your details</div>
-                    }
-                    <hr class="mb-4">
-                    <form class="needs-validation" action="/Cart/Orderbooked" novalidate>
-                        <div class="title-left"> <h3 style="color: #b08ead">Payment</h3> </div>
-                        <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                    <input id="credit" name="payment_type" value="CashOnBooking" type="radio" class="custom-control-input" checked required>
-                    <label class="custom-control-label" for="credit">cash on delivery</label>
-                </div>
-
-                            <div class="custom-control custom-radio">
-                                <input id="paypal" name="PAYMENT_TYPE" value="Paypal" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="paypal">Paypal</label>
-                            </div>
-                        </div><hr class="mb-1">
-                        <div class="col-12 d-flex shopping-box">
-                            <button type="submit" class="ml-auto btn primary-btn" style="color:white">Place Booking</button>
-                        </div>
-                        <hr class="mb-1">
-                    </form>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-6 mb-3">
-                <div class="row">
-                    <div class="col-md-12 col-lg-12">
+                            <hr class="mb-1">
+                        </form>
                     </div>
-                    <div class="col-md-12 col-lg-12">
-                        <div class="odr-box">
-                            <div class="title-left">
-                                <h3 style="color: #b08ead">Booking Details</h3>
-                            </div>
+                </div>
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                        </div>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="odr-box">
+                                <div class="title-left">
+                                    <h3 style="color: #b08ead">Booking Details</h3>
+                                </div>
+                                <div class="rounded p-2 bg-light">
+                                    @if (pro != null)
+                                    {
+                                        foreach (var item in pro)
+                                        {
+                                            total += (decimal)item.Hall_Price;
+                                            <div class="media mb-2 border-bottom">
+                                                <div class="media-body">
+                                                    <img src="@Url.Content(item.Hall_Picture)" height="50" width="50" />
+                                                    <a href="detail.html">@item.Hall_Name</a>
+                                                    <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span><span class="mx-2">|</span> Rs:@(item.Hall_Price)</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
                             <div class="rounded p-2 bg-light">
-                                @if (pro != null)
-                                {
-                                    foreach (var item in pro)
+                                    @if (pro1 != null)
                                     {
-                                        total += (decimal)item.Hall_Price;
-                                        <div class="media mb-2 border-bottom">
-                                            <div class="media-body">
-                                                <img src="@Url.Content(item.Hall_Picture)" height="50" width="50" />
-                                                <a href="detail.html">@item.Hall_Name</a>
-                                                <div class="small text-muted">Price:@item.Hall_Price <span class="mx-2">|</span><span class="mx-2">|</span> Rs:@(item.Hall_Price)</div>
+                                        foreach (var item in pro1)
+                                        {
+                                            total += (decimal)item.Service_Price;
+                                            <div class="media mb-2 border-bottom">
+                                                <div class="media-body">
+                                                    <img src="@Url.Content(item.Service_Picture)" height="50" width="50" />
+                                                    <a href="detail.html">@item.Service_Name</a>
+                                                    <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span><span class="mx-2">|</span> Rs:@(item.Service_Price)</div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
-                                }
 
-                            </div>
-                        <div class="rounded p-2 bg-light">
-                                @if (pro1 != null)
-                                {
-                                    foreach (var item in pro1)
-                                    {
-                                        total += (decimal)item.Service_Price;
-                                        <div class="media mb-2 border-bottom">
-                                            <div class="media-body">
-                                                <img src="@Url.Content(item.Service_Picture)" height="50" width="50" />
-                                                <a href="detail.html">@item.Service_Name</a>
-                                                <div class="small text-muted">Price:@item.Service_Price <span class="mx-2">|</span><span class="mx-2">|</span> Rs:@(item.Service_Price)</div>
-                                            </div>
-                                        </div>
-                                    }
-                                }
-
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-lg-12">
-                        <div class="order-box">
-                            <div class="title-left">
-                                <h3>Your order</h3>
-                            </div>
-                            <div class="d-flex">
-                                <div class="font-weight-bold">Product</div>
-                                <div class="ml-auto font-weight-bold">Total</div>
-                            </div>
-                            <hr class="my-1">
-                            <div class="d-flex">
-                                <h4>Sub Total</h4>
-                                <div class="ml-auto font-weight-bold"> Rs:@total </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>Discount</h4>
-                                <div class="ml-auto font-weight-bold"> 10% </div>
-                            </div>
-                            <hr class="my-1">
-                            <div class="d-flex">
-                                <h4>Coupon Discount</h4>
-                                <div class="ml-auto font-weight-bold"> RS:0.00 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>Tax</h4>
-                                <div class="ml-auto font-weight-bold"> RS:0.00 </div>
-                            </div>
-                            <div class="d-flex">
-                                <h4>Shipping Cost</h4>
-                                <div class="ml-auto font-weight-bold"> RS:200 </div>
-                            </div>
-                            <hr>
-                            <div class="d-flex gr-total">
-                                <h5>Grand Total</h5>
-                                <div class="ml-auto h5"> @(total + 100) </div>
+                        <div class="col-md-12 col-lg-12">
+                            <div class="order-box">
+                                <div class="title-left">
+                                    <h3>Your order</h3>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="font-weight-bold">Product</div>
+                                    <div class="ml-auto font-weight-bold">Total</div>
+                                </div>
+                                <hr class="my-1">
+                                <div class="d-flex">
+                                    <h4>Sub Total</h4>
+                                    <div class="ml-auto font-weight-bold"> Rs:@total </div>
+                                </div>
+                                <div class="d-flex">
+                                    <h4>Discount</h4>
+                                    <div class="ml-auto font-weight-bold"> 10% </div>
+                                </div>
+                                <hr class="my-1">
+                                <div class="d-flex">
+                                    <h4>Coupon Discount</h4>
+                                    <div class="ml-auto font-weight-bold"> RS:0.00 </div>
+                                </div>
+                                <div class="d-flex">
+                                    <h4>Tax</h4>
+                                    <div class="ml-auto font-weight-bold"> RS:0.00 </div>
+                                </div>
+                                <div class="d-flex">
+                                    <h4>Shipping Cost</h4>
+                                    <div class="ml-auto font-weight-bold"> RS:200 </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex gr-total">
+                                    <h5>Grand Total</h5>
+                                    <div class="ml-auto h5"> @(total + 100) </div>
 
+                                </div>
+                                <hr>
                             </div>
-                            <hr>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
-</div>
+    </div>
 </div>
 <!-- End Cart -->
 

@@ -23,11 +23,6 @@ namespace ReadRix.Controllers
                 TempData["new"] = "Login into your account OR Register Account";
             }
 
-            else if (Session["cart"] == null || Session["cart1"] == null)
-            {
-                TempData["ok1"] = "Select Hall and Services First before checkout";
-            }
-            else { return View(); }
             return View();
         }
 
@@ -45,7 +40,7 @@ namespace ReadRix.Controllers
             {
                 bool isOverlap = false;
 
-                foreach(var item in query) 
+                foreach (var item in query)
                 {
                     if (starttime >= item.Event_Start_Time && starttime <= item.Event_End_Time)
                     {
@@ -133,7 +128,7 @@ namespace ReadRix.Controllers
                 order.Event_Start_Time = dates.Start_Time;
                 order.Event_End_Time = dates.End_Time;
                 order.Event_Date = dates.Event_Date;
-                order.Event_Name= dates.Event_Name;
+                order.Event_Name = dates.Event_Name;
 
                 #endregion
 
@@ -146,33 +141,56 @@ namespace ReadRix.Controllers
                     db.SaveChanges();
 
                     Booking_Details od = new Booking_Details();
-                    foreach (var item in (List<Hall>)Session["Cart"])
+                    if (Session["cart"] != null)
                     {
-                        od.Price = item.Hall_Price;
-                        od.Hall_FID = item.Hall_ID;
-                        od.Booking_FID = order.Booking_ID;
+                        foreach (var item in (List<Hall>)Session["Cart"])
+                        {
+                            od.Price = item.Hall_Price;
+                            od.Hall_FID = item.Hall_ID;
+                            od.Booking_FID = order.Booking_ID;
+                            od.No_Of_People = item.Quantity;
+                            db.Booking_Details.Add(od);
+                            db.SaveChanges();
 
-                        db.Booking_Details.Add(od);
-                        db.SaveChanges();
+                        }
+                    }
+                    if (Session["cart1"] != null)
+                    {
+                        foreach (var item in (List<Service>)Session["cart1"])
+                        {
+                            od.Price = item.Service_Price;
+                            od.Service_FID = item.Service_ID;
+                            od.Booking_FID = order.Booking_ID;
+
+                            db.Booking_Details.Add(od);
+                            db.SaveChanges();
+
+                        }
 
                     }
-
-                    foreach (var item in (List<Service>)Session["Cart1"])
+                    if (Session["Cart2"] != null)
                     {
-                        od.Price = item.Service_Price;
-                        od.Service_FID = item.Service_ID;
-                        od.Booking_FID = order.Booking_ID;
-                        db.Booking_Details.Add(od);
-                        db.SaveChanges();
+                        foreach (var item in (List<Package>)Session["Cart2"])
+                        {
+                            od.Price = item.Packages_Price;
+                            od.Package_FID = item.Package_ID;
+                            od.Booking_FID = order.Booking_ID;
+                            od.No_Of_People = item.Quantity;
+                            db.Booking_Details.Add(od);
+                            db.SaveChanges();
 
+                        }
                     }
                     MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Order has been booked and will be delivered within 3 working days, Regards EMS <br /> Thanks");
                     TempData["Cart"] = Session["Cart"];
                     Session["Cart"] = null;
                     TempData["Cart1"] = Session["Cart1"];
                     Session["Cart1"] = null;
+                    TempData["Cart2"] = Session["Cart2"];
+                    Session["Cart2"] = null;
 
-
+                    TempData["dates"] = Session["dates"];
+                    Session["dates"] = null;
                     return RedirectToAction("BookingComplete");
                 }
                 else
@@ -199,34 +217,53 @@ namespace ReadRix.Controllers
             db.Bookings.Add(o);
             db.SaveChanges();
             Booking_Details od = new Booking_Details();
-            foreach (var item in (List<Hall>)Session["cart"])
+            if (Session["cart"] != null)
             {
-                od.Price = item.Hall_Price;
-                od.Hall_FID = item.Hall_ID;
-                od.Booking_FID = o.Booking_ID;
+                foreach (var item in (List<Hall>)Session["Cart"])
+                {
+                    od.Price = item.Hall_Price;
+                    od.Hall_FID = item.Hall_ID;
+                    od.Booking_FID = o.Booking_ID;
+                    od.No_Of_People = item.Quantity;
+                    db.Booking_Details.Add(od);
+                    db.SaveChanges();
 
-                db.Booking_Details.Add(od);
-                db.SaveChanges();
+                }
+            }
+            if (Session["cart1"] != null)
+            {
+                foreach (var item in (List<Service>)Session["cart1"])
+                {
+                    od.Price = item.Service_Price;
+                    od.Service_FID = item.Service_ID;
+                    od.Booking_FID = o.Booking_ID;
+
+                    db.Booking_Details.Add(od);
+                    db.SaveChanges();
+
+                }
 
             }
-
-            foreach (var item in (List<Service>)Session["cart1"])
+            if (Session["Cart2"] != null)
             {
-                od.Price = item.Service_Price;
-                od.Service_FID = item.Service_ID;
-                od.Booking_FID = o.Booking_ID;
+                foreach (var item in (List<Package>)Session["Cart2"])
+                {
+                    od.Price = item.Packages_Price;
+                    od.Package_FID = item.Package_ID;
+                    od.Booking_FID = o.Booking_ID;
+                    od.No_Of_People = item.Quantity;
+                    db.Booking_Details.Add(od);
+                    db.SaveChanges();
 
-                db.Booking_Details.Add(od);
-                db.SaveChanges();
-
+                }
             }
-
-
             MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Booking Confirmation", "Your Booking has been booked and you will Inform forward through Email, Regards EMS <br /> Thanks");
             TempData["Cart"] = Session["Cart"];
             Session["Cart"] = null;
             TempData["Cart1"] = Session["Cart1"];
             Session["Cart1"] = null;
+            TempData["Cart2"] = Session["Cart2"];
+            Session["Cart2"] = null;
 
             TempData["dates"] = Session["dates"];
             Session["dates"] = null;
@@ -271,7 +308,69 @@ namespace ReadRix.Controllers
             return RedirectToAction("Displaybooking");
 
         }
+        public ActionResult Addtobooking2(int id)
+        {
+            List<Package> packageList = new List<Package>();
+            if (Session["cart1"] != null)
+            {
+                packageList = (List<Package>)Session["cart2"];
+            }
+            Package existingproduct = packageList.Where(x => x.Package_ID == id).FirstOrDefault();
+            if (existingproduct != null)
+            {
 
+            }
+            else
+            {
+                Package service = db.Packages.Where(x => x.Package_ID == id).FirstOrDefault();
+                packageList.Add(service);
+                Session["Cart2"] = packageList;
+
+            }
+            return RedirectToAction("Displaybooking");
+
+        }
+
+        public ActionResult PlusToCart2(int id)
+        {
+            List<Package> tblhallList = new List<Package>();
+            if (Session["cart2"] != null)
+            {
+                tblhallList = (List<Package>)Session["cart2"];
+            }
+            tblhallList[id].Quantity += 5;
+            Session["cart2"] = tblhallList;
+            return RedirectToAction("Displaybooking");
+
+        }
+        public ActionResult MinusFromCart2(int id)
+        {
+            List<Package> tblHallList = new List<Package>();
+            if (Session["cart2"] != null)
+            {
+                tblHallList = (List<Package>)Session["cart2"];
+            }
+            tblHallList[id].Quantity--;
+            if (tblHallList[id].Quantity < 0)
+            {
+                tblHallList.RemoveAt(id);
+            }
+            Session["cart2"] = tblHallList;
+
+            return RedirectToAction("Displaybooking");
+        }
+        public ActionResult Removefromcart2(int id)
+        {
+            List<Package> hallList = new List<Package>();
+            if (Session["Cart2"] != null)
+            {
+                hallList = (List<Package>)Session["Cart2"];
+            }
+
+            hallList.RemoveAt(id);
+            Session["Cart2"] = hallList;
+            return RedirectToAction("Displaybooking");
+        }
         public ActionResult PlusToCart(int id)
         {
             List<Hall> tblhallList = new List<Hall>();
