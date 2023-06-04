@@ -15,7 +15,6 @@ namespace WebApplication1.Models
             Booking_Details = new HashSet<Booking_Details>();
             Feedbacks = new HashSet<Feedback>();
             Packages = new HashSet<Package>();
-            Views = new HashSet<View>();
         }
 
         [Key]
@@ -59,8 +58,5 @@ namespace WebApplication1.Models
         public virtual ICollection<Package> Packages { get; set; }
 
         public virtual Sub_ServiceCategory Sub_ServiceCategory { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<View> Views { get; set; }
     }
 }

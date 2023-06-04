@@ -1,0 +1,133 @@
+﻿@model WebApplication1.Models.Event_Organizers
+@{
+    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
+}
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Profile</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item active">Profile</li>
+        </ol>
+    </div>
+
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
+<div class="row">
+    @using (Html.BeginForm("ProfileEdit", "EventOrganizerProfile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.EventOrganizer_ID)
+            <div class="row">
+                <!-- Column -->
+                <div class="col-lg-1 col-xlg-3 col-md-5">
+                </div>
+                <div class="col-lg-3 col-xlg-3 col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <center class="mt-4">
+                                <div>
+
+                                    <img height="150" width="150" id="preview" src="@Url.Content(Model.EventOrganizer_Picture)" style="border-radius:50%" />
+                                    <input type="file" name="pic" accept="img/*" oninput="preview.src = window.URL.createObjectURL(this.files[0])" style="color: transparent; padding-left: 65px;" /><br />
+                                    @Html.HiddenFor(model => model.EventOrganizer_Picture, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                                    @Html.ValidationMessageFor(model => model.EventOrganizer_Picture, "", new { @class = "text-danger" })
+                                </div>
+                                <br />
+                                <h6 class="card-subtitle" style="color:black"><b>EMS Event Organizer</b></h6>
+
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-lg-7 col-xlg-9 col-md-7">
+                    <div class="card">
+                        <!-- Tab panes -->
+                        <div class="card-body">
+                            <form class="form-horizontal form-material mx-2">
+                                <div class="form-group">
+                                    <label class="col-md-8">Full Name</label>
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.EventOrganizer_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EventOrganizer_Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-email" class="col-md-8">Email</label>
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.EventOrganizer_Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EventOrganizer_Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-8">Password</label>
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.EventOrganizer_Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EventOrganizer_Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-8">Phone No</label>
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.EventOrganizer_Contact, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.EventOrganizer_Contact, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <div class="col-md-8">
+                                        @Html.HiddenFor(model => model.Status, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-8">
+                                        @Html.HiddenFor(model => model.EventOrganizer_Gender, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                                        @Html.ValidationMessageFor(model => model.EventOrganizer_Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <div class="col-md-8">
+                                        @Html.HiddenFor(model => model.Admin_FID, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                                        @Html.ValidationMessageFor(model => model.Admin_FID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div> <div class="form-group">
+
+                                    <div class="col-md-8">
+                                        @Html.HiddenFor(model => model.Event_Organizer_HireDate, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                                        @Html.ValidationMessageFor(model => model.Event_Organizer_HireDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-8">
+                                        <button type="submit" class="btn btn-primary btn-lg fa fa-save"> Save </button> |
+                                        <a class="btn btn-warning btn-lg fa fa-arrow-circle-o-left" href="@Url.Action("ProfileIndex","EventOrganizerProfile")"> Back to List </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-xlg-3 col-md-5"></div>
+                <!-- Column -->
+            </div>
+        </div>}
+</div>
+<!-- Row -->

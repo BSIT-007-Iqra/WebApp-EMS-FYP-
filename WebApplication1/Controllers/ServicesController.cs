@@ -49,6 +49,7 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Organizer_FID = new SelectList(db.Event_Organizers.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID), "EventOrganizer_ID", "EventOrganizer_Name");
             ViewBag.SubCategory_FID = new SelectList(db.Sub_ServiceCategory, "SubCategory_ID", "Sub_category_Name");
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
             return View();
         }
 
@@ -74,6 +75,7 @@ namespace WebApplication1.Controllers
 
             ViewBag.Organizer_FID = new SelectList(db.Event_Organizers, "EventOrganizer_ID", "EventOrganizer_Name", service.Organizer_FID);
             ViewBag.SubCategory_FID = new SelectList(db.Sub_ServiceCategory, "SubCategory_ID", "Sub_category_Name", service.SubCategory_FID);
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
             return View(service);
         }
 
@@ -91,6 +93,7 @@ namespace WebApplication1.Controllers
             }
             ViewBag.Organizer_FID = new SelectList(db.Event_Organizers, "EventOrganizer_ID", "EventOrganizer_Name", service.Organizer_FID);
             ViewBag.SubCategory_FID = new SelectList(db.Sub_ServiceCategory, "SubCategory_ID", "Sub_category_Name", service.SubCategory_FID);
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
             return View(service);
         }
 
@@ -116,6 +119,7 @@ namespace WebApplication1.Controllers
             }
             
             ViewBag.Organizer_FID = new SelectList(db.Event_Organizers, "EventOrganizer_ID", "EventOrganizer_Name", service.Organizer_FID);
+            ViewBag.Hall_FID = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
             ViewBag.SubCategory_FID = new SelectList(db.Sub_ServiceCategory, "SubCategory_ID", "Sub_category_Name", service.SubCategory_FID);
             return View(service);
         }

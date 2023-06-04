@@ -301,6 +301,7 @@
     <Compile Include="ChatRoom\MessageDetail.cs" />
     <Compile Include="ChatRoom\Startup1.cs" />
     <Compile Include="ChatRoom\UserDetail.cs" />
+    <Compile Include="Controllers\EventOrganizerProfileController.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
@@ -338,7 +339,6 @@
     <Compile Include="Models\Service_Category.cs" />
     <Compile Include="Models\Sub_ServiceCategory.cs" />
     <Compile Include="Models\Venue.cs" />
-    <Compile Include="Models\View.cs" />
     <Compile Include="Models\Website_Details.cs" />
     <Compile Include="Models\Withdraw_Amount.cs" />
     <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
@@ -1375,6 +1375,11 @@
     <Content Include="Views\Event_Organizers\login.cshtml" />
     <Content Include="Views\Event_Organizers\ViewReport.cshtml" />
     <Content Include="Views\Event_Organizers\IndexOrganizer.cshtml" />
+    <Content Include="Views\EventOrganizerProfile\ProfileDetails.cshtml" />
+    <Content Include="Views\EventOrganizerProfile\profileEdit.cshtml" />
+    <Content Include="Views\EventOrganizerProfile\ProfileIndex.cshtml" />
+    <Content Include="Views\Admins\ViewReport.cshtml" />
+    <Content Include="Views\Event_Organizers\DetailsOrganizer.cshtml" />
     <None Include="Views\Home\Booking.cshtml" />
     <Content Include="Views\Notificatons\addnotification.cshtml" />
     <Content Include="Views\Notificatons\Delete.cshtml" />

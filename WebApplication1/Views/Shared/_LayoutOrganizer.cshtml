@@ -222,7 +222,7 @@
                         <li class="nav-item dropdown u-pro">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="@Url.Action("Index","Organizers")"
                                id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="@Url.Content(BaseHelper.event_organizers.EventOrganizer_Picture)" alt="" class="" /> 
+                                <img src="@Url.Content(BaseHelper.event_organizers.EventOrganizer_Picture)" alt="" class="" />
                                 <span class="hidden-md-down">@BaseHelper.event_organizers.EventOrganizer_Name &nbsp;</span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown"></ul>
@@ -244,13 +244,13 @@
                 <nav class="sidebar-nav" style="margin-top:2.5rem ">
                     <ul id="sidebarnav">
                         <li>
-                            <a class="waves-effect waves-dark" href="/Home/IndexOrganizer" aria-expanded="false" >
-                                <i class="fa fa-tachometer new1"  style=" color:#4B3047"></i><span class="hide-menu"> <b  style=" color: #4B3047">Dashboard</b></span>
+                            <a class="waves-effect waves-dark" href="/Home/IndexOrganizer" aria-expanded="false">
+                                <i class="fa fa-tachometer new1" style=" color:#4B3047"></i><span class="hide-menu"> <b style=" color: #4B3047">Dashboard</b></span>
                             </a>
                         </li>
                         <li>
-                          
-                            <a class="waves-effect waves-dark" href="/Event_Organizers/ProfileIndex" aria-expanded="false">
+
+                            <a class="waves-effect waves-dark" href="/EventOrganizerProfile/ProfileIndex" aria-expanded="false">
                                 <i class="fa fa-user-circle-o new1"></i><span class="hide-menu">Profile</span>
                             </a>
                         </li>
@@ -270,10 +270,10 @@
                             </a>
                         </li>
                         @*<li>
-            <a class="waves-effect waves-dark" onclick="openWin()" aria-expanded="false">
-                <i class="fa fa-globe"></i><span class="hide-menu">Chat Room</span>
-            </a>
-        </li>*@
+                                <a class="waves-effect waves-dark" onclick="openWin()" aria-expanded="false">
+                                    <i class="fa fa-globe"></i><span class="hide-menu">Chat Room</span>
+                                </a>
+                            </li>*@
                         <li>
                             <a class="waves-effect waves-dark" href="/WithdrawSalary/SalaryMenu/" aria-expanded="false">
                                 <i class="fa fa-money new1"></i><span class="hide-menu">Salary Menu</span>
@@ -281,7 +281,7 @@
                         </li>
                         <li>
                             <a class="waves-effect waves-dark" href="@Url.Action("ViewReport","Event_Organizers")" aria-expanded="false">
-                                <i class="fa fa-file new1"></i><span class="hide-menu">View Report</span>
+                                <i class="fa fa-file new1"></i><span class="hide-menu">Booking Report</span>
                             </a>
                         </li>
                         <li>

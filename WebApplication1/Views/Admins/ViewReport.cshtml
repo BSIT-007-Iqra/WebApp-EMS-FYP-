@@ -2,7 +2,6 @@
 @using WebApplication1.Models
 
 @{
-    Layout = "~/Views/Shared/_LayoutOrganizer.cshtml";
 
     Model1 db1 = new Model1();
     int srno = 0;
@@ -31,7 +30,7 @@
 
     <br /><center><h1><b>Booking Report </b></h1></center>
     <br />
-    <form action="/Event_Organizers/ViewReport" method="post">
+    <form action="/Admins/ViewReport" method="post">
         <table class="table table-bordered">
             <tr>
                 <td colspan="4"> Do you want to search by this?</td>

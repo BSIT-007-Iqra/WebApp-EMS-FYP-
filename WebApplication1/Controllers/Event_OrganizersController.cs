@@ -42,11 +42,28 @@ namespace WebApplication1.Controllers
             }
             return View(event_Organizers);
         }
+        public ActionResult DetailsOrganizer(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Event_Organizers event_Organizers = db.Event_Organizers.Find(id);
+            if (event_Organizers == null)
+            {
+                return HttpNotFound();
+            }
+            return View(event_Organizers);
+        }
         public ActionResult activateaccount(int id)
         {
             Event_Organizers event_Organizers = db.Event_Organizers.Where(x => x.EventOrganizer_ID == id).FirstOrDefault();
             event_Organizers.Status = 1;
-            event_Organizers.Event_Organizer_HireDate = DateTime.UtcNow;
+            if (event_Organizers.Event_Organizer_HireDate == null)
+            {
+                event_Organizers.Event_Organizer_HireDate = DateTime.UtcNow;
+
+            }
             MailProvider.SentfromMail(event_Organizers.EventOrganizer_Email, "Account Activation Mail!!", "Dear " + event_Organizers.EventOrganizer_Name + "!! Your account has been Activated by Admin. Check out Your account details.<br /> Regards EMS, Thanks!!");
             TempData["success"] = event_Organizers.EventOrganizer_Email + " Account has been Activated";
             db.Entry(event_Organizers).State = EntityState.Modified;
@@ -245,7 +262,7 @@ namespace WebApplication1.Controllers
             //int v = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).Count();
             Event_Organizers var = db.Event_Organizers.Where(x => event_Organizers.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).FirstOrDefault();
             if (var != null)
-            { 
+            {
                 if (var.Status == 1)
                 {
                     BaseHelper.event_organizers = var;
@@ -285,49 +302,13 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult ViewReport(DateTime? Todate, DateTime? Fromdate, int? Category, int? SubCategory, int? Writer, int? Artifact, int? Artifact1, int? Episode)
-
+        public ActionResult ViewReport(DateTime? Todate, DateTime? Fromdate, int? Hall, int? Venue)
         {
-            ViewBag.Category = new SelectList(db.Service_Category, "ServiceCategory_ID", "ServiceCategory_Name");
-            ViewBag.Writer = new SelectList(db.Event_Organizers.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID), "EventOrganizer_ID", "EventOrganizer_Name");
-
-            if (Category == null)
-            {
-                ViewBag.SubCategory = new SelectList(db.Sub_ServiceCategory, "SubCategory_ID", "Sub_category_Name");
-
-            }
+            ViewBag.Venue = new SelectList(db.Venues, "Venue_ID", "Venue_Name");
+            if (Venue == null)
+                ViewBag.Hall = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
             else
-            {
-                ViewBag.SubCategory = new SelectList(db.Sub_ServiceCategory.Where(x => x.Service_Category_FID == Category), "SubCategory_ID", "Sub_category_Name");
-
-            }
-
-            //if (Writer == null)
-            //{
-            //    ViewBag.Service = new SelectList(db.Services.Where(x => x.Event_Organizers == BaseHelper.event_organizers.EventOrganizer_ID), "Service_ID", "Service_Name");
-            //}
-            //else
-            //{
-            //    ViewBag.Service = new SelectList(db.Services.Where(x => x.Event_Organizers == Writer), "Service_ID", "Service_Name");
-
-            //}
-            //if (SubCategory == null)
-            //{
-            //    ViewBag.Artifact1 = new SelectList(db.Artifacts.Where(x => x.WRITER_FID == BaseHelper.Writer.WRITER_ID), "Service_ID", "Service_Name");
-            //}
-            //else
-            //{
-            //    ViewBag.Artifact1 = new SelectList(db.Artifacts.Where(x => x.SUB_CATEGORY_FID == SubCategory && x.WRITER_FID == BaseHelper.Writer.WRITER_ID), "Service_ID", "Service_Name");
-            //}
-            //if (Artifact1 == null)
-            //{
-            //    ViewBag.Episode = new SelectList(db.Episodes, "EPISODE_ID", "EPISODE_NO");
-            //}
-            //else
-            //{
-            //    ViewBag.Episode = new SelectList(db.Episodes.Where(x => x.ARTIFACT_FID == Artifact1), "EPISODE_ID", "EPISODE_NO");
-            //}
-
+                ViewBag.Hall = new SelectList(db.Halls.Where(x => x.Venue_FID == Venue), "Hall_ID", "Hall_Name");
 
             if (Todate == null)
             {
@@ -342,42 +323,17 @@ namespace WebApplication1.Controllers
             }
             ViewBag.Fromdate = Fromdate.Value.ToString("s");
             ViewBag.Todate = Todate.Value.ToString("s");
-            var od = db.Views.Select(x => x.View_ID).ToList();
-            //if (Category != null)
-            //{
-            //    var subod = db.Episodes.Where(x => x.Artifact.SubCategory.CATEGORY_FID == Category && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
-            //    if (SubCategory != null)
-            //    {
-            //        subod = db.Episodes.Where(x => x.Artifact.SUB_CATEGORY_FID == SubCategory && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
-            //    }
-            //    if (Artifact1 != null)
-            //    {
-            //        subod = db.Episodes.Where(x => x.ARTIFACT_FID == Artifact1 && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
-            //    }
-            //    if (Episode != null)
-            //    {
-            //        subod = db.Episodes.Where(x => x.EPISODE_ID == Episode && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
-            //    }
+            var od = db.Booking_Details.Select(x => x.Booking_FID).ToList();
+            if (Venue != null)
+            {
+                od = db.Booking_Details.Where(x => x.Hall.Venue_FID == Venue).Select(x => x.Booking_FID).ToList();
+            }
+            if (Hall != null)
+            {
+                od = db.Booking_Details.Where(x => x.Hall_FID == Hall).Select(x => x.Booking_FID).ToList();
+            }
 
-            //    od = db.Views.Where(x => subod.Contains(x.EPISODE_FID)).Select(x => x.VIEW_ID).ToList();
-            //}
-
-            //if (Writer != null)
-            //{
-            //    var subod = db.Episodes.Where(x => x.Artifact.Writer.WRITER_ID == Writer && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
-
-            //    if (Artifact != null)
-            //    {
-            //        subod = db.Episodes.Where(x => x.ARTIFACT_FID == Artifact && x.Artifact.WRITER_FID == BaseHelper.Writer.WRITER_ID).Select(x => x.EPISODE_ID).ToList();
-            //    }
-
-            //    od = db.Views.Where(x => subod.Contains(x.EPISODE_FID)).Select(x => x.VIEW_ID).ToList();
-            //}
-
-
-            var orderslist = db.Views.Where(x => x.View_Date <= Todate && x.View_Date >= Fromdate && od.Contains(x.View_ID)).ToList();
-
-
+            var orderslist = db.Bookings.Where(x => x.Event_Date <= Todate && x.Event_Date >= Fromdate && od.Contains(x.Booking_ID)).ToList();
             return View(orderslist);
         }
 

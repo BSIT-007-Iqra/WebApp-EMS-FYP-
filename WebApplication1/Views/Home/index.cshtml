@@ -4,10 +4,10 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
-    var query = db.Halls.Where(x => x.Venue_Type == "Hall").OrderByDescending(x => x.Views.Count()).ToList();
-    //var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
+    //var query = db.Halls.Where(x => x.Venue_Type == "Hall").OrderByDescending(x => x.Views.Count()).ToList();
+    ////var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
 
-    var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).OrderByDescending(x => x.Views.Count()).ToList();
+    var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).ToList();
     var searchFilter = new SearchFilterData();
     if (Session["searchfilter"] != null)
     {

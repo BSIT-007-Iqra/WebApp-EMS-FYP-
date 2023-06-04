@@ -8,7 +8,7 @@ namespace WebApplication1.Models
     public partial class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model13")
+            : base("name=Model1")
         {
         }
 
@@ -27,7 +27,6 @@ namespace WebApplication1.Models
         public virtual DbSet<Service_Category> Service_Category { get; set; }
         public virtual DbSet<Sub_ServiceCategory> Sub_ServiceCategory { get; set; }
         public virtual DbSet<Venue> Venues { get; set; }
-        public virtual DbSet<View> Views { get; set; }
         public virtual DbSet<Website_Details> Website_Details { get; set; }
         public virtual DbSet<Withdraw_Amount> Withdraw_Amount { get; set; }
 
@@ -59,12 +58,6 @@ namespace WebApplication1.Models
                 .HasMany(e => e.FoodLeftovers)
                 .WithOptional(e => e.Customer)
                 .HasForeignKey(e => e.Customer_FID);
-
-            modelBuilder.Entity<Customer>()
-                .HasMany(e => e.Views)
-                .WithRequired(e => e.Customer)
-                .HasForeignKey(e => e.Customer_FID)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Event_Organizers>()
                 .HasMany(e => e.Notifications)
@@ -110,12 +103,6 @@ namespace WebApplication1.Models
                 .WithOptional(e => e.Hall)
                 .HasForeignKey(e => e.Hall_Fid);
 
-            modelBuilder.Entity<Hall>()
-                .HasMany(e => e.Views)
-                .WithRequired(e => e.Hall)
-                .HasForeignKey(e => e.Hall_FID)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Package>()
                 .HasMany(e => e.Booking_Details)
                 .WithOptional(e => e.Package)
@@ -138,12 +125,6 @@ namespace WebApplication1.Models
 
             modelBuilder.Entity<Service>()
                 .HasMany(e => e.Packages)
-                .WithRequired(e => e.Service)
-                .HasForeignKey(e => e.Service_FID)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Service>()
-                .HasMany(e => e.Views)
                 .WithRequired(e => e.Service)
                 .HasForeignKey(e => e.Service_FID)
                 .WillCascadeOnDelete(false);

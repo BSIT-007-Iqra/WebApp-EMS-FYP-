@@ -262,6 +262,40 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult ViewReport(DateTime? Todate, DateTime? Fromdate, int? Hall, int? Venue)
+        {
+            ViewBag.Venue = new SelectList(db.Venues, "Venue_ID", "Venue_Name");
+            if (Venue == null)
+                ViewBag.Hall = new SelectList(db.Halls, "Hall_ID", "Hall_Name");
+            else
+                ViewBag.Hall = new SelectList(db.Halls.Where(x => x.Venue_FID == Venue), "Hall_ID", "Hall_Name");
+
+            if (Todate == null)
+            {
+
+                Todate = DateTime.Now;
+            }
+
+            if (Fromdate == null)
+            {
+
+                Fromdate = DateTime.Today;
+            }
+            ViewBag.Fromdate = Fromdate.Value.ToString("s");
+            ViewBag.Todate = Todate.Value.ToString("s");
+            var od = db.Booking_Details.Select(x => x.Booking_FID).ToList();
+            if (Venue != null)
+            {
+                od = db.Booking_Details.Where(x => x.Hall.Venue_FID == Venue).Select(x => x.Booking_FID).ToList();
+            }
+            if (Hall != null)
+            {
+                od = db.Booking_Details.Where(x => x.Hall_FID == Hall).Select(x => x.Booking_FID).ToList();
+            }
+
+            var orderslist = db.Bookings.Where(x => x.Event_Date <= Todate && x.Event_Date >= Fromdate && od.Contains(x.Booking_ID)).ToList();
+            return View(orderslist);
+        }
 
 
 

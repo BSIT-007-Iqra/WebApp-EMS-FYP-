@@ -15,7 +15,6 @@ namespace WebApplication1.Models
             Feedbacks = new HashSet<Feedback>();
             Packages = new HashSet<Package>();
             Services = new HashSet<Service>();
-            Views = new HashSet<View>();
         }
 
         [Key]
@@ -70,7 +69,6 @@ namespace WebApplication1.Models
         public string Venue_Type { get; set; }
         [NotMapped]
         public int Quantity { get; set; }
-
         public int? Venue_FID { get; set; }
 
         public decimal? Per_Head_Price { get; set; }
@@ -88,8 +86,5 @@ namespace WebApplication1.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<View> Views { get; set; }
     }
 }
