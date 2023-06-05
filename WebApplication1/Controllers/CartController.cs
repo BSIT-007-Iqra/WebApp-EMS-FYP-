@@ -312,9 +312,9 @@ namespace ReadRix.Controllers
         public ActionResult Addtobooking2(int id)
         {
             List<Package> packageList = new List<Package>();
-            if (Session["cart1"] != null)
+            if (Session["Cart2"] != null)
             {
-                packageList = (List<Package>)Session["cart2"];
+                packageList = (List<Package>)Session["Cart2"];
             }
             Package existingproduct = packageList.Where(x => x.Package_ID == id).FirstOrDefault();
             if (existingproduct != null)
@@ -335,28 +335,28 @@ namespace ReadRix.Controllers
         public ActionResult PlusToCart2(int id)
         {
             List<Package> tblhallList = new List<Package>();
-            if (Session["cart2"] != null)
+            if (Session["Cart2"] != null)
             {
-                tblhallList = (List<Package>)Session["cart2"];
+                tblhallList = (List<Package>)Session["Cart2"];
             }
             tblhallList[id].Quantity += 5;
-            Session["cart2"] = tblhallList;
+            Session["Cart2"] = tblhallList;
             return RedirectToAction("Displaybooking");
 
         }
         public ActionResult MinusFromCart2(int id)
         {
             List<Package> tblHallList = new List<Package>();
-            if (Session["cart2"] != null)
+            if (Session["Cart2"] != null)
             {
-                tblHallList = (List<Package>)Session["cart2"];
+                tblHallList = (List<Package>)Session["Cart2"];
             }
             tblHallList[id].Quantity--;
             if (tblHallList[id].Quantity < 0)
             {
                 tblHallList.RemoveAt(id);
             }
-            Session["cart2"] = tblHallList;
+            Session["Cart2"] = tblHallList;
 
             return RedirectToAction("Displaybooking");
         }
