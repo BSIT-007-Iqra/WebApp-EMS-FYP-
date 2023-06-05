@@ -1,15 +1,29 @@
 ﻿@model WebApplication1.Models.Hall
 
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
-}
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Halls</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
 
-<h2>Details</h2>
+            <li class="breadcrumb-item ">Halls</li>
+            <li class="breadcrumb-item active">Details</li>
+        </ol>
+    </div>
 
-<div>
-    <h4>Hall</h4>
-    <hr />
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
+<div class="row">
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Venue.Venue_Name)
@@ -40,7 +54,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hall_Picture)
+            <img src="@Url.Content(Model.Hall_Picture)" height="100" width="100" />
         </dd>
 
         <dt>
@@ -48,7 +62,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hall_Picture1)
+            <img src="@Url.Content(Model.Hall_Picture1)" height="100" width="100" />
         </dd>
 
         <dt>
@@ -56,7 +70,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hall_Picture2)
+            <img src="@Url.Content(Model.Hall_Picture2)" height="100" width="100" />
         </dd>
 
         <dt>
@@ -64,7 +78,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Hall_Picture3)
+            <img src="@Url.Content(Model.Hall_Picture3)" height="100" width="100" />
         </dd>
 
         <dt>
@@ -133,7 +147,15 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Hall_ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<!-- Row --> @using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <a href="@Url.Action("Edit", "Halls", new { id=Model.Hall_ID })">
+            <i class="fa fa-edit btn btn-success  ">Edit</i>
+        </a>
+        <a class="btn btn-warning fa fa-arrow-circle-o-left" href="@Url.Action("Index","Halls")"> Back to List </a>
+    </div>
+}
+<!-- ============================================================== -->

@@ -33,26 +33,26 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="login_form_inner">
+                <div class="login_form_inner" style="padding-top: 50px;">
 
-                    <h1><b>Log in to enter </b></h1>
+                    <h2><b>Request for foodleftover</b></h2>
 
 
-                    <label><b style="color:red;font-size:15px">@TempData["ok"]</b></label>
+                   
 
                     @if (BaseHelper.customer != null)
                     {
-
-                        <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'" readonly>
+                        <div class="row login_form">
+                            <div class="col-md-12 form-group">
+                                <input type="text" class="form-control" id="name" name="Customer_Name" placeholder="@BaseHelper.customer.Customer_Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name'" readonly>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="email" class="form-control" id="email" name="Customer_Email" placeholder="@BaseHelper.customer.Customer_Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" readonly>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <input type="tel" class="form-control" id="name" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact'" readonly>
+                            </div>
                         </div>
-                        <div class="col-md-12 form-group">
-                            <input type="email" class="form-control" id="email" name="Customer_Email" placeholder="@BaseHelper.customer.Customer_Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" readonly>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <input type="tel" class="form-control" id="name" name="Customer_Contact" placeholder="@BaseHelper.customer.Customer_Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contact'" readonly>
-                        </div>
-
                         <form class="row login_form" action="/Home/Foodleftover" method="post">
                             <div class="col-md-12 form-group">
                                 <input type="tel" class="form-control" id="id" name="ID" placeholder="CNIC/ID" onkeypress="return funvalid()" required="required" onfocus="this.placeholder = ''" onblur="this.placeholder = 'CNIC/ID'">
@@ -60,6 +60,10 @@
                             <div class="col-md-12 form-group">
                                 <textarea class="form-control" type="text" name="Reason" placeholder="Why you want to Receice Food?" required="required" style="cursor:auto" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Reason'"></textarea>
                             </div>
+                            <div class="col-md-12 form-group">
+                                <label><b style="color:forestgreen;font-size:15px">@TempData["ok"]</b></label>
+                            </div>
+
                             <div class="col-md-12 form-group">
                                 <button type="submit" class="btn primary-btn">Request</button><br />
                                 @*<button type="button" class="btn primary-btn" data-toggle="modal" data-target="#exampleModal">Forgot password?</button>*@

@@ -457,6 +457,24 @@
     <Content Include="Content\Event\img\product\menu1.jpg" />
     <Content Include="Content\Event\img\product\usericon.png" />
     <Content Include="Content\Event\img\usericon1.png" />
+    <Content Include="Content\HallPicture\Aurora Banquet Hall Weddings 3  .jpg-1613018890446.jpg" />
+    <Content Include="Content\HallPicture\Aurora Banquet Hall Weddings 6  .jpg-1613018936989.jpg" />
+    <Content Include="Content\HallPicture\contact_hero_1280.jpg" />
+    <Content Include="Content\HallPicture\events w5.jpeg" />
+    <Content Include="Content\HallPicture\Events_Standard_EventsbyAurora.jpg" />
+    <Content Include="Content\HallPicture\Events_Standard_Weddings.jpg" />
+    <Content Include="Content\HallPicture\gallery_hero_1280.jpg" />
+    <Content Include="Content\HallPicture\hall2.jpg" />
+    <Content Include="Content\HallPicture\hall3.jpg" />
+    <Content Include="Content\HallPicture\menu g1.jpg" />
+    <Content Include="Content\HallPicture\menu g2.jpg" />
+    <Content Include="Content\HallPicture\menu g3.jpg" />
+    <Content Include="Content\HallPicture\menu g4.jpg" />
+    <Content Include="Content\HallPicture\menu.jpg" />
+    <Content Include="Content\HallPicture\menu2.jpg" />
+    <Content Include="Content\HallPicture\menu3.jpg" />
+    <Content Include="Content\HallPicture\Menu_1280.jpg" />
+    <Content Include="Content\HallPicture\whatsapp.png" />
     <Content Include="Content\js\bootstrap.bundle.js" />
     <Content Include="Content\js\bootstrap.bundle.min.js" />
     <Content Include="Content\js\bootstrap.esm.js" />
@@ -1309,6 +1327,7 @@
     <Content Include="Content\Organizer\html\scss\widgets\profile.scss" />
     <Content Include="Content\Organizer\html\scss\widgets\topbar-mail.scss" />
     <Content Include="Content\Organizer\html\scss\widgets\widgets.scss" />
+    <Content Include="Content\HallPicture\Events_Standard_OffsiteEvents.webp" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
@@ -1463,7 +1482,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\HallPicture\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>

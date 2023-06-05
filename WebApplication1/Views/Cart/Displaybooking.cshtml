@@ -171,9 +171,9 @@
                                             <td class="name-pr">
                                                 <p class="p1">No Of People</p>
                                                 <hr /><h4>
-                                                    <a class="fa fa-plus fa-lg" href="@Url.Action("PlusToCart", "Cart", new { id = rowno })"></a>
+                                                    <a class="fa fa-plus fa-lg" href="@Url.Action("PlusToCart", "Cart", new { id = rowno })" style="color: #b08ead;"></a>
                                                     <input class="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" autocomplete="off" readonly size="2">
-                                                    <a class="fa fa-minus fa-lg" href="@Url.Action("MinusFromCart", "Cart", new { id = rowno })"></a>
+                                                    <a class="fa fa-minus fa-lg" href="@Url.Action("MinusFromCart", "Cart", new { id = rowno })" style="color: #b08ead;"></a>
                                                 </h4>
 
                                             </td>
@@ -412,7 +412,7 @@
                                                             <option value="Mehndi">Mehndi</option>
                                                         </select>
                                                     </div><br />
-                                                    <div style="width: 100%; color:darkred"><b>@TempData["ErrorDate"] </b> </div>
+                                                    <div><b>@TempData["ErrorDate"] </b> </div>
                                                     <input type="submit" class="btn btn-block primary-btn" value="Confirm Date" />
                                                 </div>
                                             </form>
@@ -514,7 +514,7 @@
 <!--================End Cart Area =================-->
 
 <script type="text/javascript">
-    window.onload = function () { window.scrollBy(0, 230); }
+    window.onload = function () { window.scrollBy(0, 430); }
 </script>
 <div id="MyPopup" class="modal fade" role="dialog">
     <div class="modal-dialog">

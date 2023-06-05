@@ -157,11 +157,6 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Foodleftover()
         {
-            //if (BaseHelper.customer == null)
-            //{
-            //    TempData["new"] = "Login into your account OR Register Account";
-            //}
-
             return View();
         }
         [HttpPost]
@@ -181,13 +176,13 @@ namespace WebApplication1.Controllers
             else
             {
                 TempData["ok"] = "Login into your account first!!";
-                return RedirectToAction("index", "home");
+                return RedirectToAction("loginuser", "Customers");
 
             }
 
-            MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Request Confirmation", "Your Request has been received and will be contact within 3 working days\n Regards: EMS <br /> Thanks");
+            MailProvider.SentfromMail(BaseHelper.customer.Customer_Email, "Request Confirmation ✉", "Your Request has been received and will be contact within 3 working days\n Regards: EMS <br /> Thanks");
 
-            TempData["ok"] = "Your Request has been Sent to  EMS.Thanks";
+            TempData["ok"] = "Your Request has been Sent to \t EMS Admin.\nThanks";
             return RedirectToAction("Foodleftover", "home");
         }
         public ActionResult blog()

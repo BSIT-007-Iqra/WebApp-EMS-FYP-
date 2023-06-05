@@ -1,8 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using static Dropbox.Api.TeamLog.ClassificationType;
 
 namespace WebApplication1.Controllers
 {
@@ -44,8 +46,33 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Hall_ID,Hall_Name,Hall_Description,Hall_Picture,Hall_Picture1,Hall_Picture2,Hall_Picture3,Hall_Price,Event_Slot,Event_Time_Slot,Hall_Location,Staff,Ameities,Cancellation_Policy,Venue_Type,Venue_FID,Per_Head_Price")] Hall hall)
+        public ActionResult Create(Hall hall, HttpPostedFileBase pic, HttpPostedFileBase pic1, HttpPostedFileBase pic2, HttpPostedFileBase pic3)
         {
+            if (pic == null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
+                pic.SaveAs(fullpath);
+                hall.Hall_Picture = "~/Content/HallPicture/" + pic.FileName;
+            }
+            if (pic1 == null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic1.FileName);
+                pic1.SaveAs(fullpath);
+                hall.Hall_Picture1 = "~/Content/HallPicture/" + pic1.FileName;
+            }
+            if (pic2 == null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic2.FileName);
+                pic2.SaveAs(fullpath);
+                hall.Hall_Picture2 = "~/Content/HallPicture/" + pic2.FileName;
+            }
+            if (pic3 == null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic3.FileName);
+                pic3.SaveAs(fullpath);
+                hall.Hall_Picture3 = "~/Content/HallPicture/" + pic3.FileName;
+            }
+
             if (ModelState.IsValid)
             {
                 hall.Per_Head_Price = hall.Hall_Price / 100;
@@ -79,8 +106,32 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Hall_ID,Hall_Name,Hall_Description,Hall_Picture,Hall_Picture1,Hall_Picture2,Hall_Picture3,Hall_Price,Event_Slot,Event_Time_Slot,Hall_Location,Staff,Ameities,Cancellation_Policy,Venue_Type,Venue_FID,Per_Head_Price")] Hall hall)
+        public ActionResult Edit(Hall hall, HttpPostedFileBase pic, HttpPostedFileBase pic1, HttpPostedFileBase pic2, HttpPostedFileBase pic3)
         {
+            if (pic != null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
+                pic.SaveAs(fullpath);
+                hall.Hall_Picture = "~/Content/HallPicture/" + pic.FileName;
+            }
+            if (pic1 != null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic1.FileName);
+                pic1.SaveAs(fullpath);
+                hall.Hall_Picture1 = "~/Content/HallPicture/" + pic1.FileName;
+            }
+            if (pic2 != null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic2.FileName);
+                pic2.SaveAs(fullpath);
+                hall.Hall_Picture2 = "~/Content/HallPicture/" + pic2.FileName;
+            }
+            if (pic3 != null)
+            {
+                string fullpath = Server.MapPath("~/Content/HallPicture/" + pic3.FileName);
+                pic3.SaveAs(fullpath);
+                hall.Hall_Picture3 = "~/Content/HallPicture/" + pic3.FileName;
+            }
             if (ModelState.IsValid)
             {
                 hall.Per_Head_Price = hall.Hall_Price / 100;

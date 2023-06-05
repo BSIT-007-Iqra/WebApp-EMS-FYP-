@@ -69,6 +69,7 @@ namespace ReadRix.Controllers
                     };
                     Session["dates"] = dates;
                     TempData["ErrorDate"] = "These timing are not available \n please!  Setect another date or timing of the day. Thanks";
+               
                 }
                 else
                 {

@@ -45,6 +45,9 @@
             color: #777777;
             background: #fff;
         }
+        .whatsapp_float {
+            
+        }
 
         html,
         body {
@@ -226,7 +229,13 @@
     <!-- End Header Area -->
 
     @RenderBody()
-    <a href="" onclick="topFunction()" id="movetop" title="Go to top" style="display: inline;margin-left:10px">
+    <div class="whatsapp_float" style="margin-bottom:20px" onclick="scrollFunction()" id="movetop" title="Go to top">
+
+        <a href="https://wa.me/923187141021" target="_blank"><img width="50" style="border-radius: 50%; position: inherit; float:right" src="~/Content/HallPicture/whatsapp.png" class="whatsapp_float_btn" /></a>
+
+
+    </div>
+    <a href="" onclick="scrollFunction()" id="movetop" title="Go to top" style="display: inline;margin-left:10px">
         <i class="fa fa-chevron-up button"></i>
     </a>
 
@@ -259,11 +268,13 @@
                 <div class="col-lg-12  col-md-6 col-sm-6">
                     <div class="single-footer-widget">
                         <center>
-                            <h6>About Us</h6>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                                magna aliqua.
-                            </p>
+
+                            <h4 style="color: white; font-weight: bold;font-family:Cookie;font-size:xx-large">Legal Disclaimer</h4>
+                            <p>All the manga on this site are the property of the publisher. We are just trying to translate 
+                            them into other languages<br/> so that you can more easily track them. Do not try to make a profit from these.<br/>
+                            If you like any of the hall or service you get here, consider buying them from the publisher, if available.<br/> You can
+                            contact us at:<b><i><u>@db.Website_Details.Select(x => x.Website_Email).FirstOrDefault()</u></i> </b></p>
+
                         </center>
                     </div>
                 </div>
@@ -272,7 +283,7 @@
                 <div class="col-lg-12 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
                         <center>
-                            <h6>Follow Us</h6>
+                            <h4 style=" color: white; font-weight: bold;font-family:Cookie;font-size:xx-large">Follow Us</h4>
                             <p>Let us be social</p>
 
 

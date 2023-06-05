@@ -1,118 +1,148 @@
 ﻿@model IEnumerable<WebApplication1.Models.Hall>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
-}
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Hall</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
 
-<h2>Index</h2>
+            <li class="breadcrumb-item active">Index</li>
+        </ol>
+    </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue.Venue_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Picture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Picture1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Picture2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Picture3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event_Slot)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event_Time_Slot)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hall_Location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Staff)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ameities)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cancellation_Policy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue_Type)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue.Venue_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Picture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Picture1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Picture2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Picture3)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Event_Slot)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Event_Time_Slot)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hall_Location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Staff)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ameities)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cancellation_Policy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue_Type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Hall_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Hall_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Hall_ID })
-        </td>
-    </tr>
-}
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
 
-</table>
+<div class="row">
+    <div class="col-md-7 align-self-center">
+        <a href="@Url.Action("Create", "Halls")" class="btn primary-btn"> Create New</a>
+
+    </div><br />
+    <br />
+    <br />
+    <br />
+    <table class="table table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue.Venue_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Picture1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Picture2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Picture3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event_Slot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event_Time_Slot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hall_Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Staff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ameities)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cancellation_Policy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Venue_Type)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue.Venue_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall_Description)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Hall_Picture)" height="100" width="100" />
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Hall_Picture1)" height="100" width="100" />
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Hall_Picture2)" height="100" width="100" />
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Hall_Picture3)" height="100" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Event_Slot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Event_Time_Slot)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hall_Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Staff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ameities)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cancellation_Policy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Venue_Type)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Halls", new { id=item.Hall_ID })">
+                        <i class="fa fa-edit btn btn-success  "></i>
+                    </a>|
+
+                    <a href="@Url.Action("Details", "Halls", new { id=item.Hall_ID})">
+                        <i class="fa fa-book btn btn-warning"></i>
+                    </a>|
+                    <a href="@Url.Action("Delete", "Halls", new { id=item.Hall_ID })">
+                        <i class="fa fa-trash btn btn-danger"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<!-- Row -->

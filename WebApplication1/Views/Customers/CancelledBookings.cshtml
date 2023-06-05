@@ -72,7 +72,7 @@
                             @Html.DisplayFor(modelItem => item.Payment_Type)
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="@Url.Action("ActiveBookings", "Customers", new { id = item.Booking_ID })"> Cancel? </a>
+                            <a class="btn btn-success" href="@Url.Action("ActiveBookings", "Customers", new { id = item.Booking_ID })"> Active? </a>
                             <a class="btn btn-info" href="@Url.Action("Invoice", "Customers", new { id = item.Booking_ID })"> Invoice </a>
                         </td>
                     </tr>
