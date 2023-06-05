@@ -4,10 +4,10 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model1 db = new Model1();
-    IEnumerable<WebApplication1.Models.Venue> List = db.Venues.AsQueryable().OrderBy(s => s.Venue_ID).Take(3);
-    // var query = db.Venues.Where(x => x.Venue_Name == "").OrderByDescending(x => x.Views.Count()).ToList();
-    ////var query1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Food" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Lighting" || x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Sound").OrderByDescending(x => x.Views.Count()).ToList();
-
+    var hallslist = db.Halls.OrderByDescending(x => x.Booking_Details.Count()).Select(x => x.Venue_FID).Distinct().Take(3);
+    var List = db.Venues.Where(x => hallslist.Contains(x.Venue_ID));
+    var packages = db.Packages.OrderByDescending(x => x.Booking_Details.Count()).Select(x => x.Package_ID).Distinct().Take(3);
+    var List1 = db.Packages.Where(x => packages.Contains(x.Package_ID));
     var TodayTOp1 = db.Services.Where(x => x.Sub_ServiceCategory.Service_Category.ServiceCategory_Name == "Catering" && x.Service_Date <= DateTime.Today).ToList();
     var searchFilter = new SearchFilterData();
     if (Session["searchfilter"] != null)
@@ -157,11 +157,11 @@
                                             <select class="wide" name="slot" id="slot">
                                                 <option value=" " selected>Select Slot</option>
 
-                                                @foreach (var hall in db.Halls.Where(x =>x.Event_Slot != " ").Select(x => x.Event_Slot).Distinct())
+                                                @foreach (var hall in db.Halls.Where(x => x.Event_Slot != " ").Select(x => x.Event_Slot).Distinct())
                                                 {
                                                     <option value="@hall">@hall</option>
                                                 }
-                                               
+
                                             </select>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@
 
 </section>
 <!-- End banner Area -->
-@if (TempData["halls"] != null)
+@if(TempData["halls"] != null)
 {
     var halls = (List<Hall>)TempData.Peek("halls");
     if (halls.Count == 0)
@@ -484,6 +484,136 @@
     </div>
 </section>
 <!-- end product Area -->
+<!-- start product Area -->
+<section class="owl-carousel active-product-area section_gap">
+    <!-- single product slide -->
+    <div class="single-product-slider">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h1>Popular Packages</h1>
+                        <p>
+                            A Trendy place for Every Event, Good place for Good Moments,Desire meets a new Place
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in List1)
+                {
+                    <!-- single product -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-product card custom-card" style="height:840px">
+                            <img class="img-fluid img-venue" src="~/Content/WebsitePicture/images.png" style="" alt="">
+                            <div class="product-details card-body">
+
+                                <h3 class="fun">
+
+                                    <i class="fa fa-home" style="margin-right:1rem"></i>@item.Package_Name <small><br /><i class="fa fa-star" style="color: #e88e4d; margin-left: 2rem"></i><i class="fa fa-star" style="color: #e88e4d; "></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i><i class="fa fa-star" style="color: #e88e4d;"></i></small>
+                                </h3>
+                                <center>
+                                    <div class="price card-footer">
+                                        <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Packages_Price</b></h6>
+
+                                    </div>
+                                </center>
+                                <p style=" color: #4B3047;cursor:pointer">
+                                    @if (item.Package_Details.Length < 150)
+                                    {
+                                        @item.Package_Details }
+                                    else
+                                    {
+                                        @item.Package_Details.Substring(0, 85)<span>......</span>}
+                                </p>
+                                <hr />
+                                <p>Hall Details</p>
+                                <center>
+                                    <h4 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                        <i class="" style="margin-right: 1rem; color: #4B3047;"></i> @item.Hall.Hall_Name
+                                    </h4>
+                                </center><h5 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                    <i class="fa fa-map-marker" style="margin-right: 1rem; color: #4B3047;"></i> @item.Hall.Hall_Location
+                                </h5>
+                                <center>
+                                    <div class="price card-footer">
+                                        <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Hall.Hall_Price</b></h6>
+
+                                    </div>
+                                </center>
+
+                                <hr />
+                                <p>Services Details</p>
+                                <center>
+                                    <h4 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                        <i class="" style="margin-right: 1rem; color: #4B3047;"></i> @item.Service.Service_Name
+                                    </h4>
+                                </center><h5 style=" overflow: hidden; white-space: nowrap; text-overflow: ellipsis;margin-left:3px">
+                                    <i class="" style="margin-right: 1rem; color: #4B3047;"></i>Service Category: @item.Service.Sub_ServiceCategory.Sub_category_Name
+                                </h5>
+                                <center>
+                                    <div class="price card-footer">
+                                        <h6 style="color: black; font-family: poppins,sans-serif; text-transform: capitalize;font-style:normal">Starting at PKR : <b>@item.Service.Service_Price</b></h6>
+
+                                    </div>
+                                </center>
+
+                                <hr />
+                                <div class="prd-bottom justify-content-center" style="margin-left:1rem">
+
+                                    <a href="@Url.Action("Addtobooking2","Cart",new {id = item.Package_ID})" class="social-info">
+                                        <span class="ti-bag"></span>
+                                        <p class="hover-text">Book Now</p>
+                                    </a>
+
+                                    <a href="@Url.Action("Hall_Details","Home",new {id = item.Hall_FID})" class="social-info">
+                                        <span class="lnr lnr-move"></span>
+                                        <p class="hover-text">Hall View</p>
+                                    </a>
+                                    <a href="@Url.Action("Service_Details","Home",new {id = item.Service_FID})" class="social-info">
+                                        <span class="lnr lnr-move"></span>
+                                        <p class="hover-text">Service View</p>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- single product -->
+
+                }
+            </div><br /><br />
+            <center>
+                <button class="btn primary-btn " style="padding:0 9rem" onclick="window.location.href='@Url.Action("Packages","Home")'">
+                    See More
+                </button>
+            </center>
+        </div>
+    </div>
+    <!-- single product slide -->
+    <div class="single-product-slider">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-12">
+
+            </div>
+            @*<div class="col-lg-4 col-md-6">
+                    <div class="single-deal">
+                        <div class="overlay"></div>
+
+                        <img class="img-fluid w-100" src="~/Content/Event/img/category/c5.jpg" alt="">
+                        <a href="~/Content/Event/img/category/c5.jpg" class="img-pop-up" target="_blank">
+                            <div class="deal-details">
+                                <h4 class="deal-title">Event</h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>*@
+        </div>
+
+    </div>
+</section>
+<!-- end product Area -->
 <!-- Start exclusive deal Area -->
 <section class="exclusive-deal-area">
     <div class="container-fluid">
@@ -502,28 +632,28 @@
                 <div class="active-exclusive-product-slider">
                     <!-- single exclusive carousel -->
                     @*@foreach (var item in query1.Take(4))
-                    {
-                        <div class="single-exclusive-slider">
-                            <img class="img-fluid" src="@Url.Content(item.Service_Picture)" style="height:300px;width:300px" alt="">
-                            <div class="product-details">
-                                <div class="price">
-                                    <h6>@item.Service_Price</h6>
+                        {
+                            <div class="single-exclusive-slider">
+                                <img class="img-fluid" src="@Url.Content(item.Service_Picture)" style="height:300px;width:300px" alt="">
+                                <div class="product-details">
+                                    <div class="price">
+                                        <h6>@item.Service_Price</h6>
 
-                                </div>
-                                <h6>
-                                    @item.Service_Description
-                                </h6>
-                                <h5>
-                                    @item.Service_Name
-                                </h5>
-                                <div class="add-bag d-flex align-items-center justify-content-center">
-                                    <a class="add-btn" href="@Url.Action("Service_Details", "Home", new {ID = item.Service_ID})"><span class="ti-bag"></span></a>
-                                    <span class="add-text text-uppercase">Proceed Booking!</span>
+                                    </div>
+                                    <h6>
+                                        @item.Service_Description
+                                    </h6>
+                                    <h5>
+                                        @item.Service_Name
+                                    </h5>
+                                    <div class="add-bag d-flex align-items-center justify-content-center">
+                                        <a class="add-btn" href="@Url.Action("Service_Details", "Home", new {ID = item.Service_ID})"><span class="ti-bag"></span></a>
+                                        <span class="add-text text-uppercase">Proceed Booking!</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    }*@<!-- single exclusive carousel -->
+                        }*@<!-- single exclusive carousel -->
 
                 </div>
             </div>

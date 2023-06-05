@@ -28,7 +28,6 @@ namespace WebApplication1.Models
         [StringLength(500)]
         public string Hall_Description { get; set; }
 
-        [Required]
         [StringLength(500)]
         public string Hall_Picture { get; set; }
 

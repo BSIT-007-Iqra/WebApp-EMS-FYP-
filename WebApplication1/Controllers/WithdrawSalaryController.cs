@@ -53,7 +53,7 @@ namespace web
             var query = db.Withdraw_Amount.AsNoTracking().Where(x => x.Id == id).FirstOrDefault();
             Session["query"] = query.Id;
             int dollerrate = (int)MailProvider.GetCurrentDollorprice();
-            return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=iqrabajwa00@gmail.com&item_name=EMS&return=https://localhost:44373/Cart/PaypalOrderbooked&amount=" + query.Withdraw_Amount1 / dollerrate);
+            return Redirect("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_xclick&business=iqrabajwa00@gmail.com&item_name=EMS&return=https://localhost:44373/WithdrawSalary/PaymentTransferred&amount=" + query.Withdraw_Amount1 / dollerrate);
         }
         public ActionResult PaymentTransferred()
         {

@@ -26,7 +26,6 @@ namespace WebApplication1.Models
         [Required]
         public string Venue_Details { get; set; }
 
-        [Required]
         public string Venue_Picture { get; set; }
 
         [Required]

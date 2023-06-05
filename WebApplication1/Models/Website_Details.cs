@@ -27,7 +27,6 @@ namespace WebApplication1.Models
         [StringLength(20)]
         public string Website_Contact { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string Website_Logo { get; set; }
     }

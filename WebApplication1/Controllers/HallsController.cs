@@ -48,25 +48,25 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Hall hall, HttpPostedFileBase pic, HttpPostedFileBase pic1, HttpPostedFileBase pic2, HttpPostedFileBase pic3)
         {
-            if (pic == null)
+            if (pic != null)
             {
                 string fullpath = Server.MapPath("~/Content/HallPicture/" + pic.FileName);
                 pic.SaveAs(fullpath);
                 hall.Hall_Picture = "~/Content/HallPicture/" + pic.FileName;
             }
-            if (pic1 == null)
+            if (pic1 != null)
             {
                 string fullpath = Server.MapPath("~/Content/HallPicture/" + pic1.FileName);
                 pic1.SaveAs(fullpath);
                 hall.Hall_Picture1 = "~/Content/HallPicture/" + pic1.FileName;
             }
-            if (pic2 == null)
+            if (pic2 != null)
             {
                 string fullpath = Server.MapPath("~/Content/HallPicture/" + pic2.FileName);
                 pic2.SaveAs(fullpath);
                 hall.Hall_Picture2 = "~/Content/HallPicture/" + pic2.FileName;
             }
-            if (pic3 == null)
+            if (pic3 != null)
             {
                 string fullpath = Server.MapPath("~/Content/HallPicture/" + pic3.FileName);
                 pic3.SaveAs(fullpath);

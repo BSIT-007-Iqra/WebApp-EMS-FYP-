@@ -27,8 +27,6 @@ namespace WebApplication1.Models
         [Required]
         [StringLength(500)]
         public string Service_Description { get; set; }
-
-        [Required]
         public string Service_Picture { get; set; }
 
         public decimal Service_Price { get; set; }
