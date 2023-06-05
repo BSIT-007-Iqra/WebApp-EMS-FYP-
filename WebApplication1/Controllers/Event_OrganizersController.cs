@@ -20,13 +20,13 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             var event_Organizers = db.Event_Organizers.Include(e => e.Admin);
-            return View(event_Organizers.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID).ToList());
+            return View(db.Event_Organizers.ToList());
         }
 
         public ActionResult IndexOrganizer()
         {
             var event_Organizer = db.Event_Organizers.Include(w => w.Admin);
-            return View(event_Organizer.ToList());
+            return View(event_Organizer.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID).ToList());
         }
         // GET: Event_Organizers/Details/5
         public ActionResult Details(int? id)
