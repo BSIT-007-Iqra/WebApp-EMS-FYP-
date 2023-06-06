@@ -10,9 +10,9 @@
 <br />
 <table class="table table-bordered table-hover">
     <tr class="bg-light-extra">
-        <th>
+        @*<th>
              Image
-        </th>
+        </th>*@
         <th>
              Name
         </th>
@@ -38,9 +38,9 @@
     @foreach (var item in Model)
     {
 <tr>
-    <td>
+    @*<td>
         <img height="100" width="80" src="@Url.Content(item.EventOrganizer_Picture)" />
-    </td>
+    </td>*@
     <td>
         @Html.DisplayFor(modelItem => item.EventOrganizer_Name)
     </td>

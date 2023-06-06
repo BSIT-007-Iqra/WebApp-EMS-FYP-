@@ -91,6 +91,7 @@ namespace WebApplication1.Controllers
             
             if (ModelState.IsValid)
             {
+                event_Organizers.Event_Organizer_HireDate = DateTime.Now;
                 db.Event_Organizers.Add(event_Organizers);
                 db.SaveChanges();
                 return RedirectToAction("Index");

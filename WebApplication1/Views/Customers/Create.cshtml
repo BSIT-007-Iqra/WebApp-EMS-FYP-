@@ -85,10 +85,7 @@
         var pattern = /^03[\d]{9}$/;
         var number = document.getElementById("contact").value;
         if (!pattern.test(number))
-            ErrorMsg('Please Enter a 11 digit valid Number!');
-        var address = document.getElementById("address").value.length;
-        if (address < 15)
-            ErrorMsg('Please Enter your Proper Address!');
+            ErrorMsg('Please Enter a 11 digit valid Number!') 
         var passswordpattern = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
         var password = document.getElementById("password").value;
         if (!passswordpattern.test(password))

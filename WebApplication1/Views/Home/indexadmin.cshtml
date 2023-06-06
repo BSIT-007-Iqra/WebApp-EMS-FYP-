@@ -6,14 +6,14 @@
     int count = 0;
     List<int> list = new List<int>();
 
-    DateTime startdate = DateTime.ParseExact("01/05/2023", "dd/MM/yyyy", null);
+    DateTime startdate = DateTime.ParseExact("01/01/2023", "dd/MM/yyyy", null);
     DateTime enddate = DateTime.ParseExact("31/05/2023", "dd/MM/yyyy", null);
     for (int i = 0; i < 13; i++)
     {
-        count = db.Bookings.Where(x => x.Event_Date >= startdate && x.Event_Date <= enddate && x.Booking_Type == "Booked").Count();
+        count = db.Bookings.Where(x => x.Event_Date >= startdate && x.Event_Date <= enddate && x.Booking_Type == "Proceed").Count();
         if (count > 0)
         {
-            list.Add(Convert.ToInt32(db.Booking_Details.Where(x => x.Booking.Booking_Type == "Booked" && x.Booking.Booking_Status != "Cancelled" && x.Booking.Event_Date >= startdate && x.Booking.Event_Date <= enddate).Sum(x => x.Price)));
+            list.Add(Convert.ToInt32(db.Booking_Details.Where(x => x.Booking.Booking_Type == "Proceed" && x.Booking.Booking_Status != "Cancelled" && x.Booking.Event_Date >= startdate && x.Booking.Event_Date <= enddate).Sum(x => x.Price)));
         }
         else
         {

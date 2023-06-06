@@ -1396,9 +1396,6 @@
     <Content Include="Views\Event_Organizers\login.cshtml" />
     <Content Include="Views\Event_Organizers\ViewReport.cshtml" />
     <Content Include="Views\Event_Organizers\IndexOrganizer.cshtml" />
-    <Content Include="Views\EventOrganizerProfile\ProfileDetails.cshtml" />
-    <Content Include="Views\EventOrganizerProfile\profileEdit.cshtml" />
-    <Content Include="Views\EventOrganizerProfile\ProfileIndex.cshtml" />
     <Content Include="Views\Admins\ViewReport.cshtml" />
     <Content Include="Views\Event_Organizers\DetailsOrganizer.cshtml" />
     <Content Include="Views\Notificatons\addnotification.cshtml" />
@@ -1413,6 +1410,9 @@
     <Content Include="Views\Home\ChatRoom.cshtml" />
     <Content Include="Views\FoodLeftovers\Details.cshtml" />
     <Content Include="Views\FoodLeftovers\Index.cshtml" />
+    <Content Include="Views\EventOrganizerProfile\ProfileDetails.cshtml" />
+    <Content Include="Views\EventOrganizerProfile\profileEdit.cshtml" />
+    <Content Include="Views\EventOrganizerProfile\ProfileIndex.cshtml" />
     <None Include="Views\Home\contact.cshtml" />
     <None Include="Views\Home\indexadmin.cshtml" />
     <Content Include="Views\Home\Hall.cshtml" />

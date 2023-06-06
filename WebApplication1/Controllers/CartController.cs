@@ -19,9 +19,9 @@ namespace ReadRix.Controllers
         public ActionResult Displaybooking()
         {
             if (BaseHelper.customer == null)
-            {
                 TempData["new"] = "Login into your account OR Register Account";
-            }
+            if (Session["cart1"] != null)
+                TempData["new"] = "Please Add Services to your Booking";
 
             return View();
         }
@@ -69,7 +69,7 @@ namespace ReadRix.Controllers
                     };
                     Session["dates"] = dates;
                     TempData["ErrorDate"] = "These timing are not available \n please!  Setect another date or timing of the day. Thanks";
-               
+
                 }
                 else
                 {
@@ -339,7 +339,7 @@ namespace ReadRix.Controllers
             {
                 tblhallList = (List<Package>)Session["Cart2"];
             }
-            tblhallList[id].Quantity += 1;
+            tblhallList[id].Quantity += 5;
             if (tblhallList[id].Quantity > 500)
             {
                 tblhallList.RemoveAt(id);
@@ -383,7 +383,7 @@ namespace ReadRix.Controllers
             {
                 tblhallList = (List<Hall>)Session["cart"];
             }
-            tblhallList[id].Quantity += 1;
+            tblhallList[id].Quantity += 5;
             if (tblhallList[id].Quantity > 500)
             {
                 tblhallList.RemoveAt(id);

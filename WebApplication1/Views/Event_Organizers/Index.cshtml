@@ -77,9 +77,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EventOrganizer_Gender)
                 </td>
-                <td>
-                    <img src="@Url.Content(item.EventOrganizer_Picture)" height="100" width="100" />
-                </td>
+                @if (item.EventOrganizer_Picture != null)
+                {
+                    <td>
+                        <img src="@Url.Content(item.EventOrganizer_Picture)" height="100" width="100" />
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>

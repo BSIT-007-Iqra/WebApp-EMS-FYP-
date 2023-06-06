@@ -233,26 +233,26 @@
                         </ul>
                         <!--/notifications-->
                         <div id="mySidenav" class="sidenav">
-                                <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
-                                @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
-                                {
+                            <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+                            @foreach (var item in db.Notifications.OrderByDescending(x => x.ID))
+                            {
 
-                                    <div class="notification_wrap">
+                                <div class="notification_wrap">
 
-                                        <div class="dropdown">
-                                            <div class="notify_item">
-                                                <div class="notify_img">
-                                                    @*<img src="@Url.Content(item.Event_Organizers.EventOrganizer_Picture)" alt="" style="width: 60px;height:60px; border-radius:50%">*@
-                                                    <span class="" style="font-size:22px"><b>@item.Event_Organizers.EventOrganizer_Name</b></span>
-                                                </div>
-                                                <div class="notify_info">
-                                                    <p>@Html.DisplayFor(modelItem => item.Message)</p>
-                                                    <span class="notify_time">@Html.DisplayFor(modelItem => item.DateTime)</span>
-                                                </div>
+                                    <div class="dropdown">
+                                        <div class="notify_item">
+                                            <div class="notify_img">
+                                                @*<img src="@Url.Content(item.Event_Organizers.EventOrganizer_Picture)" alt="" style="width: 60px;height:60px; border-radius:50%">*@
+                                                <span class="" style="font-size:22px"><b>@item.Event_Organizers.EventOrganizer_Name</b></span>
+                                            </div>
+                                            <div class="notify_info">
+                                                <p>@Html.DisplayFor(modelItem => item.Message)</p>
+                                                <span class="notify_time">@Html.DisplayFor(modelItem => item.DateTime)</span>
                                             </div>
                                         </div>
-                                    </div>}
-                            </div>
+                                    </div>
+                                </div>}
+                        </div>
 
 
                         <!--//search-right-->
@@ -305,7 +305,7 @@
     <!-- End Header Area -->
 
     @RenderBody()
-    
+
     <a href="" onclick="scrollFunction()" id="movetop" title="Go to top" style="display: inline;margin-left:10px">
         <i class="fa fa-chevron-up button"></i>
     </a>
@@ -372,9 +372,9 @@
             </div>
 
             <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-             
-                <p class="footer-text m-0"  style=" color: #dec08e">
-                    
+
+                <p class="footer-text m-0" style=" color: #dec08e">
+
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;
                     <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#Admin" target="_blank">EMS</a>
@@ -404,6 +404,7 @@
     <script src="~/Content/Event/https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="~/Content/Event/js/gmaps.min.js"></script>
     <script src="~/Content/Event/js/main.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         var availableTags = [];
         function myFunc() {
