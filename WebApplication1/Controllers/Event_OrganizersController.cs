@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
         public ActionResult IndexOrganizer()
         {
             var event_Organizer = db.Event_Organizers.Include(w => w.Admin);
-            return View(event_Organizer.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID).ToList());
+            return View(event_Organizer.ToList());
         }
         // GET: Event_Organizers/Details/5
         public ActionResult Details(int? id)
@@ -248,7 +248,9 @@ namespace WebApplication1.Controllers
         public ActionResult Forgotpassword(Event_Organizers event_Organizers)
         {
 
-            Event_Organizers var = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Name == event_Organizers.EventOrganizer_Name).FirstOrDefault();
+            Event_Organizers var = db.Event_Organizers.
+                Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && 
+                x.EventOrganizer_Name == event_Organizers.EventOrganizer_Name).FirstOrDefault();
             if (var != null)
             {
                 MailProvider.SentfromMail(var.EventOrganizer_Email, "Fogotton Password!!", "Dear " + event_Organizers.EventOrganizer_Name + "!! , Your Password is  " + var.EventOrganizer_Password + "\n\n\nThanks & Regards\nEMS Team<br /> Thanks");
@@ -271,7 +273,8 @@ namespace WebApplication1.Controllers
         {
 
             //int v = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).Count();
-            Event_Organizers var = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && x.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).FirstOrDefault();
+            Event_Organizers var = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email
+            && x.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).FirstOrDefault();
             if (var != null)
             {
                 if (var.Status == 1)
