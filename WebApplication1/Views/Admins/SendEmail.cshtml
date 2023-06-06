@@ -18,23 +18,25 @@
                     {
                         <h2> @TempData["Msg"]  </h2>
                     }
-                    <form class="row login_form" action="/Admins/SendEmail" method="post">
-                        <div class="col-md-12 form-group">
-                            <input type="text" name="receiver" class="form-control" placeholder="Receiver" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Receiver:'">
+                <form class="row login_form" action="/Admins/SendEmail" method="post">
+                    <div class="col-md-12 form-group">
+                        <input type="text" name="receiver" class="form-control" placeholder="Receiver" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Receiver:'">
 
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <input type="text" name="subject" class="form-control" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <input type="text" name="subject" class="form-control" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
 
-                        </div>
-                         <div class="col-md-12 form-group">
-                            </div>
+                    </div>
 
-                        <div class="col-md-12 form-group">
-                            <textarea class="form-control" name="body" rows="10" cols="70"
-                                      style=" width: 350px;min-height:50px; height: 100%;" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'">Enter Message</textarea>
-                        </div>
-                    </form>
+                    <div class="col-md-12 form-group">
+                        <textarea class="form-control" name="body" rows="10" cols="70"
+                                  style=" width: 350px;min-height:50px; height: 100%;" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Message'">Enter Message</textarea>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <input type="submit" class="fa fa-send primary-btn" value="Send" />
+                    </div>
+
+                </form>
                 </div>
             </div>
         </div>
