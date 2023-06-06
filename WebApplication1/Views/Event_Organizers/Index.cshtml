@@ -1,76 +1,103 @@
 ﻿@model IEnumerable<WebApplication1.Models.Event_Organizers>
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">Organizers</h3>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
-}
+            <li class="breadcrumb-item active">Index</li>
+        </ol>
+    </div>
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Admin.Admin_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventOrganizer_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventOrganizer_Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventOrganizer_Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventOrganizer_Contact)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventOrganizer_Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EventOrganizer_Picture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- Start Page Content -->
+<!-- ============================================================== -->
+<!-- Row -->
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Admin.Admin_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventOrganizer_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventOrganizer_Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventOrganizer_Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventOrganizer_Contact)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventOrganizer_Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventOrganizer_Picture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventOrganizer_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventOrganizer_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EventOrganizer_ID })
-        </td>
-    </tr>
-}
+<div class="row">
+    <div class="col-md-7 align-self-center">
+        <a href="@Url.Action("Create", "Event_Organizers")" class="btn primary-btn"> Create New</a>
 
-</table>
+    </div><br />
+    <br />
+    <br />
+    <br />
+    <table class="table table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Admin.Admin_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventOrganizer_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventOrganizer_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventOrganizer_Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventOrganizer_Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventOrganizer_Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventOrganizer_Picture)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin.Admin_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventOrganizer_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventOrganizer_Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventOrganizer_Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventOrganizer_Contact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventOrganizer_Gender)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.EventOrganizer_Picture)" height="100" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", "Event_Organizers", new { id=item.EventOrganizer_ID })">
+                        <i class="fa fa-edit btn btn-success  "></i>
+                    </a>|
+
+                    <a href="@Url.Action("Details", "Event_Organizers", new { id=item.EventOrganizer_ID})">
+                        <i class="fa fa-book btn btn-warning"></i>
+                    </a>|
+                    <a href="@Url.Action("Delete", "Event_Organizers", new { id=item.EventOrganizer_ID })">
+                        <i class="fa fa-trash btn btn-danger"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<!-- Row -->

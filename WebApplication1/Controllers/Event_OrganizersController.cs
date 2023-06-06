@@ -83,8 +83,12 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event_Organizers event_Organizers)
+        public ActionResult Create(Event_Organizers event_Organizers, HttpPostedFileBase pic)
         {
+            string fullpath = Server.MapPath("~/Content/WebsitePicture/" + pic.FileName);
+            pic.SaveAs(fullpath);
+            event_Organizers.EventOrganizer_Picture = "~/Content/WebsitePicture/" + pic.FileName;
+            
             if (ModelState.IsValid)
             {
                 db.Event_Organizers.Add(event_Organizers);
@@ -127,10 +131,17 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Event_Organizers event_Organizers)
+        public ActionResult Edit(Event_Organizers event_Organizers, HttpPostedFileBase pic)
         {
             if (ModelState.IsValid)
             {
+                if (pic != null)
+                {
+                    string fullpath = Server.MapPath("~/Content/WebsitePicture/" + pic.FileName);
+                    pic.SaveAs(fullpath);
+                    event_Organizers.EventOrganizer_Picture = "~/Content/WebsitePicture/" + pic.FileName;
+                }
+
                 db.Entry(event_Organizers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

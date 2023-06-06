@@ -339,7 +339,11 @@ namespace ReadRix.Controllers
             {
                 tblhallList = (List<Package>)Session["Cart2"];
             }
-            tblhallList[id].Quantity += 5;
+            tblhallList[id].Quantity += 1;
+            if (tblhallList[id].Quantity > 500)
+            {
+                tblhallList.RemoveAt(id);
+            }
             Session["Cart2"] = tblhallList;
             return RedirectToAction("Displaybooking");
 
@@ -379,7 +383,11 @@ namespace ReadRix.Controllers
             {
                 tblhallList = (List<Hall>)Session["cart"];
             }
-            tblhallList[id].Quantity += 5;
+            tblhallList[id].Quantity += 1;
+            if (tblhallList[id].Quantity > 500)
+            {
+                tblhallList.RemoveAt(id);
+            }
             Session["cart"] = tblhallList;
             return RedirectToAction("Displaybooking");
 

@@ -73,11 +73,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult about()
-        {
-
-            return View();
-        }
+        
         [HttpPost]
         public ActionResult SearchHall(string slot, string location, decimal? pricerange)
         {
@@ -106,11 +102,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("index");
 
         }
-        public ActionResult servicecategory()
-        {
-
-            return View();
-        }
+        
 
         public ActionResult contact()
         {
@@ -185,12 +177,7 @@ namespace WebApplication1.Controllers
             TempData["ok"] = "Your Request has been Sent to \t EMS Admin.\nThanks";
             return RedirectToAction("Foodleftover", "home");
         }
-        public ActionResult blog()
-        {
-
-
-            return View();
-        }
+       
 
         public ActionResult venue(int? id)
         {
@@ -345,26 +332,7 @@ namespace WebApplication1.Controllers
             return View(query);
 
         }
-        public ActionResult Booking()
-        {
-
-
-            return View();
-        }
-        public ActionResult my_account()
-        {
-
-
-            return View();
-        }
-
-
-        public ActionResult confirmation()
-        {
-
-
-            return View();
-        }
+       
         public ActionResult ChatRoom()
         {
             return View();

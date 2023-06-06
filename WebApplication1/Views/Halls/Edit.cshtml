@@ -105,14 +105,6 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Event_Time_Slot, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Event_Time_Slot, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Event_Time_Slot, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
                 @Html.LabelFor(model => model.Hall_Location, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Hall_Location, new { htmlAttributes = new { @class = "form-control" } })
