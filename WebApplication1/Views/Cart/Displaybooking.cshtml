@@ -147,10 +147,12 @@
                                                 <h5>
                                                     @if (item.Hall_Description.Length < 90)
                                                     {
-                                                        @item.Hall_Description }
+                                                        @item.Hall_Description
+                                                    }
                                                     else
                                                     {
-                                                        @item.Hall_Description.Substring(0, 60)<span>......</span>}
+                                                        @item.Hall_Description.Substring(0, 60)<span>......</span>
+                                                    }
                                                 </h5>
 
                                             </td>
@@ -220,10 +222,12 @@
                                                 <h5>
                                                     @if (item.Service_Description.Length < 90)
                                                     {
-                                                        @item.Service_Description }
+                                                        @item.Service_Description
+                                                    }
                                                     else
                                                     {
-                                                        @item.Service_Description.Substring(0, 60)<span>......</span>}
+                                                        @item.Service_Description.Substring(0, 60)<span>......</span>
+                                                    }
                                                 </h5>
 
                                             </td>
@@ -259,7 +263,7 @@
                                         <tr rowspan="5">
                                             <td class="thumbnail-img">
 
-                                                <img class="img-fluid pic-td" src="~/Content/WebsitePicture/images.png" style="width:300px; height:300px" alt="" />
+                                                <img class="img-fluid pic-td" src="@Url.Content(item.Service.Service_Picture)" style="width:300px; height:300px" alt="" />
 
                                             </td>
 
@@ -271,9 +275,9 @@
 
                                             </td>
                                             @*<td class="user-name">
-                                                <p class="p1">Category</p> <hr /><h5> @item.Service.Sub_ServiceCategory.Sub_category_Name</h5>
+                        <p class="p1">Category</p> <hr /><h5> @item.Service.Sub_ServiceCategory.Sub_category_Name</h5>
 
-                                            </td>*@
+                    </td>*@
                                             <td class="price-pr">
                                                 <p class="p1">Price</p><hr /> <h5>Rs: @item.Packages_Price</h5>
 
@@ -286,16 +290,18 @@
                                                 <h5>
                                                     @if (item.Package_Details.Length < 90)
                                                     {
-                                                        @item.Package_Details }
+                                                        @item.Package_Details
+                                                    }
                                                     else
                                                     {
-                                                        @item.Package_Details.Substring(0, 60)<span>......</span>}
+                                                        @item.Package_Details.Substring(0, 60)<span>......</span>
+                                                    }
                                                 </h5>
 
                                             </td>
 
                                             <td class="remove-pr">
-                                                <p class="p1">No Of People</p><hr /><h5>
+                                                <p class="p1">No. Of People</p><hr /><h5>
                                                     @item.Quantity
                                                 </h5>
 
@@ -310,9 +316,9 @@
                                             <td class="name-pr">
                                                 <p class="p1">No Of People</p>
                                                 <hr /><h4>
-                                                    <a class="fa fa-plus fa-lg" href="@Url.Action("PlusToCart2", "Cart", new { id = rowno2 })"></a>
+                                                    <a class="fa fa-plus fa-lg" style="color: #b08ebe" href="@Url.Action("PlusToCart2", "Cart", new { id = rowno2 })"></a>
                                                     <input class="cart_quantity_input" type="text" name="quantity" value="@item.Quantity" autocomplete="off" readonly size="2">
-                                                    <a class="fa fa-minus fa-lg" href="@Url.Action("MinusFromCart2", "Cart", new { id = rowno2 })"></a>
+                                                    <a class="fa fa-minus fa-lg" style="color: #b08ebe" href="@Url.Action("MinusFromCart2", "Cart", new { id = rowno2 })"></a>
                                                 </h4>
 
                                             </td>
@@ -330,28 +336,37 @@
                                 @{
                                     Session["Amount"] = total + 100;
                                 }
-                                @if (Session["cart"] == null)
-                                {
-                                    <tr>
-                                        <td colspan="5" align="center">
-                                            <b style="color:#b08ebe">Your Booking is Empty...<a href="@Url.Action("Hall","Home")">Click Here</a> to Add Booking</b>
-                                        </td>
-                                    </tr>
-                                }
                                 @if (Session["cart"] != null)
                                 {
-                                    <tr>
+                                    @*if (Session["cart"] == null)
+                                    {
+                                        <tr>
+                                            <td colspan="5" align="center">
+                                                <b style="color:#b08ebe">Your Booking is Empty...<a href="@Url.Action("Halls","Home")">Click Here</a> to Add Booking</b>
+                                            </td>
+                                        </tr>
+                                    }*@
+                                    if (Session["cart"] != null)
+                                    {
+                                        <tr>
 
-                                        <td>
-                                            <div class="order-box" align="center">
-                                                <a type="submit" class=" btn primary-btn" href="@Url.Action("Services", "home",new {  hallid =pro.FirstOrDefault().Hall_ID })">Update Booking</a>
+                                            <td>
+                                                <div class="order-box" align="center">
+                                                    <a type="submit" class=" btn primary-btn" href="@Url.Action("Services", "home",new {  hallid =pro.FirstOrDefault().Hall_ID })">Update Booking</a>
 
-                                            </div>
+                                                </div>
 
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    }
+
                                 }
+
+
+
+                               
+
                             </table>
                         </div>
                     </div>
@@ -444,7 +459,7 @@
                             </div>
                             <div class="d-flex">
                                 <h4>Discount</h4>
-                                <div class="ml-auto font-weight-bold"> 5% </div>
+                                <div class="ml-auto font-weight-bold"> 0.00% </div>
                             </div>
                             <hr class="my-1">
                             <div class="d-flex">
@@ -460,29 +475,34 @@
                                 <div class="ml-auto font-weight-bold"> Rs:0.00</div>
                             </div>
                             @*<div class="d-flex" style="display:inline-block">
-                                    <div class="shipping_box">
-                                        <h4>Select Event</h4>
-                                        <div class="ml-auto font-weight-bold flex-lg-grow-1">
-                                            <select class="shipping_select ">
+            <div class="shipping_box">
+                <h4>Select Event</h4>
+                <div class="ml-auto font-weight-bold flex-lg-grow-1">
+                    <select class="shipping_select ">
 
-                                                <option value="1">Birthday</option>
-
-
-                                            </select><br />
-                                            <br />
-                                        </div>
+                        <option value="1">Birthday</option>
 
 
+                    </select><br />
+                    <br />
+                </div>
 
-                                    </div>
-                                </div>*@
+
+
+            </div>
+        </div>*@
                             <hr>
                             <div class="d-flex gr-total">
                                 <h5>Grand Total</h5>
                                 <div class="ml-auto h5">Rs:<span>@(total + 100)</span></div>
                             </div>
                             <hr>
-                            @if (total != 0 && confirm == true)
+                            @if (total != 0 && confirm == true && Session["cart1"] != null)
+                            {
+                                <center><div class="d-flex"><a class="btn primary-btn" href="/Cart/checkout" style="float:right">Checkout</a> </div></center>
+
+                            }
+                            else if (total != 0 && confirm == true && Session["cart2"] != null)
                             {
                                 <center><div class="d-flex"><a class="btn primary-btn" href="/Cart/checkout" style="float:right">Checkout</a> </div></center>
 

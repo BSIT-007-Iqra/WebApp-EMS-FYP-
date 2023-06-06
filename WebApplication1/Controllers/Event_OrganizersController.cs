@@ -20,13 +20,13 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             var event_Organizers = db.Event_Organizers.Include(e => e.Admin);
-            return View(event_Organizers.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID).ToList());
+            return View(db.Event_Organizers.ToList());
         }
 
         public ActionResult IndexOrganizer()
         {
             var event_Organizer = db.Event_Organizers.Include(w => w.Admin);
-            return View(event_Organizer.ToList());
+            return View(event_Organizer.Where(x => x.EventOrganizer_ID == BaseHelper.event_organizers.EventOrganizer_ID).ToList());
         }
         // GET: Event_Organizers/Details/5
         public ActionResult Details(int? id)
@@ -83,8 +83,12 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Event_Organizers event_Organizers)
+        public ActionResult Create(Event_Organizers event_Organizers, HttpPostedFileBase pic)
         {
+            string fullpath = Server.MapPath("~/Content/WebsitePicture/" + pic.FileName);
+            pic.SaveAs(fullpath);
+            event_Organizers.EventOrganizer_Picture = "~/Content/WebsitePicture/" + pic.FileName;
+            
             if (ModelState.IsValid)
             {
                 db.Event_Organizers.Add(event_Organizers);
@@ -127,10 +131,17 @@ namespace WebApplication1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Event_Organizers event_Organizers)
+        public ActionResult Edit(Event_Organizers event_Organizers, HttpPostedFileBase pic)
         {
             if (ModelState.IsValid)
             {
+                if (pic != null)
+                {
+                    string fullpath = Server.MapPath("~/Content/WebsitePicture/" + pic.FileName);
+                    pic.SaveAs(fullpath);
+                    event_Organizers.EventOrganizer_Picture = "~/Content/WebsitePicture/" + pic.FileName;
+                }
+
                 db.Entry(event_Organizers).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
