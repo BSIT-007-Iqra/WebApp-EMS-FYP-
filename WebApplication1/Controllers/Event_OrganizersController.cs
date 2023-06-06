@@ -260,7 +260,7 @@ namespace WebApplication1.Controllers
         {
 
             //int v = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).Count();
-            Event_Organizers var = db.Event_Organizers.Where(x => event_Organizers.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && event_Organizers.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).FirstOrDefault();
+            Event_Organizers var = db.Event_Organizers.Where(x => x.EventOrganizer_Email == event_Organizers.EventOrganizer_Email && x.EventOrganizer_Password == event_Organizers.EventOrganizer_Password).FirstOrDefault();
             if (var != null)
             {
                 if (var.Status == 1)
