@@ -81,11 +81,16 @@
                     <dt>
                         @Html.DisplayNameFor(model => model.EventOrganizer_Picture)
                     </dt>
-
-                    <dd>
-                        <img src="@Url.Content(Model.EventOrganizer_Picture)" height="100" width="100" />
-                    </dd>
-
+                    @if (Model.EventOrganizer_Picture != null)
+                    {
+                        <dd>
+                            <img src="@Url.Content(Model.EventOrganizer_Picture)" height="100" width="100" />
+                        </dd>
+                    }
+                    else
+                    {
+                        <dd></dd>
+                    }
                     <dt>
                         @Html.DisplayNameFor(model => model.Status)
                     </dt>

@@ -246,7 +246,8 @@
                                                                 |
                                                             </span> <b style="color:#4b3049;"> No.of People:</b>@(pro.FirstOrDefault().Quantity)<span class="mx-2">
                                                                 |
-                                                            </span> <b style="color:#4b3049;">Rs:</b>@(item.Service_Price*pro.FirstOrDefault().Quantity)
+                                                            </span> <b style="color:#4b3049;">Rs:</b>
+                                                            @(item.Service_Price*pro.FirstOrDefault().Quantity)
                                                         </div>
                                                     </div>
                                                 </div>}
@@ -263,7 +264,12 @@
                                                     <div class="media-body">
                                                         <img src="~/Content/WebsitePicture/images.png" height="100" width="100" />
                                                         <a href="detail.html">@item.Package_Name</a>
-                                                        <div class="small text-muted">Price:@item.Packages_Price <span class="mx-2">|</span> Qty:@(item.Quantity)<span class="mx-2">|</span> Rs:@(item.Packages_Price*item.Quantity)</div>
+                                                        <div class=" text-muted">
+                                                            <b style="color:#4b3049;">Price:</b>@item.Packages_Price
+                                                            <span class="mx-2">| </span> <b style="color:#4b3049;"> No.of People:</b>@(item.Quantity)
+                                                            <span class="mx-2">|</span> <b style="color:#4b3049;">Rs:</b>
+                                                            @(item.Packages_Price*item.Quantity)
+                                                        </div>
                                                     </div>
                                                 </div>}
                                         }
